@@ -1,7 +1,11 @@
+from carte import Carte
 class Deck:
     def __init__(self, n_carte=108, list_allc = []):
         self.n_carte = n_carte
         self.list_allc = list_allc
+
+    def __str__(self):
+        return str(self.list_allc)
 
     def remplir_entier(self):
         for c in range(4):
@@ -23,5 +27,6 @@ class Deck:
         for k in range(4):
             self.list_allc = self.list_allc + [Carte(4,13)]
         
-
-    
+d = Deck()
+d.remplir_entier()
+print(d)
