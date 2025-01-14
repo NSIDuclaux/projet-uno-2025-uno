@@ -31,11 +31,11 @@ class Carte:
 
         elif self.nombre == 13:
 
-            return ("+4 Cartes", "")
+            return ("+4 Cartes")
 
         elif self.nombre == 14:
 
-            return ("Changez de Couleur", "")
+            return ("Changez de Couleur")
 
     def structuration(self):
 
