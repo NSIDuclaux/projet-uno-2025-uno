@@ -18,3 +18,6 @@ class Main :
         return main
 
 
+    def retirer (num,main):
+        main.remove(num)
+        
