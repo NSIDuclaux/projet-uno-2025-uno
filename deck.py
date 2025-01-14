@@ -26,6 +26,8 @@ class Deck:
         for k in range(4):
             self.list_allc = self.list_allc + [str(Carte(4,13))]
 
+        print(len(self.list_allc))
+
     
     def __str__(self):
         return str(self.list_allc)
