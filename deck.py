@@ -1,4 +1,6 @@
 from carte import Carte
+from random import shuffle
+
 class Deck:
     def __init__(self, n_carte=108, list_allc = []):
         self.n_carte = n_carte
@@ -26,10 +28,16 @@ class Deck:
         for k in range(4):
             self.list_allc = self.list_allc + [str(Carte(4,13))]
 
+    def melange(self):
+
+        shuffle(self.list_allc)
+
     
     def __str__(self):
         return str(self.list_allc)
         
 d = Deck()
 d.remplir_entier()
+d.melange()
 print(d)
+
