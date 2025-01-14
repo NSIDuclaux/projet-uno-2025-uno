@@ -1,8 +1,8 @@
 from random import randint
+from Deck import Deck
 class Main :
 
     def __init__ (self, Deck):
-        
         self.Deck = Deck
 
     def main (Deck):
@@ -22,3 +22,6 @@ class Main :
 
     def retirer (num,main):
         main.remove(num)
+
+main = Main(Deck)
+print(main)
