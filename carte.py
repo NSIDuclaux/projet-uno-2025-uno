@@ -11,9 +11,9 @@ class Carte:
         self.couleur = couleur
         self.nombre = nombre
 
-    def typeCarte (self):
+    def type_carte (self):
 
-        if 0 <= self.nombre <= 9 :
+        if 0 <= self.nombre <= 10 :
 
             return self.nombre
 
@@ -39,7 +39,7 @@ class Carte:
 
     def structuration(self):
 
-        if type(self.typeCarte()) == int :
+        if type(self.type_carte()) == int or 10 <= self.nombre <= 12:
         
             if self.couleur == 0:
 
@@ -57,24 +57,19 @@ class Carte:
 
                 self.couleur = "Vert"
 
-            return str(self.typeCarte()) + " " + self.couleur
+            return str(self.type_carte()) + " - " + self.couleur
 
         else :
 
-            return str(self.typeCarte())
+            return str(self.type_carte())
             
-    
-    def getcouleur(self):
+    def effet_carte(self):
 
-        return (self.couleur)
-
-    def getnombre(self):
-        
-        return (self.nombre)
+        pass 
 
     def __str__ (self):
 
         return str(self.structuration())
 
-carte = Carte(0,5)
+carte = Carte(2,12)
 print(carte)
