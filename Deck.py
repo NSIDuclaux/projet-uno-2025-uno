@@ -1,3 +1,4 @@
+from carte import Carte
 class Deck:
     def __init__(self, n_carte=108, list_allc = []):
         self.n_carte = n_carte
