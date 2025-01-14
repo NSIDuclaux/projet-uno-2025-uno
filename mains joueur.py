@@ -1,5 +1,5 @@
 from random import randint
-from Deck import Deck
+from deck import Deck
 class Main :
 
     def __init__ (self, Deck):
@@ -10,15 +10,13 @@ class Main :
         nb = 0
         main = []
         for i in range(7):
-            i = randint(108)
-            nb = Deck[i]
-            main.append(nb)
-            Deck.remove(i)
-
+            main.append(Deck[0])
+            Deck.remove(Deck[0])
+        return main
         
     def __str__(self):
 
-        return self.main()
+        return str(self.main())
 
     def retirer (num,main):
         main.remove(num)
