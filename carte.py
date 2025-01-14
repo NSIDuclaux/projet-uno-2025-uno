@@ -39,7 +39,7 @@ class Carte:
 
     def structuration(self):
 
-        if type(self.typeCarte) == str :
+        if type(self.typeCarte()) == int :
         
             if self.couleur == 0:
 
@@ -57,11 +57,12 @@ class Carte:
 
                 self.couleur = "Vert"
 
-            return str(self.typeCarte + self.couleur)
+            return str(self.typeCarte()) + " " + self.couleur
 
         else :
 
-            return str(self.typeCarte[0])
+            return str(self.typeCarte())
+            
     
     def getcouleur(self):
 
@@ -73,7 +74,7 @@ class Carte:
 
     def __str__ (self):
 
-        return self.structuration()
+        return str(self.structuration())
 
 carte = Carte(0,5)
 print(carte)

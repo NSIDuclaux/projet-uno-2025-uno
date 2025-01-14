@@ -2,9 +2,11 @@ from random import randint
 class Main :
 
     def __init__ (self, deck):
+        
         self.deck = deck
 
     def main (deck):
+
         nb = 0
         main = []
         for i in range(7):
@@ -15,8 +17,8 @@ class Main :
 
         
     def __str__(self):
-        return main
 
+        return self.main()
 
     def retirer (num,main):
         main.remove(num)
