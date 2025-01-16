@@ -24,7 +24,7 @@ while Player.main_joueur != [] or Ia.main_joueur:
   while valid == False:
     while numero < 0 or numero > Player.nb_carte():
         numero = input("Choisir Carte")
-    valid = carte_valide(Player.main_joueur[numero], )
+    valid = carte_valide(Player.main_joueur[numero], sommet(carte))
   cc = Player.choix_carte(int(numero))
   print(cc)
   carte_place.empiler(cc)
