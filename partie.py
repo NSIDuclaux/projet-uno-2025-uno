@@ -7,8 +7,8 @@ D_partie.remplir_entier()
 D_partie.melange()
 Player = Main(D_partie)
 Ia = Main(D_partie)
-Player.main()
-Ia.main()
+Player.creer_main()
+Ia.creer_main()
 reponse = ""
 
 while reponse == "":
@@ -20,5 +20,9 @@ while Player.main_joueur != [] or Ia.main_joueur:
   print(Player)
   while numero < 0 or numero > Player.nb_carte():
     numero = input("Choisir Carte")
-  carte_place.empiler(Player.choixcarte(int(numero)))
-  
+  cc = Player.choix_carte(int(numero))
+  print(cc)
+  carte_place.empiler(cc)
+  numeral = ProgIa.jouer(Ia.main_joueur)
+  ccc = Ia.choix_carte(int(numero))
+  print(ccc)
