@@ -40,9 +40,9 @@ class Deck:
     def __str__(self):
         return str(self.list_allc)
         
-d = Deck()
-d.remplir_entier()
-d.melange()
-print(d.retirer_carte())
-print(d)
+# d = Deck()
+# d.remplir_entier()
+# d.melange()
+# print(d.retirer_carte())
+# print(d)
 
