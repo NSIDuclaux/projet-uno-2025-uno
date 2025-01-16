@@ -28,5 +28,6 @@ class Main :
 deck = Deck
 deck.remplir_entier()
 deck.melange()
+print(deck)
 main = Main()
 #print(main)
