@@ -24,13 +24,15 @@ while Player.main_joueur != [] or Ia.main_joueur:
   while valid == False:
     while numero < 0 or numero > Player.nb_carte():
         numero = input("Choisir Carte")
-    valid = carte_valide(Player.main_joueur[numero], sommet(carte))
+    valid = carte_valide(Player.main_joueur[numero], carte_place.sommet())
   cc = Player.choix_carte(int(numero))
   print(cc)
   carte_place.empiler(cc)
+  #placer effet Player
   numeral = ProgIa.jouer(Ia.main_joueur)
   ccc = Ia.choix_carte(int(numero))
   print(ccc)
+  #Placer effet Ia
 if Player.main_joueur == []:
   print("Victoire du joueur !!!!!")
 else:
