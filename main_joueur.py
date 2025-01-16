@@ -1,5 +1,5 @@
+from random import randint
 from deck import Deck
-
 class Main :
 
     def __init__ (self, deck, main = []):
@@ -7,15 +7,12 @@ class Main :
         self.main = main
 
     def main (deck):
-
-        for carte in deck:
-
-            print(carte)
-
-        # for i in range(7):
-
-        #     main.append(nb)
-        #     Deck.remove(i)
+        main =[]
+        for i in range(7):
+            i = randint(108)
+            nb = Deck[i]
+            main.append(nb)
+            Deck.remove(i)
 
         
     def __str__(self):
@@ -26,8 +23,5 @@ class Main :
         main.remove(num)
 
 deck = Deck
-deck.remplir_entier()
-deck.melange()
-print(deck)
-main = Main()
+#main = 
 #print(main)
