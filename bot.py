@@ -9,4 +9,4 @@ class Bot :
 
     def jouer_carte (self):
 
-        
+        pass
