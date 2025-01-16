@@ -9,11 +9,10 @@ class Pile:
 	def depiler(self):
 		if self.valeurs:
 			return self.valeurs.pop()
-
+    
 	def estVide(self):
 		return self.valeurs == []
-
-
+	
 	def __str__(self):
 		ch = ''
 		for x in self.valeurs:
