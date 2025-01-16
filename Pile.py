@@ -9,6 +9,9 @@ class Pile:
 	def depiler(self):
 		if self.valeurs:
 			return self.valeurs.pop()
+	
+    def afficher(self):
+	
     
 	def estVide(self):
 		return self.valeurs == []
