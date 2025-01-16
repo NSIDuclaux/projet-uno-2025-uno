@@ -2,11 +2,12 @@ from random import randint
 from deck import Deck
 class Main :
 
-    def __init__ (self, deck):
+    def __init__ (self, deck, main = []):
         self.deck = deck
+        self.main = main
 
     def main (deck):
-
+        main =[]
         for i in range(7):
             i = randint(108)
             nb = Deck[i]
