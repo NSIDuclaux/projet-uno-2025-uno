@@ -7,6 +7,7 @@ def carte_valide(carteposee, cartepropose):
         return True
     if cartepropose.nombre == 13 or cartepropose.nombre == 14:
         return True
+    return False
 
 
 
@@ -14,6 +15,6 @@ def carte_valide(carteposee, cartepropose):
 
 
 
-cartepose = Carte(5, 8)
-cartepropose = Carte(5, 8)
-carte_valide(cartepose, cartepropose)
+cartepose = Carte(3, 8)
+cartepropose = Carte(1, 14)
+print(carte_valide(cartepose, cartepropose))
