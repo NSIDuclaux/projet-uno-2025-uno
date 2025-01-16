@@ -32,12 +32,17 @@ class Deck:
 
         shuffle(self.list_allc)
 
+    def retirer_carte(self):
+
+        return self.list_allc.pop()
+
     
     def __str__(self):
         return str(self.list_allc)
         
-d = Deck()
-d.remplir_entier()
-d.melange()
-print(d)
+# d = Deck()
+# d.remplir_entier()
+# d.melange()
+# print(d.retirer_carte())
+# print(d)
 
