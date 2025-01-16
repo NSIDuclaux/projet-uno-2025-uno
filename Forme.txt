@@ -9,4 +9,5 @@ Mains joueur: création de la main via un random dans le deck et retourne la mai
 
 A faire:
 Prog prin : déroulement de la partie + mise en place de l' IA
-IA: on demande le numéro de la carte qui veut jouer
+bot: parcours les cartes de sa mains plus check si valide puis aléatoire entre les cartes
+
