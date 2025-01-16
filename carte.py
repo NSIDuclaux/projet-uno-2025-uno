@@ -94,6 +94,6 @@ class Carte:
 
         return str(self.structuration())
 
-carte = Carte(2,12)
-carte.effet_carte()
-print(carte.effet)
+# carte = Carte(2,12)
+# carte.effet_carte()
+# print(carte.effet)
