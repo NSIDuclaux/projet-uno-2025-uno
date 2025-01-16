@@ -18,6 +18,9 @@ class Main :
         self.num_carte = num_carte
         self.main_joueur.pop(num_carte)
 
+    def nb_main(self, lg_main):
+        self.lg_main = len(self.main_joueur)
+        return self.lg_main
 
     def __str__(self):
 
