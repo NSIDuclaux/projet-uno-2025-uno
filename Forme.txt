@@ -10,6 +10,6 @@ Mains joueur: création de la main via un random dans le deck et retourne la mai
 A faire:
 Effet carte :carte -> +2 etc et def par code
 Initialisation : création es mains et de la pioche + carte au centre de jeux
-Prog prin : déroulement de la partie + mise en plave de l' IA
+Prog prin : déroulement de la partie + mise en place de l' IA
 Deck : création pioche
-IA: JSP
+IA: on demande le numéro de la carte qui veut jouer
