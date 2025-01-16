@@ -1,6 +1,7 @@
 from main_joueur import Main
 from deck import Deck
 from Pile import Pile
+from cartevalide import carte_valide
 
 D_partie = Deck()
 D_partie.remplir_entier()
@@ -17,9 +18,13 @@ while reponse == "":
 carte_place = Pile()
 
 while Player.main_joueur != [] or Ia.main_joueur:
+  carte_place.empiler(D_partie.retirer_carte())
   print(Player)
-  while numero < 0 or numero > Player.nb_carte():
-    numero = input("Choisir Carte")
+  valid = False
+  while valid == False:
+    while numero < 0 or numero > Player.nb_carte():
+        numero = input("Choisir Carte")
+    valid = carte_valide(Player.main_joueur[numero], )
   cc = Player.choix_carte(int(numero))
   print(cc)
   carte_place.empiler(cc)
