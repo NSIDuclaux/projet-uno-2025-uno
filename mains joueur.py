@@ -8,15 +8,15 @@ class Main :
     def main (deck):
 
         for i in range(7):
-
-            carte = Deck[0]
-            main.append(carte)
-            Deck.remove(0)
+            i = randint(108)
+            nb = Deck[i]
+            main.append(nb)
+            Deck.remove(i)
 
         
     def __str__(self):
 
-        return self.main()
+        return str(self.main())
 
     def retirer (num,main):
         main.remove(num)
