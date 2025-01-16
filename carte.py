@@ -65,11 +65,35 @@ class Carte:
             
     def effet_carte(self):
 
-        pass 
+        if 0 <= self.nombre <= 10 :
+
+            self.effet = 0
+
+        elif self.nombre == 10:
+
+            self.effet = 1
+
+        elif self.nombre == 11:
+
+            self.effet = 2
+
+        elif self.nombre == 12:
+
+            self.effet = 3
+
+        elif self.nombre == 13:
+
+            self.effet = 4
+
+        elif self.nombre == 14:
+
+            self.effet = 5
+
 
     def __str__ (self):
 
         return str(self.structuration())
 
 carte = Carte(2,12)
-print(carte)
+carte.effet_carte()
+print(carte.effet)
