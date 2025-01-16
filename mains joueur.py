@@ -2,17 +2,17 @@ from random import randint
 from deck import Deck
 class Main :
 
-    def __init__ (self, Deck):
-        self.Deck = Deck
+    def __init__ (self, deck):
+        self.deck = deck
 
-    def main (Deck):
+    def main (deck):
 
-        nb = 0
-        main = []
         for i in range(7):
-            main.append(Deck[0])
-            Deck.remove(Deck[0])
-        return main
+            i = randint(108)
+            nb = Deck[i]
+            main.append(nb)
+            Deck.remove(i)
+
         
     def __str__(self):
 
@@ -21,5 +21,6 @@ class Main :
     def retirer (num,main):
         main.remove(num)
 
-main = Main(Deck)
-print(main)
+deck = Deck
+#main = 
+#print(main)
