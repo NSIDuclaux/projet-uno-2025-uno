@@ -26,3 +26,7 @@ while Player.main_joueur != [] or Ia.main_joueur:
   numeral = ProgIa.jouer(Ia.main_joueur)
   ccc = Ia.choix_carte(int(numero))
   print(ccc)
+if Player.main_joueur == []:
+  print("Victoire du joueur !!!!!")
+else:
+  print("Victoire de l'IA (T'es mauvais :-) )")
