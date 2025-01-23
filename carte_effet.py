@@ -1,30 +1,35 @@
 class EffetCarte :
 
-    def __init__ (self,carte,main1,main2,deck):
+    def __init__ (self,carte,main,deck):
 
         self.carte = carte
-        self.main1 = main1
-        self.main2 = main2
+        self.main = main
         self.deck = deck
 
     def inverse (self):
 
-        pass
+        
 
     def interdit_jouer (self):
 
-        pass
+        return False
 
     def plus_2_carte (self):
 
-        pass
+        for i in range (2):
+
+            self.main.ajouter_carte(self.deck.retirer_carte())
+
 
     def changer_couleur(self):
 
         pass
 
-
     def plus_4_carte (self):
 
-        pass
+        #utilisé changé de couleur + 
+
+        for i in range (4):
+
+            self.main.ajouter_carte(self.deck.retirer_carte())
 

@@ -21,6 +21,10 @@ class Main :
     def nb_main(self, lg_main):
         self.lg_main = len(self.main_joueur)
         return self.lg_main
+    
+    def ajouter_carte(self,carte):
+
+        self.main_joueur.append(carte)
 
     def __str__(self):
 
