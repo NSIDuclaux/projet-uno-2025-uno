@@ -13,6 +13,7 @@ ia = Main(deck_partie)
 player.creer_main()
 ia.creer_main()
 reponse = ""
+pile_milieu = []
 
 #Début Partie
 
@@ -24,8 +25,9 @@ while reponse != "oui" or reponse != "non":
 
 		while player.main_joueur  or ia.main_joueur:
 
-			carte_place.empiler(deck_partie.retirer_carte())
+			pile_milieu.append(deck_partie.retirer_carte())
 			print(player)
+			print("La Carte Au milieu est :" , pile_milieu[0])
 			valid = False
 			while valid == False:
 			
@@ -53,13 +55,9 @@ while reponse != "oui" or reponse != "non":
 			
 				print("Victoire de l'IA (T'es mauvais :-) )")
 
-	else :
+	if reponse == "non" :
 
-		print("Au revoir")
-
-
-carte_place = Pile()
-
+		break
 
 ## ANCIEN CODE
 #
