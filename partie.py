@@ -15,6 +15,7 @@ ia.creer_main()
 reponse = ""
 pile_milieu = []
 
+
 #Début Partie
 
 while reponse != "oui" or reponse != "non":
