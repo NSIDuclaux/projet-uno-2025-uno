@@ -1,7 +1,7 @@
 from main_joueur import Main
 from deck import Deck
 from Pile import Pile
-from cartevalide import carte_valide
+from carte_valide import carte_valide
 
 #Initialisation de la partie
 

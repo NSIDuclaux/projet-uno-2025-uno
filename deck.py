@@ -34,7 +34,7 @@ class Deck:
 
     def retirer_carte(self):
 
-        return self.list_allc.pop()
+        return self.list_allc.pop(0)
 
     
     def __str__(self):
