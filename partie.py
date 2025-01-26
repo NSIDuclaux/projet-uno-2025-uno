@@ -22,7 +22,7 @@ while reponse != "oui" or reponse != "non":
 
 	if reponse == "oui":
 
-		while player.main_joueur != [] or ia.main_joueur:
+		while player.main_joueur  or ia.main_joueur:
 
 			carte_place.empiler(deck_partie.retirer_carte())
 			print(player)
@@ -60,6 +60,9 @@ while reponse != "oui" or reponse != "non":
 
 carte_place = Pile()
 
+
+## ANCIEN CODE
+#
 # while Player.main_joueur != [] or Ia.main_joueur:
 #   	carte_place.empiler(D_partie.retirer_carte())
 #   	print(Player)

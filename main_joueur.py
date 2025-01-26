@@ -26,16 +26,30 @@ class Main :
 
         self.main_joueur.append(carte)
 
+    def est_vide (self):
+
+        if len(self.main_joueur) == 0:
+
+            return True
+        
+        else :
+            
+            return False
+
     def __str__(self):
 
-        return str(self.main_joueur)
+        self.affichage = []
 
+        for i in range (len(self.main_joueur)):
 
+            element = str(i+1) + " | " + str(self.main_joueur[i])
+            self.affichage.append(str(element))
 
-# deck = Deck()
-# deck.remplir_entier()
-# deck.melange()
+        return str(self.affichage)
 
-# main = Main(deck)
-# main.creer_main()
-# print(main)
+deck = Deck()
+deck.remplir_entier()
+deck.melange()
+main = Main(deck)
+main.creer_main()
+print(main)
