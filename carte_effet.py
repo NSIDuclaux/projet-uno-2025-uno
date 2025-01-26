@@ -1,56 +1,51 @@
-class EffetCarte :
+from carte import *
+from deck import *
+from main_joueur import *
 
-    def __init__ (self,carte,main,deck,sensHoraire,pouvoirJouer):
+def inverse (sens_horaire):
 
-        self.carte = carte
-        self.main = main
-        self.deck = deck
-        self.sensHoraire = sensHoraire
-        self.pouvoirJouer = pouvoirJouer
+    if sens_horaire == True:
 
-    def inverse (self):
+        sens_horaire = False
 
-        if self.sens_horaire == True:
+    else :
 
-            self.sens_horaire = False
+        sens_horaire = True
 
-        else :
+    return sens_horaire
 
-            self.sens_horaire = True
+def interdit_jouer ():
 
-        return self.sens_horaire
+    pouvoirJouer = False
 
-    def interdit_jouer (self):
+    return pouvoirJouer
 
-        self.pouvoirJouer = False
+def plus_2_carte (main,deck):
 
-        return self.pouvoirJouer
+    for i in range (2):
 
-    def plus_2_carte (self):
+        main.ajouter_carte(deck.retirer_carte())
 
-        for i in range (2):
+def changer_couleur():
 
-            self.main.ajouter_carte(self.deck.retirer_carte())
+    nouvelleCouleur = ""
 
-
-    def changer_couleur(self):
-
-        nouvelleCouleur = ""
-
-        while nouvelleCouleur != "jaune" or nouvelleCouleur != "rouge" or nouvelleCouleur != "bleu" or nouvelleCouleur != "vert":
-            nouvelleCouleur = str(input("Choissez une nouvelle couleur")).lower()
-
-    def plus_4_carte (self):
-
-        for i in range (4):
-
-            self.main.ajouter_carte(self.deck.retirer_carte())
-
-        nouvelleCouleur = ""
-
-        while nouvelleCouleur != "jaune" or nouvelleCouleur != "rouge" or nouvelleCouleur != "bleu" or nouvelleCouleur != "vert":
+    while nouvelleCouleur != "jaune" or nouvelleCouleur != "rouge" or nouvelleCouleur != "bleu" or nouvelleCouleur != "vert":
             
-            nouvelleCouleur = str(input("Choissez une nouvelle couleur")).lower()
+        nouvelleCouleur = str(input("Choissez une nouvelle couleur")).lower()
 
+    return nouvelleCouleur
 
+def plus_4_carte (main,deck):
 
+    for i in range (4):
+
+        main.ajouter_carte(deck.retirer_carte())
+
+        nouvelleCouleur = ""
+
+    while nouvelleCouleur != "jaune" or nouvelleCouleur != "rouge" or nouvelleCouleur != "bleu" or nouvelleCouleur != "vert":
+            
+        nouvelleCouleur = str(input("Choissez une nouvelle couleur")).lower()
+
+    return nouvelleCouleur
