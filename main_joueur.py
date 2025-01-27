@@ -15,12 +15,11 @@ class Main :
         return self.main_joueur
     
     def choix_carte(self, num_carte):
-        self.num_carte = num_carte
+        #self.num_carte = num_carte
         self.main_joueur.pop(num_carte)
 
     def nb_main(self):
-        lg_main = len(self.main_joueur)
-        return lg_main
+        return len(self.main_joueur)
     
     def ajouter_carte(self,carte):
 

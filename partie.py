@@ -17,7 +17,7 @@ def tours (joueur1,joueur2,peut_jouer): #joueur1 -> Joue #joueur2 -> ne joue pas
 			print("numero")
 			numeroChoisie = -1
       
-			while numeroChoisie < 0 or numeroChoisie > player.nb_main():
+			while int(numeroChoisie) < 0 or int(numeroChoisie) >= player.nb_main():
 				print("whil2")
 				numeroChoisie = input("Choissez une carte")	
 				valid = carte_valide(player.main_joueur[int(numeroChoisie)],pile_milieu[0])

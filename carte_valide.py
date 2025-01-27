@@ -1,11 +1,11 @@
 from carte import Carte
 
 def carte_valide(carteposee, cartepropose):
-    if carteposee.couleur == cartepropose.couleur:
+    if carteposee[4] == cartepropose[4]:
         return True
-    if cartepropose.nombre == carteposee.nombre:
+    if cartepropose[0:1] == carteposee[0:1]:
         return True
-    if cartepropose.nombre == 13 or cartepropose.nombre == 14:
+    if cartepropose[0:1] == 13 or cartepropose[0:1] == 14:
         return True
     return False
 
