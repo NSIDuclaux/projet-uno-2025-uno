@@ -90,6 +90,14 @@ class Carte:
             self.effet = 5
 
 
+    def get_nombre (self):
+
+        return self.nombre
+    
+    def get_couleur (self):
+
+        return self.couleur
+
     def __str__ (self):
 
         return str(self.structuration())
