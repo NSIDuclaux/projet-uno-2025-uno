@@ -35,13 +35,3 @@ class Main :
 # deck = Deck()
 # deck.remplir_entier()
 # deck.melange()
-
-<<<<<<< HEAD
-# deck = Deck()
-# deck.remplir_entier()
-# deck.melange()
-=======
->>>>>>> parent of 778ff8f... Modification de partie + modification de mains avec le numéoré de la carte
-# main = Main(deck)
-# main.creer_main()
-# print(main)

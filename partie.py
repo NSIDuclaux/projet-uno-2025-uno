@@ -108,6 +108,7 @@ while reponse != "oui" or reponse != "non":
 
 <<<<<<< HEAD
 <<<<<<< HEAD
+<<<<<<< HEAD
 		break
 
 ## ANCIEN CODE
@@ -135,6 +136,9 @@ while reponse != "oui" or reponse != "non":
 # 	else:
 # 	print("Victoire de l'IA (T'es mauvais :-) )")
 >>>>>>> parent of 257e15b... correctif
+=======
+		break
+>>>>>>> parent of 00dff59... aaa
 =======
 		break
 >>>>>>> parent of 00dff59... aaa
