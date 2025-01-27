@@ -1,6 +1,5 @@
 from main_joueur import Main
 from deck import Deck
-<<<<<<< HEAD
 from carte_valide import carte_valide
 from carte_effet import *
 
