@@ -46,5 +46,29 @@ def plus_4_carte (main,deck):
 
     return nouvelleCouleur
 
+def effet_carte(nombre):
 
+        if 0 <= nombre <= 10 :
+
+            return 0
+
+        elif nombre == 10:
+
+            return 1
+
+        elif nombre == 11:
+
+            return 2
+
+        elif nombre == 12:
+
+            return 3
+
+        elif nombre == 13:
+
+            return 4
+
+        elif nombre == 14:
+
+            return 5
 
