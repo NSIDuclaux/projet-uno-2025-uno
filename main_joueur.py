@@ -26,11 +26,20 @@ class Main :
         self.main_joueur.append(carte)
 
     def __str__(self):
+        
+        self.affichage = []
+        
+        for carte in self.main_joueur:
 
-        return str(self.main_joueur)
+            self.affichage.append(str(carte))
+
+        return str(self.affichage)
 
 
 
-# deck = Deck()
-# deck.remplir_entier()
-# deck.melange()
+deck = Deck()
+deck.remplir_entier()
+deck.melange()
+main = Main(deck)
+main.creer_main()
+print(main)
