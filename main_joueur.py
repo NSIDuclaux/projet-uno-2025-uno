@@ -47,6 +47,9 @@ class Main :
 
         return str(self.affichage)
 
-main = Main(deck)
-main.creer_main()
-#print(main)
+# deck = Deck()
+# deck.remplir_entier()
+# deck.melange()
+# main = Main(deck)
+# main.creer_main()
+# print(main)
