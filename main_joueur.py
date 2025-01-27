@@ -34,3 +34,4 @@ class Main :
             self.affichage.append(str(carte))
 
         return str(self.affichage)
+#aa
