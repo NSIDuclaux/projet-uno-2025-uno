@@ -63,36 +63,31 @@ class Carte:
 
             return str(self.type_carte())
             
-    def effet(self):
+    def effet_carte(self):
 
         if 0 <= self.nombre <= 10 :
 
-            return 0
+            self.effet = 0
 
         elif self.nombre == 10:
 
-            return 1
+            self.effet = 1
 
         elif self.nombre == 11:
 
-            return 2
+            self.effet = 2
 
         elif self.nombre == 12:
 
-            return 3
+            self.effet = 3
 
         elif self.nombre == 13:
 
-            return 4
+            self.effet = 4
 
         elif self.nombre == 14:
 
-            return 5
-
-            
-    def get_nombre (self):
-        
-        return self.nombre
+            self.effet = 5
 
 
     def __str__ (self):
