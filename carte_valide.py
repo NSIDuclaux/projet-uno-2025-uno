@@ -1,7 +1,7 @@
 from carte import Carte
 
 def carte_valide(carteposee, cartepropose):
-    if carteposee[4] == cartepropose[4]:
+    if carteposee[4] == cartepropose[4] or carteposee[5] == cartepropose[5] or carteposee[4] == cartepropose[5] or carteposee[5] == cartepropose[4]:
         return True
     if cartepropose[0:1] == carteposee[0:1]:
         return True
