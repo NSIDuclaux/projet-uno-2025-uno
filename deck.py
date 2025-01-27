@@ -34,9 +34,12 @@ class Deck:
 
     def retirer_carte(self):
 
-        return self.list_allc.pop()
+        return self.list_allc.pop(0)
 
-    
+    def ajouter_carte(self,carte):
+
+        self.list_allc.append(carte)
+
     def __str__(self):
         return str(self.list_allc)
         

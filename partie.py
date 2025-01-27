@@ -2,7 +2,7 @@ from main_joueur import Main
 from deck import Deck
 from Pile import Pile
 from cartevalide import carte_valide
-from bot import jouer_carte
+
 D_partie = Deck()
 D_partie.remplir_entier()
 D_partie.melange()
@@ -10,27 +10,28 @@ Player = Main(D_partie)
 Ia = Main(D_partie)
 Player.creer_main()
 Ia.creer_main()
+reponse = ""
 
-p = input("Start")
+while reponse == "":
+  reponse = input("Start")
 
 carte_place = Pile()
-carte_place.empiler(D_partie.retirer_carte())
+
 while Player.main_joueur != [] or Ia.main_joueur:
-  print(carte_place.sommet())
+  carte_place.empiler(D_partie.retirer_carte())
   print(Player)
   valid = False
   while valid == False:
-    numero = -1
     while numero < 0 or numero > Player.nb_carte():
         numero = input("Choisir Carte")
     valid = carte_valide(Player.main_joueur[numero], carte_place.sommet())
-  carte_place.empiler(Player.choix_carte(int(numero)))
-  print(carte_place.sommet())
-  carte_place.empiler(carte_place.sommet())
+  cc = Player.choix_carte(int(numero))
+  print(cc)
+  carte_place.empiler(cc)
   #placer effet Player
-  numeral = jouer_carte(Ia.main_joueur, carte_place.sommet())
-  carte_place.empiler(Ia.choix_carte(int(numero)))
-  print(carte_place.sommet())
+  numeral = ProgIa.jouer(Ia.main_joueur)
+  ccc = Ia.choix_carte(int(numero))
+  print(ccc)
   #Placer effet Ia
 if Player.main_joueur == []:
   print("Victoire du joueur !!!!!")

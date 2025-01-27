@@ -1,30 +1,51 @@
-class EffetCarte :
+from carte import *
+from deck import *
+from main_joueur import *
 
-    def __init__ (self,carte,main1,main2,deck):
+def inverse (sens_horaire):
 
-        self.carte = carte
-        self.main1 = main1
-        self.main2 = main2
-        self.deck = deck
+    if sens_horaire == True:
 
-    def inverse (self):
+        sens_horaire = False
 
-        pass
+    else :
 
-    def interdit_jouer (self):
+        sens_horaire = True
 
-        pass
+    return sens_horaire
 
-    def plus_2_carte (self):
+def interdit_jouer ():
 
-        pass
+    pouvoirJouer = False
 
-    def changer_couleur(self):
+    return pouvoirJouer
 
-        pass
+def plus_2_carte (main,deck):
 
+    for i in range (2):
 
-    def plus_4_carte (self):
+        main.ajouter_carte(deck.retirer_carte())
 
-        pass
+def changer_couleur():
 
+    nouvelleCouleur = ""
+
+    while nouvelleCouleur != "jaune" or nouvelleCouleur != "rouge" or nouvelleCouleur != "bleu" or nouvelleCouleur != "vert":
+            
+        nouvelleCouleur = str(input("Choissez une nouvelle couleur")).lower()
+
+    return nouvelleCouleur
+
+def plus_4_carte (main,deck):
+
+    for i in range (4):
+
+        main.ajouter_carte(deck.retirer_carte())
+
+        nouvelleCouleur = ""
+
+    while nouvelleCouleur != "jaune" or nouvelleCouleur != "rouge" or nouvelleCouleur != "bleu" or nouvelleCouleur != "vert":
+            
+        nouvelleCouleur = str(input("Choissez une nouvelle couleur")).lower()
+
+    return nouvelleCouleur
