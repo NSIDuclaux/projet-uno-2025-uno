@@ -13,6 +13,7 @@ Ia.creer_main()
 reponse = ""
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 		break
 
 #aaa
@@ -43,3 +44,6 @@ if Player.main_joueur == []:
 else:
   print("Victoire de l'IA (T'es mauvais :-) )")
 >>>>>>> 4c87baf7d0e06a471d60a08c73e46d405b4eb867
+=======
+		break
+>>>>>>> parent of 00dff59... aaa
