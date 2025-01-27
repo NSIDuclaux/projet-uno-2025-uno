@@ -34,4 +34,4 @@ deck.melange()
 
 main = Main(deck)
 main.creer_main()
-print(main)
+#print(main)
