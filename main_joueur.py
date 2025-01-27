@@ -34,12 +34,3 @@ class Main :
             self.affichage.append(str(carte))
 
         return str(self.affichage)
-
-
-
-deck = Deck()
-deck.remplir_entier()
-deck.melange()
-main = Main(deck)
-main.creer_main()
-print(main)
