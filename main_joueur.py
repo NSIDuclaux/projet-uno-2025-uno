@@ -26,30 +26,22 @@ class Main :
 
         self.main_joueur.append(carte)
 
-    def est_vide (self):
-
-        if len(self.main_joueur) == 0:
-
-            return True
-        
-        else :
-            
-            return False
-
     def __str__(self):
 
-        self.affichage = []
+        return str(self.main_joueur)
 
-        for i in range (len(self.main_joueur)):
 
-            element = str(i+1) + " | " + str(self.main_joueur[i])
-            self.affichage.append(str(element))
-
-        return str(self.affichage)
 
 # deck = Deck()
 # deck.remplir_entier()
 # deck.melange()
+
+<<<<<<< HEAD
+# deck = Deck()
+# deck.remplir_entier()
+# deck.melange()
+=======
+>>>>>>> parent of 778ff8f... Modification de partie + modification de mains avec le numéoré de la carte
 # main = Main(deck)
 # main.creer_main()
 # print(main)

@@ -72,7 +72,7 @@ while reponse != "oui" or reponse != "non":
 
 	if reponse == "oui":
 
-		while player.main_joueur  or ia.main_joueur:
+		while player.main_joueur != [] or ia.main_joueur:
 
 			pile_milieu.append(deck_partie.retirer_carte())
 			print(player)
@@ -106,10 +106,13 @@ while reponse != "oui" or reponse != "non":
 
 	if reponse == "non" :
 
+<<<<<<< HEAD
 		break
 
 ## ANCIEN CODE
 #
+=======
+>>>>>>> parent of 778ff8f... Modification de partie + modification de mains avec le numéoré de la carte
 # while Player.main_joueur != [] or Ia.main_joueur:
 #   	carte_place.empiler(D_partie.retirer_carte())
 #   	print(Player)
