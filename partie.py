@@ -14,40 +14,40 @@ def tours (joueur1,joueur2,peut_jouer): #joueur1 -> Joue #joueur2 -> ne joue pas
 	if peut_jouer is True :
 
 		while valid == False:
-					
-			numeroChoisie = 0
-
+			print("numero")
+			numeroChoisie = -1
+      
 			while numeroChoisie < 0 or numeroChoisie > player.nb_main():
-				
-				numeroChoisie = int(input("Choissez une carte"))	
+				print("whil2")
+				numeroChoisie = input("Choissez une carte")	
 				valid = carte_valide(player.main_joueur[numeroChoisie],pile_milieu[0])
 					
-			carteChoisie = player.choix_carte(int(numeroChoisie))
-			print("La carte jouer est :",carteChoisie)
-			pile_milieu.append(carteChoisie)
-			deck_partie.ajouter_carte(carteChoisie)
+		carteChoisie = player.choix_carte(int(numeroChoisie))
+		print("La carte jouer est :",carteChoisie)
+		pile_milieu.append(carteChoisie)
+		deck_partie.ajouter_carte(carteChoisie)
 
-			if carteChoisie.effet() == 1 :
+		if carteChoisie.effet() == 1 :
 
-				resultat = inverse(sens_horaire)
+			resultat = inverse(sens_horaire)
 
-			if carteChoisie.effet() == 2 :
+		if carteChoisie.effet() == 2 :
 
-				resultat = interdit_jouer ()
+			resultat = interdit_jouer ()
 
-			if carteChoisie.effet() == 3:
+		if carteChoisie.effet() == 3:
 
-				plus_2_carte(ia,deck_partie)
+			plus_2_carte(ia,deck_partie)
 
-			if carteChoisie.effet() == 4:
+		if carteChoisie.effet() == 4:
 
-				resultat = plus_4_carte(ia,deck_partie)
+			resultat = plus_4_carte(ia,deck_partie)
 
-			if carteChoisie.effet() == 5 :
+		if carteChoisie.effet() == 5 :
 
-				resultat = changer_couleur(ia,deck_partie)
+			resultat = changer_couleur(ia,deck_partie)
 			
-			return resultat
+		return resultat
 
 #Initialisation de la partie
 
