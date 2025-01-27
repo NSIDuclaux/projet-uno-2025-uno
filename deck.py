@@ -39,9 +39,17 @@ class Deck:
     def ajouter_carte(self, carte):
 
         self.list_allc.append(carte)
-
+        
     def __str__(self):
-        return str(self.list_allc)
+
+        self.affichage = []
+
+        for i in range (len(self.main_joueur)):
+
+            element = str(i+1) + " | " + str(self.main_joueur[i])
+            self.affichage.append(str(element))
+
+        return str(self.affichage)
         
 # d = Deck()
 # d.remplir_entier()
