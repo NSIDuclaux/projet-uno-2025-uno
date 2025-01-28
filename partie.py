@@ -14,7 +14,7 @@ def toursjoueur (player,ia,peut_jouer): #joueur1 -> Joue #joueur2 -> ne joue pas
 	arghhh = False
 	if peut_jouer is True :
 		for k in range(player.nb_main()):
-			if carte_valide(pile_milieu[0], player.main_joueur[k]) == True:
+			if carte_valide(pile_milieu[-1], player.main_joueur[k]) == True:
 				valid1 = True
 
 		if valid1 == True:	
@@ -25,12 +25,12 @@ def toursjoueur (player,ia,peut_jouer): #joueur1 -> Joue #joueur2 -> ne joue pas
 				while int(numeroChoisie) < 0 or int(numeroChoisie) >= player.nb_main():
 				
 					numeroChoisie = input("Choissez une carte")	
-					valid = carte_valide(player.main_joueur[int(numeroChoisie)],pile_milieu[0])
+					valid = carte_valide(player.main_joueur[int(numeroChoisie)],pile_milieu[-1])
 			carteChoisie = player.choix_carte(int(numeroChoisie))
 			arghhh = True
 		else:
 			player.ajouter_carte(deck_partie.retirer_carte())
-			if carte_valide(pile_milieu[0], player.main_joueur[-1]) == True:
+			if carte_valide(pile_milieu[-1], player.main_joueur[-1]) == True:
 				carteChoisie = player.choix_carte(-1)	
 				arghhh = True
 		resultat = 0	
@@ -75,15 +75,15 @@ def toursia (ia,player,peut_jouer): #joueur1 -> Joue #joueur2 -> ne joue pas
 	arghhh = False
 	if peut_jouer is True :
 		for k in range(ia.nb_main()):
-			if carte_valide(pile_milieu[0], ia.main_joueur[k]) == True:
+			if carte_valide(pile_milieu[-1], ia.main_joueur[k]) == True:
 				valid1 = True
 
 		if valid1 == True:	
-			jouer_carte(ia.main_joueur, pile_milieu[0])
+			carteChoisie = jouer_carte(ia.main_joueur, pile_milieu[-1])
 			arghhh = True
 		else:
 			ia.ajouter_carte(deck_partie.retirer_carte())
-			if carte_valide(pile_milieu[0], ia.main_joueur[-1]) == True:
+			if carte_valide(pile_milieu[-1], ia.main_joueur[-1]) == True:
 				carteChoisie = ia.choix_carte(-1)	
 				arghhh = True
 		resultat = 0	
@@ -147,7 +147,7 @@ while reponse != "oui" or reponse != "non":
 
 			pile_milieu.append(deck_partie.retirer_carte())
 			print(player)
-			print("La carte du milieu est :" , pile_milieu[0])
+			print("La carte du milieu est :" , pile_milieu[-1])
 
 			if sens_horaire is True:
 
@@ -163,7 +163,7 @@ while reponse != "oui" or reponse != "non":
 			
 				print("Victoire du joueur !!!!!")
 			
-			else:
+			elif ia.main_joueur == []:
 			
 				print("Victoire de l'IA (T'es mauvais :-) )")
 
