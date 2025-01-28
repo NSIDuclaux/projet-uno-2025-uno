@@ -1,51 +1,67 @@
 from main_joueur import Main
 from deck import Deck
-from carte_valide import carte_valide
+from carte_valide import *
 from carte_effet import *
 
 #Fonction
 
-def tours (joueur1,joueur2,peut_jouer): #joueur1 -> Joue #joueur2 -> ne joue pas
+def tours (player,joueur2,peut_jouer): #joueur1 -> Joue #joueur2 -> ne joue pas
 
 	global deck_partie
 	global pile_milieu
 	valid = False
-
+	valid1 = False
+	arghhh = False
 	if peut_jouer is True :
+		for k in range(player.nb_main()):
+			if carte_valide(pile_milieu[0], player.main_joueur[k]) == True:
+				valid1 = True
 
-		while valid == False:
+		if valid1 == True:	
+			while valid == False:
 		
-			numeroChoisie = -1
+				numeroChoisie = -1
       
-			while int(numeroChoisie) < 0 or int(numeroChoisie) >= player.nb_main():
+				while int(numeroChoisie) < 0 or int(numeroChoisie) >= player.nb_main():
 				
-				numeroChoisie = input("Choissez une carte")	
-				valid = carte_valide(player.main_joueur[int(numeroChoisie)],pile_milieu[0])
-					
-		carteChoisie = player.choix_carte(int(numeroChoisie))
-		print("La carte jouer est :",carteChoisie)
-		pile_milieu.append(carteChoisie)
-		deck_partie.ajouter_carte(carteChoisie)
+					numeroChoisie = input("Choissez une carte")	
+					valid = carte_valide(player.main_joueur[int(numeroChoisie)],pile_milieu[0])
+			carteChoisie = player.choix_carte(int(numeroChoisie))
+			arghhh = True
+		else:
+			player.ajouter_carte()
+			if carte_valide(pile_milieu[0], player.main_joueur[-1]) == True:
+				carteChoisie = player.choix_carte(-1)	
+				arghhh = True
+			
+		if arghhh == True:
+			print("La carte jouer est :",carteChoisie)
+			pile_milieu.append(carteChoisie)
+			deck_partie.ajouter_carte(carteChoisie)
 
-		if carteChoisie.effet_carte() == 1 :
+			if carteChoisie.effet_carte() == 0 :
+				
+				resultat = 0
 
-			resultat = inverse(sens_horaire)
+			if carteChoisie.effet_carte() == 1 :
 
-		if carteChoisie.effet_carte() == 2 :
+				resultat = inverse(sens_horaire)
 
-			resultat = interdit_jouer ()
+			if carteChoisie.effet_carte() == 2 :
 
-		if carteChoisie.effet_carte() == 3:
+				resultat = interdit_jouer ()
 
-			plus_2_carte(ia,deck_partie)
+			if carteChoisie.effet_carte() == 3:
 
-		if carteChoisie.effet_carte() == 4:
+				plus_2_carte(ia,deck_partie)
 
-			resultat = plus_4_carte(ia,deck_partie)
+			if carteChoisie.effet_carte() == 4:
 
-		if carteChoisie.effet_carte() == 5 :
+				resultat = plus_4_carte(ia,deck_partie)
 
-			resultat = changer_couleur(ia,deck_partie)
+			if carteChoisie.effet_carte() == 5 :
+
+				resultat = changer_couleur(ia,deck_partie)
 			
 		return resultat
 
