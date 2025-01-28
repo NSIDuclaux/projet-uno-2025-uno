@@ -29,11 +29,11 @@ def tours (player,joueur2,peut_jouer): #joueur1 -> Joue #joueur2 -> ne joue pas
 			carteChoisie = player.choix_carte(int(numeroChoisie))
 			arghhh = True
 		else:
-			player.ajouter_carte()
+			player.ajouter_carte(deck_partie.retirer_carte())
 			if carte_valide(pile_milieu[0], player.main_joueur[-1]) == True:
 				carteChoisie = player.choix_carte(-1)	
 				arghhh = True
-			
+		resultat = 0	
 		if arghhh == True:
 			print("La carte jouer est :",carteChoisie)
 			pile_milieu.append(carteChoisie)
