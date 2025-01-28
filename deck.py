@@ -11,22 +11,22 @@ class Deck:
         for i in range(2):
             for c in range(4):
                 for n in range(9):
-                    self.list_allc = self.list_allc + [str(Carte(c,n+1))]
+                    self.list_allc = self.list_allc + [Carte(c,n+1)]
         for c in range(4):
-            self.list_allc = self.list_allc + [str(Carte(c,0))]
-        for c in range(4):
-            for k in range(2):
-                self.list_allc = self.list_allc + [str(Carte(c,12))]
+            self.list_allc = self.list_allc + [Carte(c,0)]
         for c in range(4):
             for k in range(2):
-                self.list_allc = self.list_allc + [str(Carte(c,10))]
+                self.list_allc = self.list_allc + [Carte(c,12)]
         for c in range(4):
             for k in range(2):
-                self.list_allc = self.list_allc + [str(Carte(c,11))]
+                self.list_allc = self.list_allc + [Carte(c,10)]
+        for c in range(4):
+            for k in range(2):
+                self.list_allc = self.list_allc + [Carte(c,11)]
         for k in range(4):
-            self.list_allc = self.list_allc + [str(Carte(4,14))]
+            self.list_allc = self.list_allc + [Carte(4,14)]
         for k in range(4):
-            self.list_allc = self.list_allc + [str(Carte(4,13))]
+            self.list_allc = self.list_allc + [Carte(4,13)]
 
     def melange(self):
 

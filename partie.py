@@ -27,23 +27,23 @@ def tours (joueur1,joueur2,peut_jouer): #joueur1 -> Joue #joueur2 -> ne joue pas
 		pile_milieu.append(carteChoisie)
 		deck_partie.ajouter_carte(carteChoisie)
 
-		if carteChoisie.effet() == 1 :
+		if carteChoisie.effet_carte() == 1 :
 
 			resultat = inverse(sens_horaire)
 
-		if carteChoisie.effet() == 2 :
+		if carteChoisie.effet_carte() == 2 :
 
 			resultat = interdit_jouer ()
 
-		if carteChoisie.effet() == 3:
+		if carteChoisie.effet_carte() == 3:
 
 			plus_2_carte(ia,deck_partie)
 
-		if carteChoisie.effet() == 4:
+		if carteChoisie.effet_carte() == 4:
 
 			resultat = plus_4_carte(ia,deck_partie)
 
-		if carteChoisie.effet() == 5 :
+		if carteChoisie.effet_carte() == 5 :
 
 			resultat = changer_couleur(ia,deck_partie)
 			
