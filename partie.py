@@ -2,10 +2,10 @@ from main_joueur import Main
 from deck import Deck
 from carte_valide import *
 from carte_effet import *
-
+from bot import *
 #Fonction
 
-def tours (player,joueur2,peut_jouer): #joueur1 -> Joue #joueur2 -> ne joue pas
+def toursjoueur (player,ia,peut_jouer): #joueur1 -> Joue #joueur2 -> ne joue pas
 
 	global deck_partie
 	global pile_milieu
@@ -19,7 +19,7 @@ def tours (player,joueur2,peut_jouer): #joueur1 -> Joue #joueur2 -> ne joue pas
 
 		if valid1 == True:	
 			while valid == False:
-		
+				
 				numeroChoisie = -1
       
 				while int(numeroChoisie) < 0 or int(numeroChoisie) >= player.nb_main():
@@ -64,6 +64,60 @@ def tours (player,joueur2,peut_jouer): #joueur1 -> Joue #joueur2 -> ne joue pas
 				resultat = changer_couleur(ia,deck_partie)
 			
 		return resultat
+	
+
+def toursia (ia,player,peut_jouer): #joueur1 -> Joue #joueur2 -> ne joue pas
+
+	global deck_partie
+	global pile_milieu
+	valid = False
+	valid1 = False
+	arghhh = False
+	if peut_jouer is True :
+		for k in range(ia.nb_main()):
+			if carte_valide(pile_milieu[0], ia.main_joueur[k]) == True:
+				valid1 = True
+
+		if valid1 == True:	
+			jouer_carte(ia.main_joueur, pile_milieu[0])
+			arghhh = True
+		else:
+			ia.ajouter_carte(deck_partie.retirer_carte())
+			if carte_valide(pile_milieu[0], ia.main_joueur[-1]) == True:
+				carteChoisie = ia.choix_carte(-1)	
+				arghhh = True
+		resultat = 0	
+		if arghhh == True:
+			print("La carte jouer est :",carteChoisie)
+			pile_milieu.append(carteChoisie)
+			deck_partie.ajouter_carte(carteChoisie)
+
+			if carteChoisie.effet_carte() == 0 :
+				
+				resultat = 0
+
+			if carteChoisie.effet_carte() == 1 :
+
+				resultat = inverse(sens_horaire)
+
+			if carteChoisie.effet_carte() == 2 :
+
+				resultat = interdit_jouer ()
+
+			if carteChoisie.effet_carte() == 3:
+
+				plus_2_carte(player,deck_partie)
+
+			if carteChoisie.effet_carte() == 4:
+
+				resultat = bot_plus_4_carte(player, deck_partie)
+
+			if carteChoisie.effet_carte() == 5 :
+
+				resultat = bot_changer_couleur(player, deck_partie)
+			
+		return resultat
+
 
 #Initialisation de la partie
 
@@ -97,13 +151,13 @@ while reponse != "oui" or reponse != "non":
 
 			if sens_horaire is True:
 
-				tours(player,ia,playerPeutJouer)
-				tours(ia,player,iaPeutJouer)
+				toursjoueur(player,ia, playerPeutJouer)
+				toursia(ia,player, iaPeutJouer)
 
 			else :
 
-				tours(ia,player,iaPeutJouer)
-				tours(player,ia,playerPeutJouer)
+				toursjoueur(ia,player,iaPeutJouer)
+				toursia(player,ia,playerPeutJouer)
 			
 			if player.main_joueur == []:
 			

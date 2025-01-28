@@ -1,3 +1,4 @@
+from random import *
 def inverse (sens_horaire):
 
     if sens_horaire == True:
@@ -56,3 +57,25 @@ def plus_4_carte (main,deck):
     print("Le joueur suivant reçoit 4 carte, et la nouvelle couleur est",nouvelleCouleur)
 
     return nouvelleCouleur
+
+def bot_changer_couleur():
+
+    nouvelleCouleur = randint(4)
+    c = ["rouge","vert","bleu","jaune"]
+
+    print("La nouvelle couleur est",c(nouvelleCouleur))
+
+    return c(nouvelleCouleur)
+
+def bot_plus_4_carte (main,deck):
+
+    for i in range (4):
+
+        main.ajouter_carte(deck.retirer_carte())
+
+    nouvelleCouleur = randint(4)
+    c = ["rouge","vert","bleu","jaune"]
+
+    print("Le joueur suivant reçoit 4 carte, et la nouvelle couleur est",c(nouvelleCouleur))
+
+    return c(nouvelleCouleur)
