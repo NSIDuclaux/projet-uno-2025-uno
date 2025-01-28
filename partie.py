@@ -77,7 +77,7 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur): #joueur1 -> Joue #joue
 
 			if carteChoisie.effet_carte() == 3:
 
-				plus_2_carte(ia,deck_partie)
+				resultat = plus_2_carte(ia,deck_partie)
 
 			if carteChoisie.effet_carte() == 4:
 
@@ -90,7 +90,7 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur): #joueur1 -> Joue #joue
 		return resultat
 	
 
-def toursia (ia,player,peut_jouer): #joueur1 -> Joue #joueur2 -> ne joue pas
+def toursia (ia,player,peut_jouer, nouvelle_couleur): #joueur1 -> Joue #joueur2 -> ne joue pas
 
 	global deck_partie
 	global pile_milieu
@@ -181,7 +181,7 @@ while reponse != "oui" or reponse != "non":
 
 	if reponse == "oui":
 
-		while player.main_joueur  or ia.main_joueur:
+		while player.main_joueur != [] or ia.main_joueur != []:
 
 			print(player)
 			print("La carte du milieu est :" , pile_milieu[-1])
