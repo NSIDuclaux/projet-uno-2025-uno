@@ -19,7 +19,8 @@ class Main :
         return self.main_joueur.pop(num_carte)
 
     def nb_main(self):
-        return len(self.main_joueur)
+        a = len(self.main_joueur) +1
+        return a
     
     def ajouter_carte(self,carte):
 
