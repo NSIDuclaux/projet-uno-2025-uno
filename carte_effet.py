@@ -33,12 +33,12 @@ def plus_2_carte (main,deck):
 
 def changer_couleur():
 
-    nouvelleCouleur = ""
+    nouvelleCouleur = ["", 1]
 
-    while nouvelleCouleur != "jaune" or nouvelleCouleur != "rouge" or nouvelleCouleur != "bleu" or nouvelleCouleur != "vert":
-        nouvelleCouleur = str(input("Choissez une nouvelle couleur")).lower()
+    while nouvelleCouleur[0] != "jaune" or nouvelleCouleur[0] != "rouge" or nouvelleCouleur[0] != "bleu" or nouvelleCouleur[0] != "vert":
+        nouvelleCouleur[0] = str(input("Choissez une nouvelle couleur")).lower()
 
-    print("La nouvelle couleur est",nouvelleCouleur)
+    print("La nouvelle couleur est",nouvelleCouleur[0])
 
     return nouvelleCouleur
 
@@ -48,24 +48,24 @@ def plus_4_carte (main,deck):
 
         main.ajouter_carte(deck.retirer_carte())
 
-    nouvelleCouleur = ""
+    nouvelleCouleur = ["", 1]
 
-    while nouvelleCouleur != "jaune" or nouvelleCouleur != "rouge" or nouvelleCouleur != "bleu" or nouvelleCouleur != "vert":
+    while nouvelleCouleur[0] != "jaune" or nouvelleCouleur[0] != "rouge" or nouvelleCouleur[0] != "bleu" or nouvelleCouleur[0] != "vert":
             
-        nouvelleCouleur = str(input("Choissez une nouvelle couleur")).lower()
+        nouvelleCouleur[0] = str(input("Choissez une nouvelle couleur")).lower()
 
-    print("Le joueur suivant reçoit 4 carte, et la nouvelle couleur est",nouvelleCouleur)
+    print("Le joueur suivant reçoit 4 carte, et la nouvelle couleur est",nouvelleCouleur[0])
 
     return nouvelleCouleur
 
 def bot_changer_couleur():
 
-    nouvelleCouleur = randint(4)
-    c = ["rouge","vert","bleu","jaune"]
+    c = randint(0,3)
+    d = ["rouge","vert","bleu","jaune"]
+    nouvelleCouleur= [d[c], 1]
+    print("La nouvelle couleur est",nouvelleCouleur[0])
 
-    print("La nouvelle couleur est",c(nouvelleCouleur))
-
-    return c(nouvelleCouleur)
+    return nouvelleCouleur
 
 def bot_plus_4_carte (main,deck):
 
@@ -73,9 +73,10 @@ def bot_plus_4_carte (main,deck):
 
         main.ajouter_carte(deck.retirer_carte())
 
-    nouvelleCouleur = randint(4)
-    c = ["rouge","vert","bleu","jaune"]
+    c = randint(0,3)
+    d = ["rouge","vert","bleu","jaune"]
+    nouvelleCouleur= [d[c], 1]
 
-    print("Le joueur suivant reçoit 4 carte, et la nouvelle couleur est",c(nouvelleCouleur))
+    print("Le joueur suivant reçoit 4 carte, et la nouvelle couleur est",nouvelleCouleur[0])
 
-    return c(nouvelleCouleur)
+    return nouvelleCouleur

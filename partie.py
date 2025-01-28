@@ -5,7 +5,7 @@ from carte_effet import *
 from bot import *
 #Fonction
 
-def toursjoueur (player,ia,peut_jouer): #joueur1 -> Joue #joueur2 -> ne joue pas
+def toursjoueur (player,ia,peut_jouer, nouvelle_couleur): #joueur1 -> Joue #joueur2 -> ne joue pas
 
 	global deck_partie
 	global pile_milieu
@@ -13,26 +13,50 @@ def toursjoueur (player,ia,peut_jouer): #joueur1 -> Joue #joueur2 -> ne joue pas
 	valid1 = False
 	arghhh = False
 	if peut_jouer is True :
-		for k in range(player.nb_main()):
-			if carte_valide(pile_milieu[-1], player.main_joueur[k]) == True:
-				valid1 = True
+		if nouvelle_couleur[1] == 1:
+			for k in range(player.nb_main()):
+				if carte_valide2(nouvelle_couleur[0], player.main_joueur[k]) == True:
+					valid1 = True
 
-		if valid1 == True:	
-			while valid == False:
+			if valid1 == True:	
+				while valid == False:
 				
-				numeroChoisie = -1
+					numeroChoisie = -1
       
-				while int(numeroChoisie) < 0 or int(numeroChoisie) >= player.nb_main():
+					while int(numeroChoisie) < 0 or int(numeroChoisie) >= player.nb_main():
 				
-					numeroChoisie = input("Choissez une carte")	
-					valid = carte_valide(player.main_joueur[int(numeroChoisie)],pile_milieu[-1])
-			carteChoisie = player.choix_carte(int(numeroChoisie))
-			arghhh = True
-		else:
-			player.ajouter_carte(deck_partie.retirer_carte())
-			if carte_valide(pile_milieu[-1], player.main_joueur[-1]) == True:
-				carteChoisie = player.choix_carte(-1)	
+						numeroChoisie = input("Choissez une carte")	
+						valid = carte_valide2(nouvelle_couleur[0],player.main_joueur[int(numeroChoisie)])
+				carteChoisie = player.choix_carte(int(numeroChoisie))
 				arghhh = True
+			else:
+				player.ajouter_carte(deck_partie.retirer_carte())
+				if carte_valide(nouvelle_couleur[0], player.main_joueur[-1]) == True:
+					carteChoisie = player.choix_carte(-1)	
+					arghhh = True
+		else:
+			for k in range(player.nb_main()):
+				if carte_valide(pile_milieu[-1], player.main_joueur[k]) == True:
+					valid1 = True
+
+			if valid1 == True:	
+				while valid == False:
+				
+					numeroChoisie = -1
+      
+					while int(numeroChoisie) < 0 or int(numeroChoisie) >= player.nb_main():
+				
+						numeroChoisie = input("Choissez une carte")	
+						valid = carte_valide(pile_milieu[-1], player.main_joueur[int(numeroChoisie)])
+				carteChoisie = player.choix_carte(int(numeroChoisie))
+				arghhh = True
+			else:
+				player.ajouter_carte(deck_partie.retirer_carte())
+				if carte_valide(pile_milieu[-1], player.main_joueur[-1]) == True:
+					carteChoisie = player.choix_carte(-1)	
+					arghhh = True
+		
+		#suite
 		resultat = 0	
 		if arghhh == True:
 			print("La carte jouer est :",carteChoisie)
@@ -62,7 +86,7 @@ def toursjoueur (player,ia,peut_jouer): #joueur1 -> Joue #joueur2 -> ne joue pas
 			if carteChoisie.effet_carte() == 5 :
 
 				resultat = changer_couleur(ia,deck_partie)
-			
+		nouvelle_couleur[1] = 0
 		return resultat
 	
 
@@ -74,18 +98,32 @@ def toursia (ia,player,peut_jouer): #joueur1 -> Joue #joueur2 -> ne joue pas
 	valid1 = False
 	arghhh = False
 	if peut_jouer is True :
-		for k in range(ia.nb_main()):
-			if carte_valide(pile_milieu[-1], ia.main_joueur[k]) == True:
-				valid1 = True
+		if nouvelle_couleur[1] == 1:
+			for k in range(ia.nb_main()):
+				if carte_valide2(nouvelle_couleur[0], ia.main_joueur[k]) == True:
+					valid1 = True
 
-		if valid1 == True:	
-			carteChoisie = jouer_carte(ia.main_joueur, pile_milieu[-1])
-			arghhh = True
-		else:
-			ia.ajouter_carte(deck_partie.retirer_carte())
-			if carte_valide(pile_milieu[-1], ia.main_joueur[-1]) == True:
-				carteChoisie = ia.choix_carte(-1)	
+			if valid1 == True:	
+				carteChoisie = jouer_carte2(ia.main_joueur, nouvelle_couleur)
 				arghhh = True
+			else:
+				ia.ajouter_carte(deck_partie.retirer_carte())
+				if carte_valide2(nouvelle_couleur, ia.main_joueur[-1]) == True:
+					carteChoisie = ia.choix_carte(-1)	
+					arghhh = True
+		else:
+			for k in range(ia.nb_main()):
+				if carte_valide(pile_milieu[-1], ia.main_joueur[k]) == True:
+					valid1 = True
+
+			if valid1 == True:	
+				carteChoisie = jouer_carte(ia.main_joueur, pile_milieu[-1])
+				arghhh = True
+			else:
+				ia.ajouter_carte(deck_partie.retirer_carte())
+				if carte_valide(pile_milieu[-1], ia.main_joueur[-1]) == True:
+					carteChoisie = ia.choix_carte(-1)	
+					arghhh = True
 		resultat = 0	
 		if arghhh == True:
 			print("La carte jouer est :",carteChoisie)
@@ -115,7 +153,7 @@ def toursia (ia,player,peut_jouer): #joueur1 -> Joue #joueur2 -> ne joue pas
 			if carteChoisie.effet_carte() == 5 :
 
 				resultat = bot_changer_couleur(player, deck_partie)
-			
+		nouvelle_couleur[1] = 0
 		return resultat
 
 
@@ -133,8 +171,8 @@ pile_milieu = []
 sens_horaire = True
 playerPeutJouer = True
 iaPeutJouer = True
-
-
+nouvelle_couleur = ["", 0]
+pile_milieu.append(deck_partie.retirer_carte())
 #Début Partie
 
 while reponse != "oui" or reponse != "non":
@@ -145,19 +183,18 @@ while reponse != "oui" or reponse != "non":
 
 		while player.main_joueur  or ia.main_joueur:
 
-			pile_milieu.append(deck_partie.retirer_carte())
 			print(player)
 			print("La carte du milieu est :" , pile_milieu[-1])
 
 			if sens_horaire is True:
 
-				toursjoueur(player,ia, playerPeutJouer)
-				toursia(ia,player, iaPeutJouer)
+				toursjoueur(player,ia, playerPeutJouer, nouvelle_couleur)
+				toursia(ia,player, iaPeutJouer, nouvelle_couleur)
 
 			else :
 
-				toursjoueur(ia,player,iaPeutJouer)
-				toursia(player,ia,playerPeutJouer)
+				toursjoueur(ia,player,iaPeutJouer, nouvelle_couleur)
+				toursia(player,ia,playerPeutJouer, nouvelle_couleur)
 			
 			if player.main_joueur == []:
 			
