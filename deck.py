@@ -56,17 +56,18 @@ class Deck:
 
         for i in range (len(self.list_allc)):
 
-            element = str(i+1) + " | " + str(self.list_allc[i])
+            element =  str(self.list_allc[i]) + " | " 
+            print(element)
             self.affichage.append(str(element))
 
         return str(self.affichage)
         
-# d = Deck()
-# d.remplir_entier()
-# d.melange()
-# print(d.retirer_carte())
-# print(d)
-# carte = d.choix_carte(2)
-# print(carte)
-# print(carte.get_couleur())
+d = Deck()
+d.remplir_entier()
+d.melange()
+print(d.retirer_carte())
+print(d)
+carte = d.choix_carte(2)
+print(carte)
+print(carte.get_couleur())
 
