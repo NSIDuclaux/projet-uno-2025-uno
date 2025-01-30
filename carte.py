@@ -57,6 +57,10 @@ class Carte:
 
                 self.couleur = "Vert"
 
+            elif self.couleur == 4:
+                
+                self.couleur = "Noire"
+
             return str(self.type_carte()) + " - " + self.couleur
 
         else :

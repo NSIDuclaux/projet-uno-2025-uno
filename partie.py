@@ -100,7 +100,6 @@ def toursia (ia,player,peut_jouer, nouvelle_couleur): #joueur1 -> Joue #joueur2 
 
 	global deck_partie
 	global pile_milieu
-	valid = False
 	valid1 = False
 	arghhh = False
 	if peut_jouer is True :
