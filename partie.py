@@ -90,7 +90,7 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur): #joueur1 -> Joue #joue
 		return resultat
 	
 
-def toursia (ia,player,peut_jouer): #joueur1 -> Joue #joueur2 -> ne joue pas
+def toursia (ia,player,peut_jouer, nouvelle_couleur): #joueur1 -> Joue #joueur2 -> ne joue pas
 
 	global deck_partie
 	global pile_milieu
