@@ -89,6 +89,8 @@ class Carte:
 
             self.effet = 5
 
+        return self.effet
+
 
     def get_nombre (self):
 
