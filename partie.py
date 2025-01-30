@@ -196,8 +196,9 @@ while reponse != "oui" or reponse != "non":
 	if reponse == "oui":
 
 		while player.main_joueur != [] or ia.main_joueur != []:
-
-			print(player)
+			print("bot :", ia)
+			print("joueur :", player)
+            
 			print("La carte du milieu est :" , pile_milieu[-1])
 
 			if sens_horaire is True:
