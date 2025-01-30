@@ -56,8 +56,8 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur): #joueur1 -> Joue #joue
 					carteChoisie = player.choix_carte(-1)	
 					arghhh = True
 		
-		#suite
-		resultat = 0	
+		nouvelle_couleur = ["", 0]
+		#resultat = 0	
 		if arghhh == True:
 			print("La carte jouer est :",carteChoisie)
 			pile_milieu.append(carteChoisie)
@@ -65,29 +65,35 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur): #joueur1 -> Joue #joue
 
 			if carteChoisie.effet_carte() == 0 :
 				
-				resultat = 0
+				#resultat = 
+				0
 
 			if carteChoisie.effet_carte() == 1 :
 
-				resultat = inverse(sens_horaire)
+				#resultat = 
+				inverse(sens_horaire)
 
 			if carteChoisie.effet_carte() == 2 :
 
-				resultat = interdit_jouer ()
+				#resultat = 
+				interdit_jouer ()
 
 			if carteChoisie.effet_carte() == 3:
 
-				resultat = plus_2_carte(ia,deck_partie)
+				#resultat = 
+				plus_2_carte(ia,deck_partie)
 
 			if carteChoisie.effet_carte() == 4:
 
-				resultat = plus_4_carte(ia,deck_partie)
+				#resultat = 
+				nouvelle_couleur = plus_4_carte(ia,deck_partie)
 
 			if carteChoisie.effet_carte() == 5 :
 
-				resultat = changer_couleur(ia,deck_partie)
-		nouvelle_couleur[1] = 0
-		return resultat
+				#resultat = 
+				nouvelle_couleur = changer_couleur()
+	
+		return nouvelle_couleur
 	
 
 def toursia (ia,player,peut_jouer, nouvelle_couleur): #joueur1 -> Joue #joueur2 -> ne joue pas
@@ -104,7 +110,8 @@ def toursia (ia,player,peut_jouer, nouvelle_couleur): #joueur1 -> Joue #joueur2 
 					valid1 = True
 
 			if valid1 == True:	
-				carteChoisie = jouer_carte2(ia.main_joueur, nouvelle_couleur)
+				carteChoisie = jouer_carte2(ia.main_joueur, nouvelle_couleur)[0]
+				ia.choix_carte(jouer_carte(ia.main_joueur, pile_milieu[-1])[1])
 				arghhh = True
 			else:
 				ia.ajouter_carte(deck_partie.retirer_carte())
@@ -117,14 +124,16 @@ def toursia (ia,player,peut_jouer, nouvelle_couleur): #joueur1 -> Joue #joueur2 
 					valid1 = True
 
 			if valid1 == True:	
-				carteChoisie = jouer_carte(ia.main_joueur, pile_milieu[-1])
+				carteChoisie = jouer_carte(ia.main_joueur, pile_milieu[-1])[0]
+				ia.choix_carte(jouer_carte(ia.main_joueur, pile_milieu[-1])[1])
 				arghhh = True
 			else:
 				ia.ajouter_carte(deck_partie.retirer_carte())
 				if carte_valide(pile_milieu[-1], ia.main_joueur[-1]) == True:
 					carteChoisie = ia.choix_carte(-1)	
 					arghhh = True
-		resultat = 0	
+		#resultat = 0	
+		nouvelle_couleur = ["",0]
 		if arghhh == True:
 			print("La carte jouer est :",carteChoisie)
 			pile_milieu.append(carteChoisie)
@@ -132,15 +141,18 @@ def toursia (ia,player,peut_jouer, nouvelle_couleur): #joueur1 -> Joue #joueur2 
 
 			if carteChoisie.effet_carte() == 0 :
 				
-				resultat = 0
+				#resultat = 
+				0
 
 			if carteChoisie.effet_carte() == 1 :
 
-				resultat = inverse(sens_horaire)
+				#resultat = 
+				inverse(sens_horaire)
 
 			if carteChoisie.effet_carte() == 2 :
 
-				resultat = interdit_jouer ()
+				#resultat = 
+				interdit_jouer ()
 
 			if carteChoisie.effet_carte() == 3:
 
@@ -148,13 +160,15 @@ def toursia (ia,player,peut_jouer, nouvelle_couleur): #joueur1 -> Joue #joueur2 
 
 			if carteChoisie.effet_carte() == 4:
 
-				resultat = bot_plus_4_carte(player, deck_partie)
+				#resultat = 
+				nouvelle_couleur = bot_plus_4_carte(player, deck_partie)
 
 			if carteChoisie.effet_carte() == 5 :
 
-				resultat = bot_changer_couleur(player, deck_partie)
-		nouvelle_couleur[1] = 0
-		return resultat
+				#resultat = 
+				nouvelle_couleur = bot_changer_couleur()
+		
+		return nouvelle_couleur
 
 
 #Initialisation de la partie
@@ -188,13 +202,13 @@ while reponse != "oui" or reponse != "non":
 
 			if sens_horaire is True:
 
-				toursjoueur(player,ia, playerPeutJouer, nouvelle_couleur)
-				toursia(ia,player, iaPeutJouer, nouvelle_couleur)
+				nouvelle_couleur = toursjoueur(player,ia, playerPeutJouer, nouvelle_couleur)
+				nouvelle_couleur = toursia(ia,player, iaPeutJouer, nouvelle_couleur)
 
 			else :
 
-				toursjoueur(ia,player,iaPeutJouer, nouvelle_couleur)
-				toursia(player,ia,playerPeutJouer, nouvelle_couleur)
+				nouvelle_couleur = toursjoueur(ia,player,iaPeutJouer, nouvelle_couleur)
+				nouvelle_couleur = toursia(player,ia,playerPeutJouer, nouvelle_couleur)
 			
 			if player.main_joueur == []:
 			
