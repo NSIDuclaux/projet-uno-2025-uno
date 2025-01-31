@@ -1,6 +1,6 @@
 from random import randint
 from carte_valide import *
-from partie import *
+
 
 
 def jouer_carte(Main_bot, carteMilieu):
@@ -23,6 +23,10 @@ def choix_complexe(Main_bot, Main_player, carteMilieu):
             if l[k][0].nombre == 13:
                 return (l[k])
             if l[k][0].nombre == 12:
+                return (l[k])
+    else:
+        for k in range(len(l)):
+            if l[k][0].nombre != 13 and l[k][0].nombre !=12 and l[k][0].nombre !=11 and l[k][0].nombre !=14:
                 return (l[k])
     return jouer_carte(Main_bot, carteMilieu)
 
