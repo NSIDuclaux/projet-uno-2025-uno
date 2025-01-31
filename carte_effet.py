@@ -35,16 +35,8 @@ def changer_couleur():
 
     nouvelleCouleur = ["", 1]
 
-    #while nouvelleCouleur[0] != "0" or nouvelleCouleur[0] != "1" or nouvelleCouleur[0] != "2" or nouvelleCouleur[0] != "3":
-    nouvelleCouleur[0] = input("Choissez une nouvelle couleur")
-    if nouvelleCouleur[0] == "0":
-        nouvelleCouleur[0] == "rouge"
-    if nouvelleCouleur[0] == "1":
-        nouvelleCouleur[0] == "vert"
-    if nouvelleCouleur[0] == "2":
-        nouvelleCouleur[0] == "jaune"
-    if nouvelleCouleur[0] == "3":
-        nouvelleCouleur[0] == "bleu"
+    while nouvelleCouleur[0] != "jaune" and nouvelleCouleur[0] != "rouge" and nouvelleCouleur[0] != "vert" and nouvelleCouleur[0] != "bleu":
+        nouvelleCouleur[0] = input("Choissez une nouvelle couleur")
     print("La nouvelle couleur est",nouvelleCouleur[0])
 
     return nouvelleCouleur
@@ -57,16 +49,9 @@ def plus_4_carte (main,deck):
 
     nouvelleCouleur = ["", 1]
 
-    #while nouvelleCouleur[0] != "0" or nouvelleCouleur[0] != "1" or nouvelleCouleur[0] != "2" or nouvelleCouleur[0] != "3":
-    nouvelleCouleur[0] = input("Choissez une nouvelle couleur")
-    if nouvelleCouleur[0] == "0":
-        nouvelleCouleur[0] == "rouge"
-    if nouvelleCouleur[0] == "1":
-        nouvelleCouleur[0] == "vert"
-    if nouvelleCouleur[0] == "2":
-        nouvelleCouleur[0] == "jaune"
-    if nouvelleCouleur[0] == "3":
-        nouvelleCouleur[0] == "bleu"
+    while nouvelleCouleur[0] != "jaune" and nouvelleCouleur[0] != "rouge" and nouvelleCouleur[0] != "vert" and nouvelleCouleur[0] != "bleu":
+        nouvelleCouleur[0] = input("Choissez une nouvelle couleur")
+    
     print("Le joueur suivant reçoit 4 carte, et la nouvelle couleur est",nouvelleCouleur[0])
 
     return nouvelleCouleur

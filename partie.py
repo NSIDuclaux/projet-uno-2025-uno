@@ -187,14 +187,14 @@ iaPeutJouer = True
 nouvelle_couleur = ["", 0]
 pile_milieu.append(deck_partie.retirer_carte())
 #Début Partie
-
+vict = False
 while reponse != "oui" or reponse != "non":
 
 	reponse = str(input("Voulez-vous commencer une partie ? | Oui/Non")).lower()
 
 	if reponse == "oui":
 
-		while player.main_joueur != [] or ia.main_joueur != []:
+		while vict == False:
 			print("bot :", ia)
 			print("joueur :", player)
             
@@ -211,13 +211,13 @@ while reponse != "oui" or reponse != "non":
 				nouvelle_couleur = toursia(player,ia,playerPeutJouer, nouvelle_couleur)
 			
 			if player.main_joueur == []:
-			
+				vict = True
 				print("Victoire du joueur !!!!!")
-			
+			    
 			elif ia.main_joueur == []:
-			
+				vict = True
 				print("Victoire de l'IA (T'es mauvais :-) )")
-
+                
 	if reponse == "non" :
 
 		break
