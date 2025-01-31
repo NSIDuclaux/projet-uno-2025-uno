@@ -92,8 +92,8 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur): #joueur1 -> Joue #joue
 
 				#resultat = 
 				nouvelle_couleur = changer_couleur()
-	
-		return nouvelle_couleur
+	peut_jouer = True
+	return nouvelle_couleur
 	
 
 def toursia (ia,player,peut_jouer, nouvelle_couleur): #joueur1 -> Joue #joueur2 -> ne joue pas
@@ -109,8 +109,8 @@ def toursia (ia,player,peut_jouer, nouvelle_couleur): #joueur1 -> Joue #joueur2 
 					valid1 = True
 
 			if valid1 == True:	
-				carteChoisie = jouer_carte2(ia.main_joueur, nouvelle_couleur)[0]
-				ia.choix_carte(jouer_carte(ia.main_joueur, pile_milieu[-1])[1])
+				carteChoisie = choix_complexe2(ia.main_joueur,player.main_joueur, nouvelle_couleur)[0]
+				ia.choix_carte(choix_complexe2(ia.main_joueur,player.main_joueur, nouvelle_couleur)[1])
 				arghhh = True
 			else:
 				ia.ajouter_carte(deck_partie.retirer_carte())
@@ -123,8 +123,8 @@ def toursia (ia,player,peut_jouer, nouvelle_couleur): #joueur1 -> Joue #joueur2 
 					valid1 = True
 
 			if valid1 == True:	
-				carteChoisie = jouer_carte(ia.main_joueur, pile_milieu[-1])[0]
-				ia.choix_carte(jouer_carte(ia.main_joueur, pile_milieu[-1])[1])
+				carteChoisie = choix_complexe(ia.main_joueur,player.main_joueur, pile_milieu[-1])[0]
+				ia.choix_carte(choix_complexe(ia.main_joueur,player.main_joueur, pile_milieu[-1])[1])
 				arghhh = True
 			else:
 				ia.ajouter_carte(deck_partie.retirer_carte())
@@ -166,8 +166,8 @@ def toursia (ia,player,peut_jouer, nouvelle_couleur): #joueur1 -> Joue #joueur2 
 
 				#resultat = 
 				nouvelle_couleur = bot_changer_couleur()
-		
-		return nouvelle_couleur
+	peut_jouer = True	
+	return nouvelle_couleur
 
 
 #Initialisation de la partie
