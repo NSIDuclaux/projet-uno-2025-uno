@@ -24,7 +24,8 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur):
       
 					while int(numeroChoisie) < 0 or int(numeroChoisie) >= player.nb_main():
 						numeroChoisie = input("Choissez une carte")	
-						valid = carte_valide2(nouvelle_couleur[0],player.main_joueur[int(numeroChoisie)])
+						if int(numeroChoisie) >= 0 and int(numeroChoisie) < player.nb_main():
+							valid = carte_valide2(nouvelle_couleur[0],player.main_joueur[int(numeroChoisie)])
 
 				carteChoisie = player.choix_carte(int(numeroChoisie))
 				arghhh = True
@@ -48,7 +49,8 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur):
       
 					while int(numeroChoisie) < 0 or int(numeroChoisie) >= player.nb_main():
 						numeroChoisie = input("Choissez une carte")	
-						valid = carte_valide(pile_milieu[-1], player.main_joueur[int(numeroChoisie)])
+						if int(numeroChoisie) >= 0 and int(numeroChoisie) < player.nb_main():
+							valid = carte_valide(pile_milieu[-1], player.main_joueur[int(numeroChoisie)])
 
 				carteChoisie = player.choix_carte(int(numeroChoisie))
 				arghhh = True
@@ -67,9 +69,6 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur):
 		print("La carte jouer est :",carteChoisie)
 		pile_milieu.append(carteChoisie)
 		deck_partie.ajouter_carte(carteChoisie)
-
-		if carteChoisie.effet_carte() == 0 :
-			0
 
 		if carteChoisie.effet_carte() == 1 :
 			inverse(sens_horaire)
@@ -178,7 +177,7 @@ pile_milieu.append(deck_partie.retirer_carte())
 vict = False
 while reponse != "oui" or reponse != "non":
 
-	reponse = str(input("Voulez-vous commencer une partie ? | Oui/Non")).lower()
+	reponse = str(input("Voulez-vous commencer une partie ? | Oui/Non"))
 
 	if reponse == "oui":
 
@@ -195,8 +194,8 @@ while reponse != "oui" or reponse != "non":
 
 			else :
 
-				nouvelle_couleur, peut_jouer = toursjoueur(ia,player,iaPeutJouer, nouvelle_couleur)
-				nouvelle_couleur, peut_jouer = toursia(player,ia,playerPeutJouer, nouvelle_couleur)
+				nouvelle_couleur, peut_jouer = toursia(ia,player,iaPeutJouer, nouvelle_couleur)
+				nouvelle_couleur, peut_jouer = toursjoueur(player,ia,playerPeutJouer, nouvelle_couleur)
 			
 			if player.main_joueur == []:
 				vict = True
