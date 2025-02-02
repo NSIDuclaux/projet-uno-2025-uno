@@ -18,6 +18,6 @@ def carte_valide2(couleur, cartepropose):
     if couleur == cartepropose.couleur:
         return True
     return False
-# cartepose = Carte(3, 8)
-# cartepropose = Carte(1, 14)
-# print(carte_valide(cartepose, cartepropose))
+cartepose = "jaune"
+cartepropose = Carte(0, 8)
+print(carte_valide2(cartepose, cartepropose))
