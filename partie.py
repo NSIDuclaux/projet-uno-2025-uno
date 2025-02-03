@@ -177,7 +177,7 @@ pile_milieu.append(deck_partie.retirer_carte())
 vict = False
 while reponse != "oui" or reponse != "non":
 
-	reponse = str(input("Voulez-vous commencer une partie ? | Oui/Non"))
+	reponse = str(input("Voulez-vous commencer une partie ? | Oui/Non")).lower()
 
 	if reponse == "oui":
 
