@@ -11,7 +11,15 @@ def carte_valide(carteposee, cartepropose):
         return True
     return False
 def carte_valide2(couleur, cartepropose):
-    if type(cartepropose) == str:
+    if couleur == "jaune":
+        couleur = 0
+    if couleur == "rouge":
+        couleur = 1
+    if couleur == "bleu":
+        couleur = 2
+    if couleur == "vert":
+        couleur = 3
+    if cartepropose == "+4 Cartes" or cartepropose == "Changez de Couleur":
         return True
     if cartepropose.nombre == 13 or cartepropose.nombre == 14:
         return True
@@ -19,5 +27,5 @@ def carte_valide2(couleur, cartepropose):
         return True
     return False
 cartepose = "jaune"
-cartepropose = Carte(0, 8)
-print(carte_valide2(cartepose, cartepropose))
+cartepropose = Carte(1, 8)
+print(carte_valide2("rouge", cartepropose))
