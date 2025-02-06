@@ -32,10 +32,12 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur):
 
 			else:
 				player.ajouter_carte(deck_partie.retirer_carte())
+				print("Vous piochez")
 
 				if carte_valide(nouvelle_couleur[0], player.main_joueur[-1]) == True:
 					carteChoisie = player.choix_carte(-1)	
 					arghhh = True
+					print("Vous placez la carte pioché")
 
 		else:
 			for k in range(player.nb_main()):
@@ -57,10 +59,11 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur):
 
 			else:
 				player.ajouter_carte(deck_partie.retirer_carte())
-
+				print("Vous piochez")
 				if carte_valide(pile_milieu[-1], player.main_joueur[-1]) == True:
 					carteChoisie = player.choix_carte(-1)	
 					arghhh = True
+					print("Vous placez la carte pioché")
 
 	peut_jouer = True
 	nouvelle_couleur = ["", 0]
@@ -107,11 +110,11 @@ def toursia (ia,player,peut_jouer, nouvelle_couleur):
 
 			else:
 				ia.ajouter_carte(deck_partie.retirer_carte())
-
+				print("Le bot pioche")
 				if carte_valide2(nouvelle_couleur, ia.main_joueur[-1]) == True:
 					carteChoisie = ia.choix_carte(-1)	
 					arghhh = True
-
+					print("Le bot place la carte pioché")
 		else:
 			for k in range(ia.nb_main()):
 				if carte_valide(pile_milieu[-1], ia.main_joueur[k]) == True:
