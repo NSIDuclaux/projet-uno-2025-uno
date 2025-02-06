@@ -15,8 +15,9 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur):
 	if peut_jouer is True :
 		if nouvelle_couleur[1] == 1:
 			print(nouvelle_couleur)
+			t = nouvelle_couleur[0]
 			for k in range(player.nb_main()):
-				if carte_valide2(nouvelle_couleur[0], player.main_joueur[k]) == True:
+				if carte_valide2(t, player.main_joueur[k]) == True:
 					valid1 = True
 
 			if valid1 == True:
@@ -26,7 +27,7 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur):
 					while int(numeroChoisie) < 0 or int(numeroChoisie) >= player.nb_main():
 						numeroChoisie = input("Choissez une carte")	
 						if int(numeroChoisie) >= 0 and int(numeroChoisie) < player.nb_main():
-							valid = carte_valide2(nouvelle_couleur[0],player.main_joueur[int(numeroChoisie)])
+							valid = carte_valide2(t,player.main_joueur[int(numeroChoisie)])
 
 				carteChoisie = player.choix_carte(int(numeroChoisie))
 				arghhh = True
@@ -35,7 +36,7 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur):
 				player.ajouter_carte(deck_partie.retirer_carte())
 				print("Vous piochez")
 
-				if carte_valide(nouvelle_couleur[0], player.main_joueur[-1]) == True:
+				if carte_valide2(t, player.main_joueur[-1]) == True:
 					carteChoisie = player.choix_carte(-1)	
 					arghhh = True
 					print("Vous placez la carte pioché")
@@ -78,7 +79,7 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur):
 			inverse(sens_horaire)
 
 		if carteChoisie.effet_carte() == 2 :
-			peut_jouer = interdit_jouer ()
+			peut_jouer = interdit_jouer()
 
 		if carteChoisie.effet_carte() == 3:
 			plus_2_carte(ia,deck_partie)
@@ -150,7 +151,7 @@ def toursia (ia,player,peut_jouer, nouvelle_couleur):
 			inverse(sens_horaire)
 
 		if carteChoisie.effet_carte() == 2 :
-			peut_jouer = interdit_jouer ()
+			peut_jouer = interdit_jouer()
 
 		if carteChoisie.effet_carte() == 3:
 			plus_2_carte(player,deck_partie)
