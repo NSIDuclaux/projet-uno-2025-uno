@@ -1,7 +1,6 @@
 from tkinter import *
 from PIL import Image, ImageTk
-#from pygame import mixer
-from subprocess import run
+from pygame import mixer
 
 #Frame
 
@@ -28,6 +27,8 @@ def bouton_jouer():
 def bouton_jouer_entrer(event):
 
     bouton1_button.config(image=bouton1_image_large)
+    mixer.music.load("bouton passage.mp3")
+    mixer.music.play()
 
 def bouton_jouer_sortie(event):
 
@@ -40,6 +41,8 @@ def bouton_parametre():
 def bouton_parametre_entrer(event):
 
     bouton2_button.config(image=bouton2_image_large)
+    mixer.music.load("bouton passage.mp3")
+    mixer.music.play()
 
 def bouton_parametre_sortie(event):
 
@@ -52,6 +55,8 @@ def bouton_quitter():
 def bouton_quitter_entrer(event):
 
     bouton3_button.config(image=bouton3_image_large)
+    mixer.music.load("bouton passage.mp3")
+    mixer.music.play()
 
 def bouton_quitter_sortie(event):
 
@@ -61,9 +66,9 @@ def bouton_quitter_sortie(event):
 
 #Musique de fond
 
-# mixer.init()
-# mixer.music.load("Main_Theme.mp3")
-# mixer.music.play(-1)
+mixer.init()
+mixer.music.load("Main_Theme.mp3")
+mixer.music.play(-1)
 
 #Création de la fenêtre
 

@@ -43,11 +43,11 @@ class Carte:
         
             if self.couleur == 0:
 
-                self.couleur = "jaune"
+                self.couleur = "violet"
 
             elif self.couleur == 1:
 
-                self.couleur = "rouge"
+                self.couleur = "rose"
 
             elif self.couleur == 2:
 
@@ -55,7 +55,7 @@ class Carte:
 
             elif self.couleur == 3:
 
-                self.couleur = "vert"
+                self.couleur = "cyan"
 
             elif self.couleur == 4:
                 

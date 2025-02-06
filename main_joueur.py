@@ -1,4 +1,6 @@
 from deck import Deck
+# from Trie import *
+
 class Main :
 
     def __init__ (self, deck):
@@ -25,6 +27,38 @@ class Main :
 
         self.main_joueur.append(carte)
 
+    def trier_mains(self):
+
+        cartes_violet = []
+        cartes_rose = []
+        cartes_bleu = []
+        cartes_cyan = []
+
+        for carte in self.main_joueur:
+            
+            print(carte.get_couleur())
+
+            if carte.get_couleur() == "violet":
+
+                cartes_violet.append(carte)
+
+            elif carte.get_couleur() == "rose":
+
+                cartes_rose.append(carte)
+
+            elif carte.get_couleur() == "bleu":
+
+                cartes_bleu.append(carte)
+            
+            elif carte.get_couleur() == "cyan":
+
+                cartes_cyan.append(carte)
+
+
+            print(carte.get_nombre())
+
+        print(cartes_violet,cartes_rose,cartes_bleu,cartes_cyan)
+
     def __str__(self):
         
         self.affichage = []
@@ -35,7 +69,11 @@ class Main :
 
         return str(self.affichage)
 
-# deck = Deck()
-# deck.remplir_entier()
-# deck.melange()
-#aaaaa
+deck = Deck()
+deck.remplir_entier()
+deck.melange()
+
+mains = Main(deck)
+mains.creer_main()
+print(mains)
+mains.trier_mains()
