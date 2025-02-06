@@ -103,18 +103,19 @@ def toursia (ia,player,peut_jouer, nouvelle_couleur):
 		if nouvelle_couleur[1] == 1:
 			print(nouvelle_couleur)
 			for k in range(ia.nb_main()):
-				if carte_valide2(nouvelle_couleur[0], ia.main_joueur[k]) == True:
+				t = nouvelle_couleur[0]
+				if carte_valide2(t, ia.main_joueur[k]) == True:
 					valid1 = True
 
 			if valid1 == True:	
-				carteChoisie = choix_complexe2(ia.main_joueur,player.main_joueur, nouvelle_couleur)[0]
-				ia.choix_carte(choix_complexe2(ia.main_joueur,player.main_joueur, nouvelle_couleur)[1])
+				carteChoisie = choix_complexe2(ia.main_joueur,player.main_joueur, t)[0]
+				ia.choix_carte(choix_complexe2(ia.main_joueur,player.main_joueur, t)[1])
 				arghhh = True
 
 			else:
 				ia.ajouter_carte(deck_partie.retirer_carte())
 				print("Le bot pioche")
-				if carte_valide2(nouvelle_couleur, ia.main_joueur[-1]) == True:
+				if carte_valide2(t, ia.main_joueur[-1]) == True:
 					carteChoisie = ia.choix_carte(-1)	
 					arghhh = True
 					print("Le bot place la carte pioché")
