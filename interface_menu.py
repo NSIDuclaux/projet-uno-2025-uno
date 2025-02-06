@@ -3,12 +3,27 @@ from PIL import Image, ImageTk
 #from pygame import mixer
 from subprocess import run
 
+#Frame
+
+def affiché_frame_menu():
+    pass
+
+def affiché_frame_jeu():
+
+    frame_menu.pack_forget()
+    frame_jeu.pack(fill="both", expand=True)
+
+def affiché_frame_parametre():
+
+    frame_menu.pack_forget()
+    frame_parametre.pack(fill="both", expand=True)
+
+
 #Fonction Bouton
 
 def bouton_jouer():
 
-    fenetre.destroy()
-    run(["python", "interface_jeu.py"])
+    affiché_frame_jeu()
 
 def bouton_jouer_entrer(event):
 
@@ -20,8 +35,7 @@ def bouton_jouer_sortie(event):
 
 def bouton_parametre():
 
-    fenetre.destroy()
-    run(["python", "interface_paramètre.py"])
+    affiché_frame_parametre()
 
 def bouton_parametre_entrer(event):
 
@@ -63,12 +77,18 @@ fenetre.attributes("-fullscreen",True)
 fond = "#1e1e1e"
 fenetre.config(bg=fond)
 
-#Element Interface
+##Frame
+
+frame_menu = Frame(fenetre,bg=fond)
+frame_jeu = Frame(fenetre,bg=fond)
+frame_parametre = Frame(fenetre,bg=fond)
+
+#Frame_menu
 
 logo_image = Image.open("Logo.png").resize((450, 450))
 logo_image = ImageTk.PhotoImage(logo_image)
 
-logo_label = Label(fenetre, image=logo_image, bg="#1e1e1e")
+logo_label = Label(frame_menu, image=logo_image, bg="#1e1e1e")
 logo_label.place(relx=0.5, rely=0.25, anchor='center')
 
 bouton1_image_normal = Image.open("Bouton Jouer.png").resize((400,130 ))
@@ -77,7 +97,7 @@ bouton1_image_normal = ImageTk.PhotoImage(bouton1_image_normal)
 bouton1_image_large = Image.open("Bouton Jouer.png").resize((480,156 ))
 bouton1_image_large = ImageTk.PhotoImage(bouton1_image_large)
 
-bouton1_button = Button(fenetre, image=bouton1_image_normal, bg="#1e1e1e", width=500, height=100,command=bouton_jouer,borderwidth=0,activebackground="#1e1e1e")
+bouton1_button = Button(frame_menu, image=bouton1_image_normal, bg="#1e1e1e", width=500, height=100,command=bouton_jouer,borderwidth=0,activebackground="#1e1e1e")
 bouton1_button.place(relx=0.5, rely=0.6, anchor='center')
 
 bouton2_image_normal = Image.open("Bouton Paramètre.png").resize((400,130 ))
@@ -86,7 +106,7 @@ bouton2_image_normal = ImageTk.PhotoImage(bouton2_image_normal)
 bouton2_image_large = Image.open("Bouton Paramètre.png").resize((480,156 ))
 bouton2_image_large = ImageTk.PhotoImage(bouton2_image_large)
 
-bouton2_button = Button(fenetre, image=bouton2_image_normal, bg="#1e1e1e", width=500, height=100,command=bouton_parametre,borderwidth=0,activebackground="#1e1e1e")
+bouton2_button = Button(frame_menu, image=bouton2_image_normal, bg="#1e1e1e", width=500, height=100,command=bouton_parametre,borderwidth=0,activebackground="#1e1e1e")
 bouton2_button.place(relx=0.5, rely=0.72, anchor='center')
 
 bouton3_image_normal = Image.open("Bouton Quitter.png").resize((400,130 ))
@@ -95,10 +115,16 @@ bouton3_image_normal = ImageTk.PhotoImage(bouton3_image_normal)
 bouton3_image_large = Image.open("Bouton Quitter.png").resize((480,156 ))
 bouton3_image_large = ImageTk.PhotoImage(bouton3_image_large)
 
-bouton3_button = Button(fenetre, image=bouton3_image_normal, bg="#1e1e1e", width=500, height=100,command=bouton_quitter,borderwidth=0,activebackground="#1e1e1e")
+bouton3_button = Button(frame_menu, image=bouton3_image_normal, bg="#1e1e1e", width=500, height=100,command=bouton_quitter,borderwidth=0,activebackground="#1e1e1e")
 bouton3_button.place(relx=0.5, rely=0.84, anchor='center')
 
+#Frame Jeu
+
+
+
 #Interaction avec la page
+
+#Menu
 
 bouton1_button.bind("<Enter>", bouton_jouer_entrer)
 bouton1_button.bind("<Leave>", bouton_jouer_sortie)
@@ -108,5 +134,9 @@ bouton2_button.bind("<Leave>", bouton_parametre_sortie)
 
 bouton3_button.bind("<Enter>", bouton_quitter_entrer)
 bouton3_button.bind("<Leave>", bouton_quitter_sortie)
+
+#Ne pas touché
+
+frame_menu.pack(fill="both", expand=True)
 
 fenetre.mainloop()
