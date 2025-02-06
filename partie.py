@@ -14,7 +14,6 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur):
 
 	if peut_jouer is True :
 		if nouvelle_couleur[1] == 1:
-			print(nouvelle_couleur)
 			t = nouvelle_couleur[0]
 			for k in range(player.nb_main()):
 				if carte_valide2(t, player.main_joueur[k]) == True:
@@ -101,7 +100,6 @@ def toursia (ia,player,peut_jouer, nouvelle_couleur):
 	arghhh = False
 	if peut_jouer is True :
 		if nouvelle_couleur[1] == 1:
-			print(nouvelle_couleur)
 			for k in range(ia.nb_main()):
 				t = nouvelle_couleur[0]
 				if carte_valide2(t, ia.main_joueur[k]) == True:
@@ -179,6 +177,7 @@ pile_milieu = []
 sens_horaire = True
 playerPeutJouer = True
 iaPeutJouer = True
+peut_jouer = True
 nouvelle_couleur = ["", 0]
 pile_milieu.append(deck_partie.retirer_carte())
 #Début Partie
@@ -189,6 +188,7 @@ while reponse != "oui" or reponse != "non":
 
 	if reponse == "oui":
 		while vict == False:
+			print(peut_jouer)
 			print("bot :", ia)
 			print("joueur :", player)
             
@@ -196,13 +196,13 @@ while reponse != "oui" or reponse != "non":
 
 			if sens_horaire is True:
 
-				nouvelle_couleur, peut_jouer = toursjoueur(player,ia, playerPeutJouer, nouvelle_couleur)
-				nouvelle_couleur, peut_jouer = toursia(ia,player, iaPeutJouer, nouvelle_couleur)
+				nouvelle_couleur, peut_jouer = toursjoueur(player,ia, peut_jouer, nouvelle_couleur)
+				nouvelle_couleur, peut_jouer = toursia(ia,player, peut_jouer, nouvelle_couleur)
 
 			else :
 
-				nouvelle_couleur, peut_jouer = toursia(ia,player,iaPeutJouer, nouvelle_couleur)
-				nouvelle_couleur, peut_jouer = toursjoueur(player,ia,playerPeutJouer, nouvelle_couleur)
+				nouvelle_couleur, peut_jouer = toursia(ia,player,peut_jouer, nouvelle_couleur)
+				nouvelle_couleur, peut_jouer = toursjoueur(player,ia,peut_jouer, nouvelle_couleur)
 			
 			if player.main_joueur == []:
 				vict = True
