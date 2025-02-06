@@ -1,6 +1,6 @@
 from tkinter import *
 from PIL import Image, ImageTk
-from pygame import mixer
+#from pygame import mixer
 from subprocess import run
 
 #Fonction Bouton

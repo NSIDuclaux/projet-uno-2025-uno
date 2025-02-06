@@ -2,10 +2,10 @@ class Carte:
     
     def __init__(self,couleur,nombre):
 
-        #0 = Jaune  #0 #1 #2 #3 #4 #5 #6 #7 #8 #9 
-        #1 = Rouge  #Sans inverse = 10 #Passer son tour = 11 # +2 = 12
+        #0 = Violet  #0 #1 #2 #3 #4 #5 #6 #7 #8 #9 
+        #1 = Rose  #Sans inverse = 10 #Passer son tour = 11 # +2 = 12
         #2 = Bleu   #+4 13, #changer de couleur = 14
-        #3 = Vert
+        #3 = Cyan
         #4 = Noir
         
         self.couleur = couleur
