@@ -180,7 +180,6 @@ while reponse != "oui" or reponse != "non":
 	reponse = str(input("Voulez-vous commencer une partie ? | Oui/Non")).lower()
 
 	if reponse == "oui":
-
 		while vict == False:
 			print("bot :", ia)
 			print("joueur :", player)
@@ -204,7 +203,7 @@ while reponse != "oui" or reponse != "non":
 			elif ia.main_joueur == []:
 				vict = True
 				print("Victoire de l'IA (T'es mauvais :-) )")
-                
+
 	if reponse == "non" :
 
 		break
