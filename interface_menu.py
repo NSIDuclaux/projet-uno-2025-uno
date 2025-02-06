@@ -47,9 +47,9 @@ def bouton_quitter_sortie(event):
 
 #Musique de fond
 
-mixer.init()
-mixer.music.load("Main_Theme.mp3")
-mixer.music.play(-1)
+# mixer.init()
+# mixer.music.load("Main_Theme.mp3")
+# mixer.music.play(-1)
 
 #Création de la fenêtre
 
