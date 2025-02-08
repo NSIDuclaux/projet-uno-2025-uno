@@ -17,7 +17,7 @@ class Main :
         return self.main_joueur
     
     def choix_carte(self, num_carte):
-        #self.num_carte = num_carte
+
         return self.main_joueur.pop(num_carte)
 
     def nb_main(self):

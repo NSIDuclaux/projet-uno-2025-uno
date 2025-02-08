@@ -218,26 +218,3 @@ while reponse != "oui" or reponse != "non":
 	if reponse == "non" :
 
 		break
-
-## ANCIEN CODE
-#
-# while Player.main_joueur != [] or Ia.main_joueur:
-#   	carte_place.empiler(D_partie.retirer_carte())
-#   	print(Player)
-#   	valid = False
-#   	while valid == False:
-#     	while numero < 0 or numero > Player.nb_carte():
-#     	    numero = input("Choisir Carte")
-#     	valid = carte_valide(Player.main_joueur[numero], carte_place.sommet())
-# 	cc = Player.choix_carte(int(numero))
-# 	print(cc)
-# 	carte_place.empiler(cc)
-# 	#placer effet Player
-# 	numeral = ProgIa.jouer(Ia.main_joueur)
-# 	ccc = Ia.choix_carte(int(numero))
-# 	print(ccc)
-# 	#Placer effet Ia
-# 	if Player.main_joueur == []:
-# 	print("Victoire du joueur !!!!!")
-# 	else:
-# 	print("Victoire de l'IA (T'es mauvais :-) )")
