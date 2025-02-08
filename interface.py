@@ -120,7 +120,6 @@ bouton3_button.place(relx=0.5, rely=0.84, anchor='center')
 #Frame Jeu
 
 
-
 #Interaction avec la page
 
 #Menu
