@@ -35,7 +35,7 @@ def changer_couleur():
 
     nouvelleCouleur = ["", 1]
 
-    while nouvelleCouleur[0] != "jaune" and nouvelleCouleur[0] != "rouge" and nouvelleCouleur[0] != "vert" and nouvelleCouleur[0] != "bleu":
+    while nouvelleCouleur[0] != "violet" and nouvelleCouleur[0] != "cyan" and nouvelleCouleur[0] != "rose" and nouvelleCouleur[0] != "bleu":
         nouvelleCouleur[0] = input("Choissez une nouvelle couleur")
     print("La nouvelle couleur est",nouvelleCouleur[0])
 
@@ -49,7 +49,7 @@ def plus_4_carte (main,deck):
 
     nouvelleCouleur = ["", 1]
 
-    while nouvelleCouleur[0] != "jaune" and nouvelleCouleur[0] != "rouge" and nouvelleCouleur[0] != "vert" and nouvelleCouleur[0] != "bleu":
+    while nouvelleCouleur[0] != "violet" and nouvelleCouleur[0] != "cyan" and nouvelleCouleur[0] != "rose" and nouvelleCouleur[0] != "bleu":
         nouvelleCouleur[0] = input("Choissez une nouvelle couleur")
     
     print("Le joueur suivant reçoit 4 carte, et la nouvelle couleur est",nouvelleCouleur[0])

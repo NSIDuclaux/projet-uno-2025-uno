@@ -180,6 +180,8 @@ iaPeutJouer = True
 peut_jouer = True
 nouvelle_couleur = ["", 0]
 pile_milieu.append(deck_partie.retirer_carte())
+player.trier_mains()
+ia.trier_mains()
 #Début Partie
 vict = False
 while reponse != "oui" or reponse != "non":
