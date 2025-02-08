@@ -1,5 +1,5 @@
 from deck import Deck
-# from Trie import *
+from Trie import *
 
 class Main :
 
@@ -33,31 +33,46 @@ class Main :
         cartes_rose = []
         cartes_bleu = []
         cartes_cyan = []
+        cartes_noir = []
 
         for carte in self.main_joueur:
-            
-            print(carte.get_couleur())
 
-            if carte.get_couleur() == "violet":
+            if carte.get_couleur() == 0:
 
                 cartes_violet.append(carte)
 
-            elif carte.get_couleur() == "rose":
+            elif carte.get_couleur() == 1:
 
                 cartes_rose.append(carte)
 
-            elif carte.get_couleur() == "bleu":
+            elif carte.get_couleur() == 2:
 
                 cartes_bleu.append(carte)
             
-            elif carte.get_couleur() == "cyan":
+            elif carte.get_couleur() == 3:
 
                 cartes_cyan.append(carte)
 
+            elif carte.get_couleur() == 4:
 
-            print(carte.get_nombre())
+                cartes_noir.append(carte)
 
-        print(cartes_violet,cartes_rose,cartes_bleu,cartes_cyan)
+        tableau_cartes = [cartes_violet,cartes_rose,cartes_bleu,cartes_cyan,cartes_noir]
+        tableau_cartes_trie = []
+
+        for tab in tableau_cartes:
+            
+            tableau_cartes_trie.append(tri_selection(tab))
+
+        nouvelle_main = []
+
+        for i in range (5):
+
+            for carte in tableau_cartes_trie[i]:
+
+                nouvelle_main.append(carte)
+
+        self.main_joueur = nouvelle_main
 
     def __str__(self):
         
@@ -77,3 +92,4 @@ mains = Main(deck)
 mains.creer_main()
 print(mains)
 mains.trier_mains()
+print(mains)

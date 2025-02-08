@@ -43,25 +43,25 @@ class Carte:
         
             if self.couleur == 0:
 
-                self.couleur = "violet"
+                self.newcouleur = "violet"
 
             elif self.couleur == 1:
 
-                self.couleur = "rose"
+                self.newcouleur = "rose"
 
             elif self.couleur == 2:
 
-                self.couleur = "bleu"
+                self.newcouleur = "bleu"
 
             elif self.couleur == 3:
 
-                self.couleur = "cyan"
+                self.newcouleur = "cyan"
 
             elif self.couleur == 4:
                 
-                self.couleur = "noire"
+                self.newcouleur = "noire"
 
-            return str(self.type_carte()) + " - " + self.couleur
+            return str(self.type_carte()) + " - " + self.newcouleur
 
         else :
 
