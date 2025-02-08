@@ -44,7 +44,7 @@ def choix_complexe(Main_bot, Main_player, carteMilieu):
         for k in range(len(l)):
             if l[k][0].nombre != 13 and l[k][0].nombre !=12 and l[k][0].nombre !=11 and l[k][0].nombre !=14:
                 if l[k][0].couleur == new_c:
-                    return l[k][0]
+                    return (l[k])
         for k in range(len(l)):
             if l[k][0].nombre != 13 and l[k][0].nombre !=12 and l[k][0].nombre !=11 and l[k][0].nombre !=14:
                 return (l[k])
