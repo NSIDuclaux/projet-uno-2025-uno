@@ -1,4 +1,5 @@
 from random import *
+from carte_valide import *
 def inverse (sens_horaire):
 
     if sens_horaire == True:
@@ -22,15 +23,49 @@ def interdit_jouer ():
 
     return pouvoirJouer
 
-def plus_2_carte (main,deck):
-
-    for i in range (2):
+def plus_2_carte (main,deck,carte,pile_milieu,coef):
+    while renvoie_valide(carte,main) != False:
+        print("renvoie possible")
+        print(main)
+        valid = False
+        while valid == False:
+            numeroChoisie = -1
+            while int(numeroChoisie) < 0 or int(numeroChoisie) >= main.nb_main():
+                numeroChoisie = input("Choissez une carte").lower
+                if int(numeroChoisie) >= 0 and int(numeroChoisie) < main.nb_main():
+                    valid = renvoie_valide(carte,main.main_joueur[int(numeroChoisie)]) 
+        carteChoisie = main.choix_carte(int(numeroChoisie))
+        print("La carte retourné est :",carteChoisie)
+        pile_milieu.append(carteChoisie)
+        deck.ajouter_carte(carteChoisie)
+        if carteChoisie.nombre == 14:
+            coef = coef + 4
+        else:
+            coef = coef + 2
+        return coef
+    for i in range (coef):
 
         main.ajouter_carte(deck.retirer_carte())
 
-    print("Le joueur suivant reçoit 2 carte")
+    print("Le joueur suivant reçoit "+ coef +" carte")
 
+def plus_2_carte_bot (bot,deck,carte,pile_milieu,coef):
+    while renvoie_valide(carte,bot) != False:
+        print("Renvoie de carte")
+        carteChoisie = renvoie_valide(carte,bot)
+        c = bot[carteChoisie]
+        print("La carte retourné est :", c)
+        pile_milieu.append(c)
+        deck.ajouter_carte(c)
+        if c.nombre == 14:
+            coef = coef + 4
+        else:
+            coef = coef + 2
+        return coef
 
+    for i in range (coef):
+
+        bot.ajouter_carte(deck.retirer_carte())
 def changer_couleur():
 
     nouvelleCouleur = ["", 1]

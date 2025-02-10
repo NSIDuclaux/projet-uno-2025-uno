@@ -24,8 +24,12 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur):
 					numeroChoisie = -1
       
 					while int(numeroChoisie) < 0 or int(numeroChoisie) >= player.nb_main():
-						numeroChoisie = input("Choissez une carte")	
-						if int(numeroChoisie) >= 0 and int(numeroChoisie) < player.nb_main():
+						numeroChoisie = input("Choissez une carte")
+						if numeroChoisie != int:
+							g = False
+						else:
+							g = True
+						if int(numeroChoisie) >= 0 and int(numeroChoisie) < player.nb_main() and g == True:
 							valid = carte_valide2(t,player.main_joueur[int(numeroChoisie)])
 
 				carteChoisie = player.choix_carte(int(numeroChoisie))
@@ -81,7 +85,10 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur):
 			peut_jouer = interdit_jouer()
 
 		if carteChoisie.effet_carte() == 3:
-			plus_2_carte(ia,deck_partie)
+			coef = 0
+			c = plus_2_carte_bot(ia,deck_partie,carteChoisie,pile_milieu,coef)
+			if c == int:
+				plus_2_carte(player,deck_partie,carteChoisie,pile_milieu,c)
 
 		if carteChoisie.effet_carte() == 4:
 			nouvelle_couleur = plus_4_carte(ia,deck_partie)
@@ -153,7 +160,10 @@ def toursia (ia,player,peut_jouer, nouvelle_couleur):
 			peut_jouer = interdit_jouer()
 
 		if carteChoisie.effet_carte() == 3:
-			plus_2_carte(player,deck_partie)
+			coef = 0
+			c = plus_2_carte(player,deck_partie,carteChoisie,pile_milieu,coef)
+			if c == int:
+				plus_2_carte_bot(ia,deck_partie,carteChoisie,pile_milieu,c)
 
 		if carteChoisie.effet_carte() == 4: 
 			nouvelle_couleur = bot_plus_4_carte(player, deck_partie)

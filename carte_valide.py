@@ -1,5 +1,5 @@
 from carte import Carte
-
+from main_joueur import *
 def carte_valide(carteposee, cartepropose):
     if type(cartepropose) == str or type(carteposee) == str:
         return True
@@ -30,6 +30,14 @@ def carte_valide2(couleur, cartepropose):
     if couleur == cartepropose.couleur:
         return True
     return False
+
+def renvoie_valide(carteposee, main):
+    for k in range(main.nb_main()):
+        if carteposee.nombre == main[k].nombre or main[k].nombre == 13:
+            return k
+    return False
+
+
 #cartepose = "jaune"
 #cartepropose = Carte(0, 8)
 #print(carte_valide2("jaune", cartepropose))
