@@ -5,6 +5,7 @@ from PIL import Image, ImageTk
 from pygame import mixer
 from os import *
 from time import sleep
+import sqlite3
 
 # Jeu
 
@@ -27,9 +28,10 @@ fenetre.attributes("-fullscreen", True)
 fond = "#1e1e1e"
 fenetre.config(bg=fond)
 
-# Fonction pour mettre à jour l'affichage des cartes
+# Fonction pour mettre à jour l'affichage des cartes tourbées
 
 def update_display():
+
     global main
     global image_dos_carte_rotate
 
@@ -45,7 +47,17 @@ def update_display():
 
     fenetre.update()
 
+def fichier_carte(carte):
 
+    connexion = sqlite3.connect('carte/carte.db')
+    c = connexion.cursor()
+
+    c.execute("SELECT chemin FROM carte WHERE IDCouleur = ? AND IDCarte = ?", (carte.get_couleur(),carte.get_nombre()))
+    chemin = c.fetchall()[0][0]
+
+    return chemin
+    
+    
 frame = Frame(fenetre)
 frame.pack(pady=20)
 
@@ -57,6 +69,9 @@ new_size = (int(image_dos_carte.width * ratio), int(image_dos_carte.height * rat
 image_dos_carte = image_dos_carte.resize(new_size)
 image_dos_carte_rotate = image_dos_carte.rotate(180)
 image_dos_carte_rotate = ImageTk.PhotoImage(image_dos_carte_rotate)
+
+print (main.choix_carte(0))
+print(fichier_carte(main.choix_carte(0)))
 
 update_display()
 
