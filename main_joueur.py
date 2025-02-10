@@ -19,6 +19,10 @@ class Main :
     def choix_carte(self, num_carte):
 
         return self.main_joueur.pop(num_carte)
+    
+    def selection_carte(self,index):
+
+        return self.main_joueur[index]
 
     def nb_main(self):
         return len(self.main_joueur)

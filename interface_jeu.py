@@ -9,12 +9,16 @@ import sqlite3
 
 # Jeu
 
+image_cartes_joueur = []
 deck = Deck()
 deck.remplir_entier()
 deck.melange()
-main = Main(deck)
-main.creer_main()
-main.trier_mains()
+mainIA = Main(deck)
+mainIA.creer_main()
+mainIA.trier_mains()
+mainJoueur = Main(deck)
+mainJoueur.creer_main()
+mainJoueur.trier_mains()
 
 # Création de la fenêtre
 
@@ -30,19 +34,45 @@ fenetre.config(bg=fond)
 
 # Fonction pour mettre à jour l'affichage des cartes tourbées
 
-def update_display():
+def update_cartesIA():
 
-    global main
+    global mainIA
     global image_dos_carte_rotate
 
-    for widget in frame.winfo_children():
+    for widget in frame_cartes_ia.winfo_children():
         widget.destroy()
 
     col = 0
     
-    for i in range (main.nb_main()):
+    for i in range (mainIA.nb_main()):
 
-        Label(frame, image=image_dos_carte_rotate, padx=10, pady=5, bg=fond).grid(row=0, column=col, padx=0)
+        Label(frame_cartes_ia, image=image_dos_carte_rotate, padx=10, pady=5, bg=fond).grid(row=0, column=col, padx=0)
+        col += 1
+
+    fenetre.update()
+
+def update_cartesJoueur():
+
+    global mainJoueur
+    global image_cartes_joueur
+
+    for widget in frame_cartes_joueur.winfo_children():
+        widget.destroy()
+
+    col = 0
+    
+    for i in range (mainJoueur.nb_main()):
+
+        chemin = path.abspath(fichier_carte(mainJoueur.selection_carte(i)))
+        image_carte = Image.open(chemin)
+        ratio = 0.1
+        new_size = (int(image_carte.width * ratio), int(image_carte.height * ratio))
+        image_carte = image_carte.resize(new_size)
+        image_carte = ImageTk.PhotoImage(image_carte)
+        image_cartes_joueur.append(image_carte)
+
+
+        Label(frame_cartes_joueur, image=image_carte, padx=10, pady=5, bg=fond).grid(row=0, column=col, padx=0)
         col += 1
 
     fenetre.update()
@@ -57,9 +87,12 @@ def fichier_carte(carte):
 
     return chemin
     
-    
-frame = Frame(fenetre)
-frame.pack(pady=20)
+
+frame_principal = Frame(fenetre,bg=fond)
+frame_cartes_ia = Frame(fenetre,bg=fond)
+frame_cartes_ia.pack(side=TOP,pady=20)
+frame_cartes_joueur = Frame(fenetre,bg=fond)
+frame_cartes_joueur.pack(side=BOTTOM,pady=20)
 
 image_path = path.abspath("carte/autre/Dos.png")
 
@@ -70,10 +103,10 @@ image_dos_carte = image_dos_carte.resize(new_size)
 image_dos_carte_rotate = image_dos_carte.rotate(180)
 image_dos_carte_rotate = ImageTk.PhotoImage(image_dos_carte_rotate)
 
-print (main.choix_carte(0))
-print(fichier_carte(main.choix_carte(0)))
 
-update_display()
+
+update_cartesIA()
+update_cartesJoueur()
 
 # Essaie
 
