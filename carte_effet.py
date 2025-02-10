@@ -43,17 +43,19 @@ def plus_2_carte (main,deck,carte,pile_milieu,coef):
         else:
             coef = coef + 2
         return coef
+    
+    coef = coef + 2
     for i in range (coef):
 
         main.ajouter_carte(deck.retirer_carte())
 
-    print("Le joueur suivant reçoit "+ coef +" carte")
+    print("Le joueur suivant reçoit "+ str(coef) +" carte")
 
 def plus_2_carte_bot (bot,deck,carte,pile_milieu,coef):
     while renvoie_valide(carte,bot) != False:
         print("Renvoie de carte")
         carteChoisie = renvoie_valide(carte,bot)
-        c = bot[carteChoisie]
+        c = bot.main_joueur[carteChoisie]
         print("La carte retourné est :", c)
         pile_milieu.append(c)
         deck.ajouter_carte(c)
@@ -62,10 +64,11 @@ def plus_2_carte_bot (bot,deck,carte,pile_milieu,coef):
         else:
             coef = coef + 2
         return coef
-
+    coef = coef + 2
     for i in range (coef):
 
         bot.ajouter_carte(deck.retirer_carte())
+    print("Le joueur suivant reçoit "+ str(coef) +" carte")
 def changer_couleur():
 
     nouvelleCouleur = ["", 1]
