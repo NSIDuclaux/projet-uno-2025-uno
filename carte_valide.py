@@ -32,9 +32,11 @@ def carte_valide2(couleur, cartepropose):
     return False
 
 def renvoie_valide(carteposee, main):
-    for k in range(main.nb_main()):
-        if carteposee.nombre == main[k].nombre or main[k].nombre == 13:
-            return k
+    c = -1
+    for k in main.main_joueur:
+        c = c + 1
+        if carteposee.nombre == k.nombre or k.nombre == 13:
+            return c
     return False
 
 

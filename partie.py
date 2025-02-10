@@ -25,11 +25,8 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur):
       
 					while int(numeroChoisie) < 0 or int(numeroChoisie) >= player.nb_main():
 						numeroChoisie = input("Choissez une carte")
-						if numeroChoisie != int:
-							g = False
-						else:
-							g = True
-						if int(numeroChoisie) >= 0 and int(numeroChoisie) < player.nb_main() and g == True:
+						
+						if int(numeroChoisie) >= 0 and int(numeroChoisie) < player.nb_main():
 							valid = carte_valide2(t,player.main_joueur[int(numeroChoisie)])
 
 				carteChoisie = player.choix_carte(int(numeroChoisie))
@@ -56,11 +53,7 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur):
       
 					while int(numeroChoisie) < 0 or int(numeroChoisie) >= player.nb_main():
 						numeroChoisie = input("Choissez une carte")	
-						if numeroChoisie != int:
-							g = False
-						else:
-							g = True
-						if int(numeroChoisie) >= 0 and int(numeroChoisie) < player.nb_main() and g == True:
+						if int(numeroChoisie) >= 0 and int(numeroChoisie) < player.nb_main():
 							valid = carte_valide(pile_milieu[-1], player.main_joueur[int(numeroChoisie)])
 
 				carteChoisie = player.choix_carte(int(numeroChoisie))
