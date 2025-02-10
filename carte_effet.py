@@ -59,7 +59,7 @@ def plus_4_carte (main,deck):
 def bot_changer_couleur():
 
     c = randint(0,3)
-    d = ["rouge","vert","bleu","jaune"]
+    d = ["violet","rose","bleu","cyan"]
     nouvelleCouleur= [d[c], 1]
     print("La nouvelle couleur est",nouvelleCouleur[0])
 
@@ -72,7 +72,7 @@ def bot_plus_4_carte (main,deck):
         main.ajouter_carte(deck.retirer_carte())
 
     c = randint(0,3)
-    d = ["rouge","vert","bleu","jaune"]
+    d = ["violet","rose","bleu","cyan"]
     nouvelleCouleur= [d[c], 1]
 
     print("Le joueur suivant reçoit 4 carte, et la nouvelle couleur est",nouvelleCouleur[0])
