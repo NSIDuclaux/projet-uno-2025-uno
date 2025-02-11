@@ -88,12 +88,12 @@ class Main :
 
         return str(self.affichage)
 
-deck = Deck()
-deck.remplir_entier()
-deck.melange()
+#deck = Deck()
+#deck.remplir_entier()
+#deck.melange()
 
-mains = Main(deck)
-mains.creer_main()
-print(mains)
-mains.trier_mains()
-print(mains)
+#mains = Main(deck)
+#mains.creer_main()
+#print(mains)
+#mains.trier_mains()
+#print(mains)

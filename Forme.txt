@@ -2,12 +2,12 @@ FAIT:
 Carte: crée et print la carte
 Deck: regroupe les cartes en deck
 Mains joueur: création de la main via un random dans le deck et retourne la main + supprime de deck les carte tirées
-
-
-
+partie: déroulement sans erreurs
+bot: choix intelligent de carte
+carte_valide: verification de carte
+carte_effet: fait les effets de carte (logique) du joueur et du bot
 
 
 A faire:
-Prog prin : déroulement de la partie + mise en place de l' IA
-bot: parcours les cartes de sa mains plus check si valide puis aléatoire entre les cartes
-
+Interface
+Ajout de règles supplémentaire (ex: remettre un + deux sur un autre etc...)

@@ -40,3 +40,4 @@ class Pile:
     def sommet(self):
         """Retourne la valeur du sommet de la pile"""
         return self.summit.element
+

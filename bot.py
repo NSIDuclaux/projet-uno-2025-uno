@@ -37,7 +37,7 @@ def choix_complexe(Main_bot, Main_player, carteMilieu):
             if l[k][0].nombre == 12:
                 return (l[k])
     else:
-        for g in range(len(l)):
+        for g in range(len(fr)):
                     if fr[g] > max:
                         max = fr[g]
                         new_c = g
