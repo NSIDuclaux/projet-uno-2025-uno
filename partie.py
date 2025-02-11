@@ -4,7 +4,7 @@ from carte_valide import *
 from carte_effet import *
 from bot import *
 
-def toursjoueur (player,ia,peut_jouer, nouvelle_couleur):
+def toursjoueur (player,ia,peut_jouer, nouvelle_couleur, sens_horaire):
 
 	global deck_partie
 	global pile_milieu
@@ -76,7 +76,7 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur):
 		deck_partie.ajouter_carte(carteChoisie)
 
 		if carteChoisie.effet_carte() == 1 :
-			inverse(sens_horaire)
+			sens_horaire = inverse(sens_horaire)
 
 		if carteChoisie.effet_carte() == 2 :
 			peut_jouer = interdit_jouer()
@@ -93,10 +93,10 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur):
 		if carteChoisie.effet_carte() == 5 : 
 			nouvelle_couleur = changer_couleur()
 	
-	return nouvelle_couleur, peut_jouer
+	return nouvelle_couleur, peut_jouer, sens_horaire
 	
 
-def toursia (ia,player,peut_jouer, nouvelle_couleur): 
+def toursia (ia,player,peut_jouer, nouvelle_couleur, sens_horaire): 
 
 	global deck_partie
 	global pile_milieu
@@ -151,7 +151,7 @@ def toursia (ia,player,peut_jouer, nouvelle_couleur):
 			0
 
 		if carteChoisie.effet_carte() == 1 :
-			inverse(sens_horaire)
+			sens_horaire = inverse(sens_horaire)
 
 		if carteChoisie.effet_carte() == 2 :
 			peut_jouer = interdit_jouer()
@@ -167,7 +167,7 @@ def toursia (ia,player,peut_jouer, nouvelle_couleur):
 
 		if carteChoisie.effet_carte() == 5 :
 			nouvelle_couleur = bot_changer_couleur()	
-	return nouvelle_couleur, peut_jouer
+	return nouvelle_couleur, peut_jouer, sens_horaire
 
 
 #Initialisation de la partie
@@ -204,13 +204,13 @@ while reponse != "oui" or reponse != "non":
 
 			if sens_horaire is True:
 
-				nouvelle_couleur, peut_jouer = toursjoueur(player,ia, peut_jouer, nouvelle_couleur)
-				nouvelle_couleur, peut_jouer = toursia(ia,player, peut_jouer, nouvelle_couleur)
+				nouvelle_couleur, peut_jouer, sens_horaire = toursjoueur(player,ia, peut_jouer, nouvelle_couleur, sens_horaire)
+				nouvelle_couleur, peut_jouer, sens_horaire = toursia(ia,player, peut_jouer, nouvelle_couleur, sens_horaire)
 
 			else :
 
-				nouvelle_couleur, peut_jouer = toursia(ia,player,peut_jouer, nouvelle_couleur)
-				nouvelle_couleur, peut_jouer = toursjoueur(player,ia,peut_jouer, nouvelle_couleur)
+				nouvelle_couleur, peut_jouer, sens_horaire = toursia(ia,player,peut_jouer, nouvelle_couleur, sens_horaire)
+				nouvelle_couleur, peut_jouer, sens_horaire = toursjoueur(player,ia,peut_jouer, nouvelle_couleur, sens_horaire)
 			
 			if player.main_joueur == []:
 				vict = True
