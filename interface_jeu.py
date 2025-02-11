@@ -103,7 +103,7 @@ image_dos_carte = image_dos_carte.resize(new_size)
 image_dos_carte_rotate = image_dos_carte.rotate(180)
 image_dos_carte_rotate = ImageTk.PhotoImage(image_dos_carte_rotate)
 
-
+#Label(frame_principal, image=image_dos_carte, padx=10, pady=5, bg=fond)
 
 update_cartesIA()
 update_cartesJoueur()
