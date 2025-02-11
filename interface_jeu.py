@@ -44,7 +44,7 @@ def update_cartesIA():
 
     col = 0
     
-    for i in range (mainIA.nb_main()):
+    for i in range(mainIA.nb_main()):
 
         Label(frame_cartes_ia, image=image_dos_carte_rotate, padx=10, pady=5, bg=fond).grid(row=0, column=col, padx=0)
         col += 1
@@ -61,7 +61,7 @@ def update_cartesJoueur():
 
     col = 0
     
-    for i in range (mainJoueur.nb_main()):
+    for i in range(mainJoueur.nb_main()):
 
         chemin = path.abspath(fichier_carte(mainJoueur.selection_carte(i)))
         image_carte = Image.open(chemin)
@@ -71,8 +71,7 @@ def update_cartesJoueur():
         image_carte = ImageTk.PhotoImage(image_carte)
         image_cartes_joueur.append(image_carte)
 
-
-        Label(frame_cartes_joueur, image=image_carte, padx=10, pady=5, bg=fond).grid(row=0, column=col, padx=0)
+        Button(frame_cartes_joueur, image=image_carte, padx=10, pady=5, bg=fond, borderwidth=0, activebackground="#1e1e1e").grid(row=0, column=col, padx=0)
         col += 1
 
     fenetre.update()
@@ -82,29 +81,37 @@ def fichier_carte(carte):
     connexion = sqlite3.connect('carte/carte.db')
     c = connexion.cursor()
 
-    c.execute("SELECT chemin FROM carte WHERE IDCouleur = ? AND IDCarte = ?", (carte.get_couleur(),carte.get_nombre()))
+    c.execute("SELECT chemin FROM carte WHERE IDCouleur = ? AND IDCarte = ?", (carte.get_couleur(), carte.get_nombre()))
     chemin = c.fetchall()[0][0]
 
     return chemin
     
+# Création des frames
+frame_cartes_ia = Frame(fenetre, bg=fond)
+frame_cartes_ia.pack(side=TOP, pady=20)
 
-frame_principal = Frame(fenetre,bg=fond)
-frame_cartes_ia = Frame(fenetre,bg=fond)
-frame_cartes_ia.pack(side=TOP,pady=20)
-frame_cartes_joueur = Frame(fenetre,bg=fond)
-frame_cartes_joueur.pack(side=BOTTOM,pady=20)
+frame_cartes_joueur = Frame(fenetre, bg=fond)
+frame_cartes_joueur.pack(side=BOTTOM, pady=20)
 
+frame_milieu = Frame(fenetre, bg=fond) 
+frame_milieu.pack(anchor=CENTER)
+
+# Charger l'image de la carte dos
 image_path = path.abspath("carte/autre/Dos.png")
-
 image_dos_carte = Image.open(image_path)
 ratio = 0.1
 new_size = (int(image_dos_carte.width * ratio), int(image_dos_carte.height * ratio))
 image_dos_carte = image_dos_carte.resize(new_size)
 image_dos_carte_rotate = image_dos_carte.rotate(180)
 image_dos_carte_rotate = ImageTk.PhotoImage(image_dos_carte_rotate)
+image_dos_carte = ImageTk.PhotoImage(image_dos_carte)
 
-#Label(frame_principal, image=image_dos_carte, padx=10, pady=5, bg=fond)
+# Créer le bouton pioche avec l'image de la carte dos
+pioche = Button(frame_milieu, image=image_dos_carte, padx=10, pady=5, bg=fond, borderwidth=0, activebackground="#1e1e1e")
 
+pioche.pack(anchor=CENTER, pady=90, padx=10)
+
+# Mettre à jour l'affichage des cartes
 update_cartesIA()
 update_cartesJoueur()
 
