@@ -11,7 +11,6 @@ from carte_valide import *
 from carte_effet import *
 from bot import *
 from time import sleep
-from partie2 import *
 
 # Variables interface
 
@@ -37,6 +36,102 @@ nouvelle_couleur = ["", 0]
 pile_milieu.append(deck_partie.retirer_carte())
 player.trier_mains()
 ia.trier_mains()
+
+#fonction pour les tours du joueur
+
+def toursjoueur (player,ia,peut_jouer, nouvelle_couleur, sens_horaire):
+
+	global deck_partie
+	global pile_milieu
+	valid = False
+	valid1 = False
+	arghhh = False
+
+	if peut_jouer is True :
+		if nouvelle_couleur[1] == 1:
+			t = nouvelle_couleur[0]
+			for k in range(player.nb_main()):
+				if carte_valide2(t, player.main_joueur[k]) == True:
+					valid1 = True
+
+			if valid1 == True:
+				while valid == False:
+					numeroChoisie = -1
+      
+					while int(numeroChoisie) < 0 or int(numeroChoisie) >= player.nb_main():
+						numeroChoisie = input("Choissez une carte")
+						
+						if int(numeroChoisie) >= 0 and int(numeroChoisie) < player.nb_main():
+							valid = carte_valide2(t,player.main_joueur[int(numeroChoisie)])
+
+				carteChoisie = player.choix_carte(int(numeroChoisie))
+				arghhh = True
+
+			else:
+				player.ajouter_carte(deck_partie.retirer_carte())
+				print("Vous piochez")
+
+				if carte_valide2(t, player.main_joueur[-1]) == True:
+					carteChoisie = player.choix_carte(-1)	
+					arghhh = True
+					print("Vous placez la carte pioché")
+
+		else:
+			for k in range(player.nb_main()):
+				if carte_valide(pile_milieu[-1], player.main_joueur[k]) == True:
+					valid1 = True
+
+			if valid1 == True:	
+				while valid == False:
+				
+					numeroChoisie = -1
+      
+					while int(numeroChoisie) < 0 or int(numeroChoisie) >= player.nb_main():
+						numeroChoisie = input("Choissez une carte")	
+						if int(numeroChoisie) >= 0 and int(numeroChoisie) < player.nb_main():
+							valid = carte_valide(pile_milieu[-1], player.main_joueur[int(numeroChoisie)])
+
+				carteChoisie = player.choix_carte(int(numeroChoisie))
+				arghhh = True
+
+			else:
+				player.ajouter_carte(deck_partie.retirer_carte())
+				print("Vous piochez")
+				if carte_valide(pile_milieu[-1], player.main_joueur[-1]) == True:
+					carteChoisie = player.choix_carte(-1)	
+					arghhh = True
+					print("Vous placez la carte pioché")
+
+	peut_jouer = True
+	nouvelle_couleur = ["", 0]
+		
+	if arghhh == True:
+		print("La carte jouer est :",carteChoisie)
+		pile_milieu.append(carteChoisie)
+		deck_partie.ajouter_carte(carteChoisie)
+
+		if carteChoisie.effet_carte() == 1 :
+			sens_horaire = inverse(sens_horaire)
+
+		if carteChoisie.effet_carte() == 2 :
+			peut_jouer = interdit_jouer()
+
+		if carteChoisie.effet_carte() == 3:
+			coef = 0
+			c = plus_2_carte_bot(ia,deck_partie,carteChoisie,pile_milieu,coef)
+			if c == int:
+				plus_2_carte(player,deck_partie,carteChoisie,pile_milieu,c)
+
+		if carteChoisie.effet_carte() == 4:
+			nouvelle_couleur = plus_4_carte(ia,deck_partie)
+
+		if carteChoisie.effet_carte() == 5 : 
+			nouvelle_couleur = changer_couleur()
+	
+	return nouvelle_couleur, peut_jouer, sens_horaire
+	
+
+def toursia (ia,player,peut_jouer, nouvelle_couleur, sens_horaire): 
 
 # Création de la fenêtre
 
