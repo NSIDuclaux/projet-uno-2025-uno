@@ -4,23 +4,39 @@ from tkinter import *
 from PIL import Image, ImageTk
 from pygame import mixer
 from os import *
-from time import sleep
 import sqlite3
+from main_joueur import Main
+from deck import Deck
+from carte_valide import *
+from carte_effet import *
+from bot import *
+from time import sleep
+from partie2 import *
 
-# Jeu
+# Variables interface
 
 image_cartes_joueur = []
 image_cartes_milieu = []
-deck = Deck()
-deck.remplir_entier()
-deck.melange()
-mainIA = Main(deck)
-mainIA.creer_main()
-mainIA.trier_mains()
-mainJoueur = Main(deck)
-mainJoueur.creer_main()
-mainJoueur.trier_mains()
-carte_milieu = mainJoueur.selection_carte(0)
+
+# Jeu
+
+deck_partie = Deck()
+deck_partie.remplir_entier()
+deck_partie.melange()
+player = Main(deck_partie)
+ia = Main(deck_partie)
+player.creer_main()
+ia.creer_main()
+reponse = ""
+pile_milieu = []
+sens_horaire = True
+playerPeutJouer = True
+iaPeutJouer = True
+peut_jouer = True
+nouvelle_couleur = ["", 0]
+pile_milieu.append(deck_partie.retirer_carte())
+player.trier_mains()
+ia.trier_mains()
 
 # Création de la fenêtre
 
@@ -80,14 +96,14 @@ def update_cartesJoueur():
 
 def update_carteJouer():
 
-    global carte_milieu
+    global pile_milieu
     global image_cartes_milieu
 
     for widget in frame_milieu.winfo_children():
         if widget.winfo_name() == "carte_milieu":
             widget.destroy()
 
-    chemin = path.abspath(fichier_carte(carte_milieu))
+    chemin = path.abspath(fichier_carte(pile_milieu[0]))
     image_carte = Image.open(chemin)
     ratio = 0.1
     new_size = (int(image_carte.width * ratio), int(image_carte.height * ratio))
@@ -107,7 +123,7 @@ def fichier_carte(carte):
     chemin = c.fetchall()[0][0]
 
     return chemin
-    
+ 
 # Création des frames
 frame_cartes_ia = Frame(fenetre, bg=fond)
 frame_cartes_ia.pack(side=TOP, pady=20)
@@ -137,17 +153,55 @@ update_cartesIA()
 update_cartesJoueur()
 update_carteJouer()
 
-# Essaie
+# Partie
 
-# for k in range(3):
-#     sleep(1)
-#     main.ajouter_carte(deck.retirer_carte()) 
-#     update_display()
-#     sleep(1) 
+vict = False
 
-# for i in range(3):
-#     main.choix_carte(i)
-#     update_display()
-#     sleep(1)
+while reponse != "oui" or reponse != "non":
+
+	reponse = str(input("Voulez-vous commencer une partie ? | Oui/Non")).lower()
+
+	if reponse == "oui":
+		while vict == False:
+			
+			print("joueur :", player)
+            
+			print("La carte du milieu est :" , pile_milieu[-1])
+                  
+            update_cartesIA()
+            update_cartesJoueur()
+            update_carteJouer()
+
+			if sens_horaire is True:
+
+				nouvelle_couleur, peut_jouer, sens_horaire = toursjoueur(player,ia, peut_jouer, nouvelle_couleur, sens_horaire)
+				nouvelle_couleur, peut_jouer, sens_horaire = toursia(ia,player, peut_jouer, nouvelle_couleur, sens_horaire)
+
+			else :
+
+				nouvelle_couleur, peut_jouer, sens_horaire = toursia(ia,player,peut_jouer, nouvelle_couleur, sens_horaire)
+				nouvelle_couleur, peut_jouer, sens_horaire = toursjoueur(player,ia,peut_jouer, nouvelle_couleur, sens_horaire)
+                        
+            update_cartesIA()
+            update_cartesJoueur()
+            update_carteJouer()
+			
+			if player.main_joueur == []:
+				vict = True
+				print("Victoire du joueur !!!!!")
+				break
+
+			elif ia.main_joueur == []:
+				vict = True
+				print("Victoire de l'IA (T'es mauvais :-) )")
+				break
+                  
+           
+		
+	if reponse == "non" :
+
+		break
+
+
 
 fenetre.mainloop()

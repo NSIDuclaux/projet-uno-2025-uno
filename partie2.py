@@ -191,6 +191,7 @@ player.trier_mains()
 ia.trier_mains()
 #Début Partie
 vict = False
+
 while reponse != "oui" or reponse != "non":
 
 	reponse = str(input("Voulez-vous commencer une partie ? | Oui/Non")).lower()
