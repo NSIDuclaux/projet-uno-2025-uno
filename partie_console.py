@@ -83,9 +83,7 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur, sens_horaire):
 
 		if carteChoisie.effet_carte() == 3:
 			coef = 0
-			c = plus_2_carte_bot(ia,deck_partie,carteChoisie,pile_milieu,coef)
-			if c == int:
-				plus_2_carte(player,deck_partie,carteChoisie,pile_milieu,c)
+			plus_2_carte_bot(ia,player,deck_partie,carteChoisie,pile_milieu,coef)
 
 		if carteChoisie.effet_carte() == 4:
 			nouvelle_couleur = plus_4_carte(ia,deck_partie)
@@ -158,9 +156,7 @@ def toursia (ia,player,peut_jouer, nouvelle_couleur, sens_horaire):
 
 		if carteChoisie.effet_carte() == 3:
 			coef = 0
-			c = plus_2_carte(player,deck_partie,carteChoisie,pile_milieu,coef)
-			if c == int:
-				plus_2_carte_bot(ia,deck_partie,carteChoisie,pile_milieu,c)
+			plus_2_carte(player,ia,deck_partie,carteChoisie,pile_milieu,coef)
 
 		if carteChoisie.effet_carte() == 4: 
 			nouvelle_couleur = bot_plus_4_carte(player, deck_partie)
@@ -197,7 +193,7 @@ while reponse != "oui" or reponse != "non":
 
 	if reponse == "oui":
 		while vict == False:
-			#print("bot :", ia)
+			print("bot :", ia)
 			print("joueur :", player)
             
 			print("La carte du milieu est :" , pile_milieu[-1])

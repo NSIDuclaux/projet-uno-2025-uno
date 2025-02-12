@@ -23,17 +23,21 @@ def interdit_jouer ():
 
     return pouvoirJouer
 
-def plus_2_carte (main,deck,carte,pile_milieu,coef):
-    while renvoie_valide(carte,main) != False:
+def plus_2_carte (main,bot,deck,carte,pile_milieu,coef):
+    valide = False
+    for k in range(main.nb_main()):
+        if renvoie_valide2(main.main_joueur[k]) == True:
+            valide = True
+    if valide == True:
         print("renvoie possible")
         print(main)
         valid = False
         while valid == False:
             numeroChoisie = -1
             while int(numeroChoisie) < 0 or int(numeroChoisie) >= main.nb_main():
-                numeroChoisie = input("Choissez une carte").lower
+                numeroChoisie = input("Choissez une carte")
                 if int(numeroChoisie) >= 0 and int(numeroChoisie) < main.nb_main():
-                    valid = renvoie_valide(carte,main.main_joueur[int(numeroChoisie)]) 
+                    valid = renvoie_valide2(main.main_joueur[int(numeroChoisie)]) 
         carteChoisie = main.choix_carte(int(numeroChoisie))
         print("La carte retourné est :",carteChoisie)
         pile_milieu.append(carteChoisie)
@@ -42,17 +46,23 @@ def plus_2_carte (main,deck,carte,pile_milieu,coef):
             coef = coef + 4
         else:
             coef = coef + 2
-        return coef
-    
-    coef = coef + 2
-    for i in range (coef):
+        plus_2_carte_bot(bot,main,deck,carte,pile_milieu,coef)
 
-        main.ajouter_carte(deck.retirer_carte())
+    else:
+        coef = coef + 2
+        for i in range (coef):
 
-    print("Le joueur suivant reçoit "+ str(coef) +" carte")
+            main.ajouter_carte(deck.retirer_carte())
 
-def plus_2_carte_bot (bot,deck,carte,pile_milieu,coef):
-    while renvoie_valide(carte,bot) != False:
+        print("Le joueur suivant reçoit "+ str(coef) +" carte")
+        return 's'
+
+def plus_2_carte_bot (bot,main,deck,carte,pile_milieu,coef):
+    valide = False
+    for k in range(bot.nb_main()):
+        if renvoie_valide2(bot.main_joueur[k]) == True:
+            valide = True
+    if valide == True:
         print("Renvoie de carte")
         carteChoisie = renvoie_valide(carte,bot)
         c = bot.main_joueur[carteChoisie]
@@ -63,12 +73,15 @@ def plus_2_carte_bot (bot,deck,carte,pile_milieu,coef):
             coef = coef + 4
         else:
             coef = coef + 2
-        return coef
-    coef = coef + 2
-    for i in range (coef):
+        plus_2_carte(main,bot,deck,carte,pile_milieu,coef)
+    else:
+        coef = coef + 2
+        for i in range (coef):
 
-        bot.ajouter_carte(deck.retirer_carte())
-    print("Le joueur suivant reçoit "+ str(coef) +" carte")
+            bot.ajouter_carte(deck.retirer_carte())
+        print("Le joueur suivant reçoit "+ str(coef) +" carte")
+        return 's'
+
 def changer_couleur():
 
     nouvelleCouleur = ["", 1]

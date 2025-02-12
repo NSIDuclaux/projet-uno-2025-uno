@@ -35,10 +35,15 @@ def renvoie_valide(carteposee, main):
     c = -1
     for k in main.main_joueur:
         c = c + 1
-        if carteposee.nombre == k.nombre or k.nombre == 13:
+        if carteposee.nombre == k.nombre or k.nombre == 13 or k.nombre == 12:
             return c
     return False
 
+def renvoie_valide2(cartepropose):
+    if cartepropose.nombre == 13 or cartepropose.nombre == 12:
+        return True
+    else:
+        return False
 
 #cartepose = "jaune"
 #cartepropose = Carte(0, 8)
