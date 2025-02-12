@@ -168,9 +168,6 @@ while reponse != "oui" or reponse != "non":
             
 			print("La carte du milieu est :" , pile_milieu[-1])
                   
-            update_cartesIA()
-            update_cartesJoueur()
-            update_carteJouer()
 
 			if sens_horaire is True:
 
@@ -181,10 +178,6 @@ while reponse != "oui" or reponse != "non":
 
 				nouvelle_couleur, peut_jouer, sens_horaire = toursia(ia,player,peut_jouer, nouvelle_couleur, sens_horaire)
 				nouvelle_couleur, peut_jouer, sens_horaire = toursjoueur(player,ia,peut_jouer, nouvelle_couleur, sens_horaire)
-                        
-            update_cartesIA()
-            update_cartesJoueur()
-            update_carteJouer()
 			
 			if player.main_joueur == []:
 				vict = True
