@@ -10,6 +10,7 @@ import sqlite3
 # Jeu
 
 image_cartes_joueur = []
+image_cartes_milieu = []
 deck = Deck()
 deck.remplir_entier()
 deck.melange()
@@ -19,6 +20,7 @@ mainIA.trier_mains()
 mainJoueur = Main(deck)
 mainJoueur.creer_main()
 mainJoueur.trier_mains()
+carte_milieu = mainJoueur.selection_carte(0)
 
 # Création de la fenêtre
 
@@ -76,6 +78,26 @@ def update_cartesJoueur():
 
     fenetre.update()
 
+def update_carteJouer():
+
+    global carte_milieu
+    global image_cartes_milieu
+
+    for widget in frame_milieu.winfo_children():
+        if widget.winfo_name() == "carte_milieu":
+            widget.destroy()
+
+    chemin = path.abspath(fichier_carte(carte_milieu))
+    image_carte = Image.open(chemin)
+    ratio = 0.1
+    new_size = (int(image_carte.width * ratio), int(image_carte.height * ratio))
+    image_carte = image_carte.resize(new_size)
+    image_carte = ImageTk.PhotoImage(image_carte)
+    image_cartes_milieu.append(image_carte)
+    Label(frame_milieu, image=image_carte, padx=10, pady=5, bg=fond).grid(row=0, column=1, pady=90)
+
+    fenetre.update()
+
 def fichier_carte(carte):
 
     connexion = sqlite3.connect('carte/carte.db')
@@ -108,12 +130,12 @@ image_dos_carte = ImageTk.PhotoImage(image_dos_carte)
 
 # Créer le bouton pioche avec l'image de la carte dos
 pioche = Button(frame_milieu, image=image_dos_carte, padx=10, pady=5, bg=fond, borderwidth=0, activebackground="#1e1e1e")
-
-pioche.pack(anchor=CENTER, pady=90, padx=10)
+pioche.grid(row=0, column=0, pady=90)
 
 # Mettre à jour l'affichage des cartes
 update_cartesIA()
 update_cartesJoueur()
+update_carteJouer()
 
 # Essaie
 

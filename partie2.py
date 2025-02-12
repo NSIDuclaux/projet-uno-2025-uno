@@ -4,7 +4,7 @@ from carte_valide import *
 from carte_effet import *
 from bot import *
 
-def toursjoueur (player,ia,peut_jouer, nouvelle_couleur):
+def toursjoueur (player,ia,peut_jouer, nouvelle_couleur, sens_horaire):
 
 	global deck_partie
 	global pile_milieu
@@ -24,7 +24,8 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur):
 					numeroChoisie = -1
       
 					while int(numeroChoisie) < 0 or int(numeroChoisie) >= player.nb_main():
-						numeroChoisie = input("Choissez une carte")	
+						numeroChoisie = input("Choissez une carte")
+						
 						if int(numeroChoisie) >= 0 and int(numeroChoisie) < player.nb_main():
 							valid = carte_valide2(t,player.main_joueur[int(numeroChoisie)])
 
@@ -75,13 +76,16 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur):
 		deck_partie.ajouter_carte(carteChoisie)
 
 		if carteChoisie.effet_carte() == 1 :
-			inverse(sens_horaire)
+			sens_horaire = inverse(sens_horaire)
 
 		if carteChoisie.effet_carte() == 2 :
 			peut_jouer = interdit_jouer()
 
 		if carteChoisie.effet_carte() == 3:
-			plus_2_carte(ia,deck_partie)
+			coef = 0
+			c = plus_2_carte_bot(ia,deck_partie,carteChoisie,pile_milieu,coef)
+			if c == int:
+				plus_2_carte(player,deck_partie,carteChoisie,pile_milieu,c)
 
 		if carteChoisie.effet_carte() == 4:
 			nouvelle_couleur = plus_4_carte(ia,deck_partie)
@@ -89,10 +93,10 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur):
 		if carteChoisie.effet_carte() == 5 : 
 			nouvelle_couleur = changer_couleur()
 	
-	return nouvelle_couleur, peut_jouer
+	return nouvelle_couleur, peut_jouer, sens_horaire
 	
 
-def toursia (ia,player,peut_jouer, nouvelle_couleur): 
+def toursia (ia,player,peut_jouer, nouvelle_couleur, sens_horaire): 
 
 	global deck_partie
 	global pile_milieu
@@ -147,20 +151,23 @@ def toursia (ia,player,peut_jouer, nouvelle_couleur):
 			0
 
 		if carteChoisie.effet_carte() == 1 :
-			inverse(sens_horaire)
+			sens_horaire = inverse(sens_horaire)
 
 		if carteChoisie.effet_carte() == 2 :
 			peut_jouer = interdit_jouer()
 
 		if carteChoisie.effet_carte() == 3:
-			plus_2_carte(player,deck_partie)
+			coef = 0
+			c = plus_2_carte(player,deck_partie,carteChoisie,pile_milieu,coef)
+			if c == int:
+				plus_2_carte_bot(ia,deck_partie,carteChoisie,pile_milieu,c)
 
 		if carteChoisie.effet_carte() == 4: 
 			nouvelle_couleur = bot_plus_4_carte(player, deck_partie)
 
 		if carteChoisie.effet_carte() == 5 :
 			nouvelle_couleur = bot_changer_couleur()	
-	return nouvelle_couleur, peut_jouer
+	return nouvelle_couleur, peut_jouer, sens_horaire
 
 
 #Initialisation de la partie
@@ -180,6 +187,8 @@ iaPeutJouer = True
 peut_jouer = True
 nouvelle_couleur = ["", 0]
 pile_milieu.append(deck_partie.retirer_carte())
+player.trier_mains()
+ia.trier_mains()
 #Début Partie
 vict = False
 while reponse != "oui" or reponse != "non":
@@ -195,13 +204,13 @@ while reponse != "oui" or reponse != "non":
 
 			if sens_horaire is True:
 
-				nouvelle_couleur, peut_jouer = toursjoueur(player,ia, peut_jouer, nouvelle_couleur)
-				nouvelle_couleur, peut_jouer = toursia(ia,player, peut_jouer, nouvelle_couleur)
+				nouvelle_couleur, peut_jouer, sens_horaire = toursjoueur(player,ia, peut_jouer, nouvelle_couleur, sens_horaire)
+				nouvelle_couleur, peut_jouer, sens_horaire = toursia(ia,player, peut_jouer, nouvelle_couleur, sens_horaire)
 
 			else :
 
-				nouvelle_couleur, peut_jouer = toursia(ia,player,peut_jouer, nouvelle_couleur)
-				nouvelle_couleur, peut_jouer = toursjoueur(player,ia,peut_jouer, nouvelle_couleur)
+				nouvelle_couleur, peut_jouer, sens_horaire = toursia(ia,player,peut_jouer, nouvelle_couleur, sens_horaire)
+				nouvelle_couleur, peut_jouer, sens_horaire = toursjoueur(player,ia,peut_jouer, nouvelle_couleur, sens_horaire)
 			
 			if player.main_joueur == []:
 				vict = True
