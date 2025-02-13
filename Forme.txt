@@ -21,4 +21,4 @@ Système point:
 -carte plus 2: 15 points, *2 si renvoie
 -carte plus 4: 50 points, *3 si renvoie
 -carte passer le tour: 10 points
--
+-carte changer de couleur: 25 points

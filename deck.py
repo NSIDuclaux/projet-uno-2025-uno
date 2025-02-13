@@ -15,7 +15,8 @@ class Deck:
                 for n in range(9):
                     self.list_allc = self.list_allc + [Carte(c,n+1)]
         for c in range(4):
-            self.list_allc = self.list_allc + [Carte(c,0)]
+            for n in range(2):
+                self.list_allc = self.list_allc + [Carte(c,0)]
         for c in range(4):
             
             for k in range(2):

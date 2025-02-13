@@ -74,23 +74,25 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur, score):
 		print("La carte jouer est :",carteChoisie)
 		pile_milieu.append(carteChoisie)
 		deck_partie.ajouter_carte(carteChoisie)
-
+		if carteChoisie.effet_carte() == 0 :
+			score[0] = score[0] + 10
 		if carteChoisie.effet_carte() == 1 :
-			0
+			score[0] = score[0] * 1.5
 
 		if carteChoisie.effet_carte() == 2 :
 			peut_jouer = interdit_jouer()
-
+			score[0] = score[0] + 10
 		if carteChoisie.effet_carte() == 3:
 			coef = 0
-			plus_2_carte_bot(ia,player,deck_partie,carteChoisie,pile_milieu,coef)
+			score = plus_2_carte_bot(ia,player,deck_partie,carteChoisie,pile_milieu,coef, score)
 
 		if carteChoisie.effet_carte() == 4:
 			coef = 0
-			nouvelle_couleur = bot_plus_4_carte(player,ia,deck_partie,carteChoisie,pile_milieu,coef)
+			nouvelle_couleur, score = bot_plus_4_carte(ia,player,deck_partie,carteChoisie,pile_milieu,coef, score)
 
 		if carteChoisie.effet_carte() == 5 : 
 			nouvelle_couleur = changer_couleur()
+			score[0] = score[0] + 25
 	
 	return nouvelle_couleur, peut_jouer, score
 	
@@ -147,24 +149,27 @@ def toursia (ia,player,peut_jouer, nouvelle_couleur, score):
 		deck_partie.ajouter_carte(carteChoisie)
 
 		if carteChoisie.effet_carte() == 0 :
-			0
+			score[1] = score[1] + 10
 
 		if carteChoisie.effet_carte() == 1 :
-			0
+			score[1] = score[1] * 1.5
 
 		if carteChoisie.effet_carte() == 2 :
 			peut_jouer = interdit_jouer()
+			score[1] = score[1] + 10
 
 		if carteChoisie.effet_carte() == 3:
 			coef = 0
-			plus_2_carte(player,ia,deck_partie,carteChoisie,pile_milieu,coef)
+			score = plus_2_carte(player,ia,deck_partie,carteChoisie,pile_milieu,coef, score)
 
 		if carteChoisie.effet_carte() == 4: 
 			coef = 0
-			nouvelle_couleur = plus_4_carte(ia,player,deck_partie,carteChoisie,pile_milieu,coef)
+			nouvelle_couleur, score = plus_4_carte(player,ia,deck_partie,carteChoisie,pile_milieu,coef, score)
 
 		if carteChoisie.effet_carte() == 5 :
-			nouvelle_couleur = bot_changer_couleur()	
+			nouvelle_couleur = bot_changer_couleur()
+			score[1] = score[1] + 25
+
 	return nouvelle_couleur, peut_jouer, score
 
 
@@ -197,6 +202,7 @@ while reponse != "oui" or reponse != "non":
 	if reponse == "oui":
 		while vict == False:
 			#print("bot :", ia)
+			print(score)
 			print("joueur :", player)
             
 			print("La carte du milieu est :" , pile_milieu[-1])
@@ -206,12 +212,12 @@ while reponse != "oui" or reponse != "non":
 			
 			if player.main_joueur == []:
 				vict = True
-				print("Victoire du joueur !!!!!")
+				print("Victoire du joueur !!!!! score: "+str(score))
 				break
 
 			elif ia.main_joueur == []:
 				vict = True
-				print("Victoire de l'IA (T'es mauvais :-) )")
+				print("Victoire de l'IA (T'es mauvais :-) ) score: "+str(score))
 				break
 		
 	if reponse == "non" :
