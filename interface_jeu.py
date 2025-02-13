@@ -133,7 +133,7 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,index_carte):
 		if carteChoisie.effet_carte() == 5 : 
 			nouvelle_couleur = changer_couleur()
 	
-	return nouvelle_couleur, peut_jouer
+	return nouvelle_couleur, peut_jouer, True
 
 def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur): 
 
@@ -246,7 +246,7 @@ def update_carteJouer():
         if widget.winfo_name() == "carte_milieu":
             widget.destroy()
 
-    chemin = path.abspath(fichier_carte(pile_milieu[0]))
+    chemin = path.abspath(fichier_carte(pile_milieu[-1]))
     image_carte = Image.open(chemin)
     ratio = 0.1
     new_size = (int(image_carte.width * ratio), int(image_carte.height * ratio))
@@ -315,15 +315,22 @@ update_carteJouer()
 vict = False
 
 while vict is False :
-
+	
+	joueurAJouer = False
 	mainJoueur.trier_mains()
 
-	nouvelle_couleur, peut_jouer = toursJoueur(mainJoueur,mainIA, peut_jouer, nouvelle_couleur,index_carte)
+	while joueurAJouer is False :
+
+		print("Hello")
+		nouvelle_couleur, peut_jouer,joueurAJouer = toursJoueur(mainJoueur,mainIA, peut_jouer, nouvelle_couleur,index_carte)
+	
 	nouvelle_couleur, peut_jouer = toursIA(mainIA,mainJoueur, peut_jouer, nouvelle_couleur)
 
 	update_cartesmainIA()
 	update_cartesJoueur()
 	update_carteJouer()
+
+	sleep(0.5)
 
 
 	if mainJoueur.main_joueur == []:
