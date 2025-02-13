@@ -35,96 +35,89 @@ nouvelle_couleur = ["", 0]
 pile_milieu.append(deck_partie.retirer_carte())
 mainJoueur.trier_mains()
 mainIA.trier_mains()
-index_carte = None
 
 #fonction pour les tours du joueur
 
-def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,index_carte):
+def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur):
 
-	global deck_partie
-	global pile_milieu
-	valid = False
-	valid1 = False
-	arghhh = False
+    global numeroChoisie
+    global pile_milieu
+    valid = False
+    valid1 = False
+    arghhh = False
 
-	if peut_jouer is True :
+    if peut_jouer is True:
+        if nouvelle_couleur[1] == 1:
+            t = nouvelle_couleur[0]
 
-		if nouvelle_couleur[1] == 1:
-			t = nouvelle_couleur[0]
+            for k in range(mainJoueur.nb_main()):
+                if carte_valide2(t, mainJoueur.main_joueur[k]) == True:
+                    valid1 = True
 
-			for k in range(mainJoueur.nb_main()):
+            if valid1 == True:
+                while valid == False:
+                    numeroChoisie.set(-1)  # Réinitialise avant de demander un choix
+                    # Attends que l'utilisateur fasse un choix (via la variable)
+                    frame_cartes_joueur.wait_variable(numeroChoisie)
+                    numeroChoisie_value = numeroChoisie.get()
 
-				if carte_valide2(t, mainJoueur.main_joueur[k]) == True:
-					valid1 = True
+                    if int(numeroChoisie_value) >= 0 and int(numeroChoisie_value) < mainJoueur.nb_main():
+                        valid = carte_valide2(t, mainJoueur.main_joueur[int(numeroChoisie_value)])
 
-			if valid1 == True:
+                carteChoisie = mainJoueur.choix_carte(int(numeroChoisie_value))
+                arghhh = True
+            else:
+                mainJoueur.ajouter_carte(deck_partie.retirer_carte())
+                print("Vous piochez")
 
-				while valid == False:
-					numeroChoisie = -1
-      
-					while int(numeroChoisie) < 0 or int(numeroChoisie) >= mainJoueur.nb_main():
-						numeroChoisie = index_carte
-						
-						if int(numeroChoisie) >= 0 and int(numeroChoisie) < mainJoueur.nb_main():
-							valid = carte_valide2(t,mainJoueur.main_joueur[int(numeroChoisie)])
+                if carte_valide2(t, mainJoueur.main_joueur[-1]) == True:
+                    carteChoisie = mainJoueur.choix_carte(-1)
+                    arghhh = True
+                    print("Vous placez la carte piochée")
 
-				carteChoisie = mainJoueur.choix_carte(int(numeroChoisie))
-				arghhh = True
+        else:
+            # Gestion de la situation sans nouvelle couleur
+            for k in range(mainJoueur.nb_main()):
+                if carte_valide(pile_milieu[-1], mainJoueur.main_joueur[k]) == True:
+                    valid1 = True
 
-			else:
-				mainJoueur.ajouter_carte(deck_partie.retirer_carte())
-				print("Vous piochez")
+            if valid1 == True:
+                while valid == False:
+                    numeroChoisie.set(-1)  # Réinitialise avant de demander un choix
+                    # Attends que l'utilisateur fasse un choix (via la variable)
+                    frame_cartes_joueur.wait_variable(numeroChoisie)
+                    numeroChoisie_value = numeroChoisie.get()
 
-				if carte_valide2(t, mainJoueur.main_joueur[-1]) == True:
-					carteChoisie = mainJoueur.choix_carte(-1)	
-					arghhh = True
-					print("Vous placez la carte pioché")
+                    if int(numeroChoisie_value) >= 0 and int(numeroChoisie_value) < mainJoueur.nb_main():
+                        valid = carte_valide(pile_milieu[-1], mainJoueur.main_joueur[int(numeroChoisie_value)])
 
-		else:
+                carteChoisie = mainJoueur.choix_carte(int(numeroChoisie_value))
+                arghhh = True
+            else:
+                mainJoueur.ajouter_carte(deck_partie.retirer_carte())
+                print("Vous piochez")
+                if carte_valide(pile_milieu[-1], mainJoueur.main_joueur[-1]) == True:
+                    carteChoisie = mainJoueur.choix_carte(-1)
+                    arghhh = True
+                    print("Vous placez la carte piochée")
 
-			for k in range(mainJoueur.nb_main()):
-
-				if carte_valide(pile_milieu[-1], mainJoueur.main_joueur[k]) == True:
-					valid1 = True
-
-			if valid1 == True:	
-				while valid == False:
-				
-					numeroChoisie = -1
-      
-					while int(numeroChoisie) < 0 or int(numeroChoisie) >= mainJoueur.nb_main():
-						numeroChoisie = index_carte
-						if int(numeroChoisie) >= 0 and int(numeroChoisie) < mainJoueur.nb_main():
-							valid = carte_valide(pile_milieu[-1], mainJoueur.main_joueur[int(numeroChoisie)])
-
-				carteChoisie = mainJoueur.choix_carte(int(numeroChoisie))
-				arghhh = True
-
-			else:
-				mainJoueur.ajouter_carte(deck_partie.retirer_carte())
-				print("Vous piochez")
-				if carte_valide(pile_milieu[-1], mainJoueur.main_joueur[-1]) == True:
-					carteChoisie = mainJoueur.choix_carte(-1)	
-					arghhh = True
-					print("Vous placez la carte pioché")
-
-	peut_jouer = True
-	nouvelle_couleur = ["", 0]
+    peut_jouer = True
+    nouvelle_couleur = ["", 0]
 		
-	if arghhh == True:
-		print("La carte jouer est :",carteChoisie)
-		pile_milieu.append(carteChoisie)
-		deck_partie.ajouter_carte(carteChoisie)
+    if arghhh == True:
+        print("La carte jouer est :",carteChoisie)
+        pile_milieu.append(carteChoisie)
+        deck_partie.ajouter_carte(carteChoisie)
 
-		if carteChoisie.effet_carte() == 1 :
-			sens_horaire = inverse(sens_horaire)
+        if carteChoisie.effet_carte() == 1 :
+        	sens_horaire = inverse(sens_horaire)
 
-		if carteChoisie.effet_carte() == 2 :
-			peut_jouer = interdit_jouer()
+        if carteChoisie.effet_carte() == 2 :
+            peut_jouer = interdit_jouer()
 
-		if carteChoisie.effet_carte() == 3:
-			coef = 0
-			plus_2_carte_bot(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef)
+        if carteChoisie.effet_carte() == 3:
+            coef = 0
+            plus_2_carte_bot(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef)
 
 		# if carteChoisie.effet_carte() == 4:
 		# 	coef = 0
@@ -132,8 +125,10 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,index_carte):
 
 		# if carteChoisie.effet_carte() == 5 : 
 		# 	nouvelle_couleur = changer_couleur()
+
+    print("ici")
 	
-	return nouvelle_couleur, peut_jouer, True
+    return nouvelle_couleur, peut_jouer, True
 
 def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur): 
 
@@ -187,6 +182,9 @@ fenetre.title("Cosmunos")
 fenetre.geometry("1600x800")
 fenetre.attributes("-fullscreen")
 
+index_carte = IntVar(value=-1)
+numeroChoisie = IntVar(value=-1)
+
 # Fond
 
 fond = "#1e1e1e"
@@ -232,10 +230,20 @@ def update_cartesJoueur():
         image_carte = ImageTk.PhotoImage(image_carte)
         image_cartes_joueur.append(image_carte)
 
-        Button(frame_cartes_joueur, image=image_carte, padx=10, pady=5, bg=fond, borderwidth=0, activebackground="#1e1e1e",command=bouton_jouer_cartes(i,peut_jouer)).grid(row=0, column=col, padx=0)
+        Button(
+            frame_cartes_joueur, 
+            image=image_carte, 
+            padx=10, 
+            pady=5, 
+            bg=fond, 
+            borderwidth=0, 
+            activebackground="#1e1e1e",
+            command=lambda idx=i: bouton_jouer_cartes(idx)
+        ).grid(row=0, column=col, padx=0)
+
         col += 1
 
-    fenetre.update()
+        fenetre.update()
 
 def update_carteJouer():
 
@@ -267,15 +275,19 @@ def fichier_carte(carte):
 
     return chemin
 
+def attendre_choix():
+    frame_cartes_joueur.wait_variable(index_carte)
+    choix = index_carte.get()
+    print(f"Carte choisie : {choix}")
+    return choix
+
 #Action bouton
 
-def bouton_jouer_cartes(index,peut_jouer):
+def bouton_jouer_cartes(index):
 
-	global index_carte
-
-	if peut_jouer is True:
-		
-		index_carte = index
+    global numeroChoisie
+    numeroChoisie.set(index)  
+    print(f"Carte choisie : {index}")
 
 def bouton_pioche(mains,deck):
 
@@ -311,23 +323,24 @@ pioche.grid(row=0, column=0, pady=90)
 # Mise à jour de l'interface
 
 update_cartesmainIA()
-update_cartesJoueur()
 update_carteJouer()
+update_cartesJoueur()
 
 # Partie
+
+index_carte = IntVar()
 
 vict = False
 
 while vict is False :
+
+	print("Tour du joueur")
 	
 	joueurAJouer = False
 	mainJoueur.trier_mains()
 
-	while joueurAJouer is False :
-
-		print("Hello")
-		nouvelle_couleur, peut_jouer,joueurAJouer = toursJoueur(mainJoueur,mainIA, peut_jouer, nouvelle_couleur,index_carte)
-	
+	print(mainJoueur)
+	nouvelle_couleur, peut_jouer,joueurAJouer = toursJoueur(mainJoueur,mainIA, peut_jouer, nouvelle_couleur)	
 	nouvelle_couleur, peut_jouer = toursIA(mainIA,mainJoueur, peut_jouer, nouvelle_couleur)
 
 	update_cartesmainIA()
