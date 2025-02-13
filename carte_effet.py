@@ -11,7 +11,7 @@ def interdit_jouer ():
 
     return pouvoirJouer
 
-def plus_2_carte (main,bot,deck,carte,pile_milieu,coef, score):
+def plus_2_carte (main,bot,deck,carte,pile_milieu,coef,score):
     valide = False
     for k in range(main.nb_main()):
         if renvoie_valide2(main.main_joueur[k]) == True:
@@ -82,7 +82,7 @@ def changer_couleur():
 
     return nouvelleCouleur
 
-def plus_4_carte (main,bot,deck,carte,pile_milieu,coef, score):
+def plus_4_carte (main,bot,deck,carte,pile_milieu,coef,score):
     valide = False
     for k in range(main.nb_main()):
         if renvoie_valide_plus2(main.main_joueur[k]) == True:
