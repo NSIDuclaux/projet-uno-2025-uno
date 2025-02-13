@@ -11,3 +11,14 @@ carte_effet: fait les effets de carte (logique) du joueur et du bot
 A faire:
 Interface
 Ajout de règles supplémentaire (ex: remettre un + deux sur un autre etc...)
+
+
+
+
+Système point:
+-carte normal: 10 points
+-carte changer de sens: *1.5
+-carte plus 2: 15 points, *2 si renvoie
+-carte plus 4: 50 points, *3 si renvoie
+-carte passer le tour: 10 points
+-
