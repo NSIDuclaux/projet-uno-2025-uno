@@ -35,10 +35,11 @@ nouvelle_couleur = ["", 0]
 pile_milieu.append(deck_partie.retirer_carte())
 mainJoueur.trier_mains()
 mainIA.trier_mains()
+index_carte = None
 
 #fonction pour les tours du joueur
 
-def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur, sens_horaire):
+def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,index_carte):
 
 	global deck_partie
 	global pile_milieu
@@ -47,18 +48,22 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur, sens_horaire):
 	arghhh = False
 
 	if peut_jouer is True :
+
 		if nouvelle_couleur[1] == 1:
 			t = nouvelle_couleur[0]
+
 			for k in range(mainJoueur.nb_main()):
+
 				if carte_valide2(t, mainJoueur.main_joueur[k]) == True:
 					valid1 = True
 
 			if valid1 == True:
+
 				while valid == False:
 					numeroChoisie = -1
       
 					while int(numeroChoisie) < 0 or int(numeroChoisie) >= mainJoueur.nb_main():
-						numeroChoisie = input("Choissez une carte")
+						numeroChoisie = index_carte
 						
 						if int(numeroChoisie) >= 0 and int(numeroChoisie) < mainJoueur.nb_main():
 							valid = carte_valide2(t,mainJoueur.main_joueur[int(numeroChoisie)])
@@ -76,7 +81,9 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur, sens_horaire):
 					print("Vous placez la carte pioché")
 
 		else:
+
 			for k in range(mainJoueur.nb_main()):
+
 				if carte_valide(pile_milieu[-1], mainJoueur.main_joueur[k]) == True:
 					valid1 = True
 
@@ -86,7 +93,7 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur, sens_horaire):
 					numeroChoisie = -1
       
 					while int(numeroChoisie) < 0 or int(numeroChoisie) >= mainJoueur.nb_main():
-						numeroChoisie = input("Choissez une carte")	
+						numeroChoisie = index_carte
 						if int(numeroChoisie) >= 0 and int(numeroChoisie) < mainJoueur.nb_main():
 							valid = carte_valide(pile_milieu[-1], mainJoueur.main_joueur[int(numeroChoisie)])
 
@@ -117,19 +124,18 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur, sens_horaire):
 
 		if carteChoisie.effet_carte() == 3:
 			coef = 0
-			c = plus_2_carte_bot(mainIA,deck_partie,carteChoisie,pile_milieu,coef)
-			if c == int:
-				plus_2_carte(mainJoueur,deck_partie,carteChoisie,pile_milieu,c)
+			plus_2_carte_bot(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef)
 
 		if carteChoisie.effet_carte() == 4:
-			nouvelle_couleur = plus_4_carte(mainIA,deck_partie)
+			coef = 0
+			nouvelle_couleur = bot_plus_4_carte(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef)
 
 		if carteChoisie.effet_carte() == 5 : 
 			nouvelle_couleur = changer_couleur()
 	
-	return nouvelle_couleur, peut_jouer, sens_horaire
+	return nouvelle_couleur, peut_jouer
 
-def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur, sens_horaire): 
+def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur): 
 
 	global deck_partie
 	global pile_milieu
@@ -172,42 +178,14 @@ def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur, sens_horaire):
 					arghhh = True
 					print("Le bot place la carte pioché")
 
-	peut_jouer = True
-	nouvelle_couleur = ["",0]
-
-	if arghhh == True:
-		print("La carte jouer est :",carteChoisie)
-		pile_milieu.append(carteChoisie)
-		deck_partie.ajouter_carte(carteChoisie)
-
-		if carteChoisie.effet_carte() == 0 :
-			0
-
-		if carteChoisie.effet_carte() == 1 :
-			sens_horaire = inverse(sens_horaire)
-
-		if carteChoisie.effet_carte() == 2 :
-			peut_jouer = interdit_jouer()
-
-		if carteChoisie.effet_carte() == 3:
-			coef = 0
-			c = plus_2_carte(mainJoueur,deck_partie,carteChoisie,pile_milieu,coef)
-			if c == int:
-				plus_2_carte_bot(mainIA,deck_partie,carteChoisie,pile_milieu,c)
-
-		if carteChoisie.effet_carte() == 4: 
-			nouvelle_couleur = bot_plus_4_carte(mainJoueur, deck_partie)
-
-		if carteChoisie.effet_carte() == 5 :
-			nouvelle_couleur = bot_changer_couleur()	
-	return nouvelle_couleur, peut_jouer, sens_horaire
+	return nouvelle_couleur, peut_jouer
 
 # Création de la fenêtre
 
 fenetre = Tk()
 fenetre.title("Cosmunos")
 fenetre.geometry("1600x800")
-fenetre.attributes("-fullscreen", True)
+fenetre.attributes("-fullscreen")
 
 # Fond
 
@@ -293,9 +271,11 @@ def fichier_carte(carte):
 
 def bouton_jouer_cartes(index,peut_jouer):
 
+	global index_carte
+
 	if peut_jouer is True:
 		
-		return(index)
+		index_carte = index
 
 # Création des frames
 
@@ -336,10 +316,16 @@ vict = False
 
 while vict is False :
 
-	nouvelle_couleur, peut_jouer, sens_horaire = toursJoueur(mainJoueur,mainIA, peut_jouer, nouvelle_couleur, sens_horaire)
-	nouvelle_couleur, peut_jouer, sens_horaire = toursIA(mainIA,mainJoueur, peut_jouer, nouvelle_couleur, sens_horaire)
+	mainJoueur.trier_mains()
 
-			
+	nouvelle_couleur, peut_jouer = toursJoueur(mainJoueur,mainIA, peut_jouer, nouvelle_couleur,index_carte)
+	nouvelle_couleur, peut_jouer = toursIA(mainIA,mainJoueur, peut_jouer, nouvelle_couleur)
+
+	update_cartesmainIA()
+	update_cartesJoueur()
+	update_carteJouer()
+
+
 	if mainJoueur.main_joueur == []:
 		
 		vict = True
