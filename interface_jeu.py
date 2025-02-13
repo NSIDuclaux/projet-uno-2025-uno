@@ -126,12 +126,12 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,index_carte):
 			coef = 0
 			plus_2_carte_bot(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef)
 
-		if carteChoisie.effet_carte() == 4:
-			coef = 0
-			nouvelle_couleur = bot_plus_4_carte(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef)
+		# if carteChoisie.effet_carte() == 4:
+		# 	coef = 0
+		# 	nouvelle_couleur = bot_plus_4_carte(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef)
 
-		if carteChoisie.effet_carte() == 5 : 
-			nouvelle_couleur = changer_couleur()
+		# if carteChoisie.effet_carte() == 5 : 
+		# 	nouvelle_couleur = changer_couleur()
 	
 	return nouvelle_couleur, peut_jouer, True
 
@@ -277,6 +277,10 @@ def bouton_jouer_cartes(index,peut_jouer):
 		
 		index_carte = index
 
+def bouton_pioche(mains,deck):
+
+	mains.ajouter_carte(deck.retirer_carte())
+
 # Création des frames
 
 frame_cartes_mainIA = Frame(fenetre, bg=fond)
@@ -301,7 +305,7 @@ image_dos_carte = ImageTk.PhotoImage(image_dos_carte)
 
 # Créer le bouton pioche
 
-pioche = Button(frame_milieu, image=image_dos_carte, padx=10, pady=5, bg=fond, borderwidth=0, activebackground="#1e1e1e")
+pioche = Button(frame_milieu, image=image_dos_carte, padx=10, pady=5, bg=fond, borderwidth=0, activebackground="#1e1e1e",command=bouton_pioche(mainJoueur,deck_partie))
 pioche.grid(row=0, column=0, pady=90)
 
 # Mise à jour de l'interface
