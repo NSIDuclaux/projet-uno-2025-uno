@@ -118,6 +118,7 @@ def plus_4_carte (main,bot,deck,carte,pile_milieu,coef, score):
     
         print("Le joueur suivant reçoit "+ str(coef) +" carte, et la nouvelle couleur est",nouvelleCouleur[0])
         score[1] = score[1] + 50*(coef//4)
+        print(score)
         return nouvelleCouleur, score
 
 def bot_changer_couleur():
@@ -157,4 +158,5 @@ def bot_plus_4_carte (bot,main,deck,carte,pile_milieu,coef, score):
 
         print("Le joueur suivant reçoit "+ str(coef) +" carte, et la nouvelle couleur est",nouvelleCouleur[0])
         score[0] = score[0] + 50*(coef//4)
+        print(score)
         return nouvelleCouleur, score 
