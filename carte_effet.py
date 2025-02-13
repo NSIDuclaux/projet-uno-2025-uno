@@ -1,19 +1,7 @@
 from random import *
 from carte_valide import *
 def inverse (sens_horaire):
-
-    if sens_horaire == True:
-
-        sens_horaire = False
-
-        print("Le sens est antihoraire")
-
-    else :
-
-        sens_horaire = True
-        print("Le sens est horaire")
-
-    return sens_horaire
+    0
 
 def interdit_jouer ():
 
