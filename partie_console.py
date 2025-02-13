@@ -86,7 +86,8 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur, sens_horaire):
 			plus_2_carte_bot(ia,player,deck_partie,carteChoisie,pile_milieu,coef)
 
 		if carteChoisie.effet_carte() == 4:
-			nouvelle_couleur = plus_4_carte(ia,deck_partie)
+			coef = 0
+			nouvelle_couleur = bot_plus_4_carte(player,ia,deck_partie,carteChoisie,pile_milieu,coef)
 
 		if carteChoisie.effet_carte() == 5 : 
 			nouvelle_couleur = changer_couleur()
@@ -159,7 +160,8 @@ def toursia (ia,player,peut_jouer, nouvelle_couleur, sens_horaire):
 			plus_2_carte(player,ia,deck_partie,carteChoisie,pile_milieu,coef)
 
 		if carteChoisie.effet_carte() == 4: 
-			nouvelle_couleur = bot_plus_4_carte(player, deck_partie)
+			coef = 0
+			nouvelle_couleur = plus_4_carte(ia,player,deck_partie,carteChoisie,pile_milieu,coef)
 
 		if carteChoisie.effet_carte() == 5 :
 			nouvelle_couleur = bot_changer_couleur()	
