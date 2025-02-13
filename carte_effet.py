@@ -162,5 +162,4 @@ def bot_plus_4_carte (bot,main,deck,carte,pile_milieu,coef):
 
         print("Le joueur suivant reçoit "+ str(coef) +" carte, et la nouvelle couleur est",nouvelleCouleur[0])
 
-        return nouvelleCouleur
-    
+        return nouvelleCouleur 

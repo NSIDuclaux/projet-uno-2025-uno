@@ -54,7 +54,7 @@ def renvoie_valide2(cartepropose):
         return False
 
 def renvoie_valide_plus2(carte):
-    if carte.nombre == 12:
+    if carte.nombre == 13:
         return True
     else:
         return False
