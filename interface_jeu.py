@@ -35,10 +35,11 @@ nouvelle_couleur = ["", 0]
 pile_milieu.append(deck_partie.retirer_carte())
 mainJoueur.trier_mains()
 mainIA.trier_mains()
+score = [0,0]
 
 #fonction pour les tours du joueur
 
-def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur):
+def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,score):
 
     global numeroChoisie
     global pile_milieu
@@ -120,27 +121,29 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur):
             pile_milieu.append(carteChoisie)
             deck_partie.ajouter_carte(carteChoisie)
 
+            if carteChoisie.effet_carte() == 0 :
+                score[0] = score[0] + 10
             if carteChoisie.effet_carte() == 1 :
-                sens_horaire = inverse(sens_horaire)
+                score[0] = score[0] * 1.5
 
             if carteChoisie.effet_carte() == 2 :
                 peut_jouer = interdit_jouer()
+                score[0] = score[0] + 10
+            if carteChoisie.effet_carte() == 3:
+                coef = 0
+                score = plus_2_carte_bot(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef, score)
 
-        # if carteChoisie.effet_carte() == 3:
-        #     coef = 0
-        #     plus_2_carte_bot(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef)
+            if carteChoisie.effet_carte() == 4:
+                coef = 0
+                nouvelle_couleur, score = bot_plus_4_carte(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef, score)
 
-		# if carteChoisie.effet_carte() == 4:
-		# 	coef = 0
-		# 	nouvelle_couleur = bot_plus_4_carte(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef)
-
-		# if carteChoisie.effet_carte() == 5 : 
-		# 	nouvelle_couleur = changer_couleur()
-
+            if carteChoisie.effet_carte() == 5 : 
+                nouvelle_couleur = changer_couleur()
+                score[0] = score[0] + 25
 	
-    return nouvelle_couleur, peut_jouer, True
+    return nouvelle_couleur, peut_jouer, score
 
-def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur): 
+def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur,score): 
 
     global deck_partie
     global pile_milieu
@@ -191,29 +194,29 @@ def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur):
         pile_milieu.append(carteChoisie)
         deck_partie.ajouter_carte(carteChoisie)
 
-        # if carteChoisie.effet_carte() == 0 :
-        #     score[1] = score[1] + 10
+        if carteChoisie.effet_carte() == 0 :
+            score[1] = score[1] + 10
 
-        # if carteChoisie.effet_carte() == 1 :
-        #     score[1] = score[1] * 1.5
+        if carteChoisie.effet_carte() == 1 :
+            score[1] = score[1] * 1.5
 
-        # if carteChoisie.effet_carte() == 2 :
-        #     peut_jouer = interdit_jouer()
-        #     score[1] = score[1] + 10
+        if carteChoisie.effet_carte() == 2 :
+            peut_jouer = interdit_jouer()
+            score[1] = score[1] + 10
 
-        # if carteChoisie.effet_carte() == 3:
-        #     coef = 0
-        #     score = plus_2_carte(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef, score)
+        if carteChoisie.effet_carte() == 3:
+            coef = 0
+            score = plus_2_carte(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef, score)
 
-        # if carteChoisie.effet_carte() == 4: 
-        #     coef = 0
-        #     nouvelle_couleur, score = plus_4_carte(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef, score)
+        if carteChoisie.effet_carte() == 4: 
+            coef = 0
+            nouvelle_couleur, score = plus_4_carte(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef, score)
 
-        # if carteChoisie.effet_carte() == 5 :
-        #     nouvelle_couleur = bot_changer_couleur()
-        #     score[1] = score[1] + 25
+        if carteChoisie.effet_carte() == 5 :
+            nouvelle_couleur = bot_changer_couleur()
+            score[1] = score[1] + 25
 
-    return nouvelle_couleur, peut_jouer
+    return nouvelle_couleur, peut_jouer, score
 
 # Création de la fenêtre
 
@@ -329,9 +332,9 @@ def bouton_jouer_cartes(index):
     numeroChoisie.set(index)  
     print(f"Carte choisie : {index}")
 
-def bouton_pioche(mains,deck):
+# def bouton_pioche(mains,deck):
 
-	mains.ajouter_carte(deck.retirer_carte())
+# 	mains.ajouter_carte(deck.retirer_carte())
 
 # Création des frames
 
@@ -357,7 +360,7 @@ image_dos_carte = ImageTk.PhotoImage(image_dos_carte)
 
 # Créer le bouton pioche
 
-pioche = Button(frame_milieu, image=image_dos_carte, padx=10, pady=5, bg=fond, borderwidth=0, activebackground="#1e1e1e",command=bouton_pioche(mainJoueur,deck_partie))
+pioche = Button(frame_milieu, image=image_dos_carte, padx=10, pady=5, bg=fond, borderwidth=0, activebackground="#1e1e1e")
 pioche.grid(row=0, column=0, pady=90)
 
 # Mise à jour de l'interface
@@ -380,7 +383,7 @@ while vict is False :
     mainJoueur.trier_mains()
 
     print(mainJoueur)
-    nouvelle_couleur, peut_jouer,joueurAJouer = toursJoueur(mainJoueur,mainIA, peut_jouer, nouvelle_couleur)    
+    nouvelle_couleur, peut_jouer, score = toursJoueur(mainJoueur,mainIA, peut_jouer, nouvelle_couleur,score)    
 
     update_cartesJoueur()
     update_carteJouer()
@@ -389,7 +392,7 @@ while vict is False :
 
     print(str(pile_milieu))
     
-    nouvelle_couleur, peut_jouer = toursIA(mainIA,mainJoueur, peut_jouer, nouvelle_couleur)
+    nouvelle_couleur, peut_jouer, score = toursIA(mainIA,mainJoueur, peut_jouer, nouvelle_couleur,score)
 
     update_cartesmainIA()
     update_carteJouer()
