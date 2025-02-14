@@ -44,7 +44,7 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur):
     global pile_milieu
     valid = False
     valid1 = False
-    arghhh = False
+    tours_valide = False
 
     if peut_jouer is True:
         if nouvelle_couleur[1] == 1:
@@ -65,15 +65,17 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur):
                         valid = carte_valide2(t, mainJoueur.main_joueur[int(numeroChoisie_value)])
 
                 carteChoisie = mainJoueur.choix_carte(int(numeroChoisie_value))
-                arghhh = True
+                tours_valide = True
+                carte_placer = True
             else:
                 mainJoueur.ajouter_carte(deck_partie.retirer_carte())
                 print("Vous piochez")
 
                 if carte_valide2(t, mainJoueur.main_joueur[-1]) == True:
                     carteChoisie = mainJoueur.choix_carte(-1)
-                    arghhh = True
+                    tours_valide = True
                     print("Vous placez la carte piochée")
+                    carte_placer = True
 
         else:
             # Gestion de la situation sans nouvelle couleur
@@ -92,32 +94,41 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur):
                         valid = carte_valide(pile_milieu[-1], mainJoueur.main_joueur[int(numeroChoisie_value)])
 
                 carteChoisie = mainJoueur.choix_carte(int(numeroChoisie_value))
-                arghhh = True
+                tours_valide = True
+                carte_placer = True
             else:
                 mainJoueur.ajouter_carte(deck_partie.retirer_carte())
                 print("Vous piochez")
                 if carte_valide(pile_milieu[-1], mainJoueur.main_joueur[-1]) == True:
                     carteChoisie = mainJoueur.choix_carte(-1)
-                    arghhh = True
                     print("Vous placez la carte piochée")
+                    carte_placer = True
+
+                else :  
+                   carte_placer = False
+
+            tours_valide = True
+                
 
     peut_jouer = True
     nouvelle_couleur = ["", 0]
-		
-    if arghhh == True:
-        print("La carte jouer est :",carteChoisie)
-        pile_milieu.append(carteChoisie)
-        deck_partie.ajouter_carte(carteChoisie)
 
-        if carteChoisie.effet_carte() == 1 :
-        	sens_horaire = inverse(sens_horaire)
+    if tours_valide == True:
+        
+        if carte_placer is True:
+            print("La carte jouer est :",carteChoisie)
+            pile_milieu.append(carteChoisie)
+            deck_partie.ajouter_carte(carteChoisie)
 
-        if carteChoisie.effet_carte() == 2 :
-            peut_jouer = interdit_jouer()
+            if carteChoisie.effet_carte() == 1 :
+                sens_horaire = inverse(sens_horaire)
 
-        if carteChoisie.effet_carte() == 3:
-            coef = 0
-            plus_2_carte_bot(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef)
+            if carteChoisie.effet_carte() == 2 :
+                peut_jouer = interdit_jouer()
+
+        # if carteChoisie.effet_carte() == 3:
+        #     coef = 0
+        #     plus_2_carte_bot(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef)
 
 		# if carteChoisie.effet_carte() == 4:
 		# 	coef = 0
@@ -126,54 +137,83 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur):
 		# if carteChoisie.effet_carte() == 5 : 
 		# 	nouvelle_couleur = changer_couleur()
 
-    print("ici")
 	
     return nouvelle_couleur, peut_jouer, True
 
 def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur): 
 
-	global deck_partie
-	global pile_milieu
-	valid1 = False
-	arghhh = False
-	if peut_jouer is True :
-		if nouvelle_couleur[1] == 1:
-			for k in range(mainIA.nb_main()):
-				t = nouvelle_couleur[0]
-				if carte_valide2(t, mainIA.main_joueur[k]) == True:
-					valid1 = True
+    global deck_partie
+    global pile_milieu
+    valid1 = False
+    tours_valide = False
+    if peut_jouer is True :
+        if nouvelle_couleur[1] == 1:
+            for k in range(mainIA.nb_main()):
+                t = nouvelle_couleur[0]
+                if carte_valide2(t, mainIA.main_joueur[k]) == True:
+                    valid1 = True
 
-			if valid1 == True:	
-				carteChoisie = choix_complexe2(mainIA.main_joueur,mainJoueur.main_joueur, t)[0]
-				mainIA.choix_carte(choix_complexe2(mainIA.main_joueur,mainJoueur.main_joueur, t)[1])
-				arghhh = True
+            if valid1 == True:    
+                carteChoisie = choix_complexe2(mainIA.main_joueur,mainJoueur.main_joueur, t)[0]
+                mainIA.choix_carte(choix_complexe2(mainIA.main_joueur,mainJoueur.main_joueur, t)[1])
+                tours_valide = True
 
-			else:
-				mainIA.ajouter_carte(deck_partie.retirer_carte())
-				print("Le bot pioche")
-				if carte_valide2(t, mainIA.main_joueur[-1]) == True:
-					carteChoisie = mainIA.choix_carte(-1)	
-					arghhh = True
-					print("Le bot place la carte pioché")
-		else:
-			for k in range(mainIA.nb_main()):
-				if carte_valide(pile_milieu[-1], mainIA.main_joueur[k]) == True:
-					valid1 = True
+            else:
+                mainIA.ajouter_carte(deck_partie.retirer_carte())
+                print("Le bot pioche")
+                if carte_valide2(t, mainIA.main_joueur[-1]) == True:
+                    carteChoisie = mainIA.choix_carte(-1)    
+                    tours_valide = True
+                    print("Le bot place la carte pioché")
+        else:
+            for k in range(mainIA.nb_main()):
+                if carte_valide(pile_milieu[-1], mainIA.main_joueur[k]) == True:
+                    valid1 = True
 
-			if valid1 == True:	
-				carteChoisie = choix_complexe(mainIA.main_joueur,mainJoueur.main_joueur, pile_milieu[-1])[0]
-				mainIA.choix_carte(choix_complexe(mainIA.main_joueur,mainJoueur.main_joueur, pile_milieu[-1])[1])
-				arghhh = True
+            if valid1 == True:    
+                carteChoisie = choix_complexe(mainIA.main_joueur,mainJoueur.main_joueur, pile_milieu[-1])[0]
+                mainIA.choix_carte(choix_complexe(mainIA.main_joueur,mainJoueur.main_joueur, pile_milieu[-1])[1])
+                tours_valide = True
 
-			else:
-				mainIA.ajouter_carte(deck_partie.retirer_carte())
-				print("Le bot pioche")
-				if carte_valide(pile_milieu[-1], mainIA.main_joueur[-1]) == True:
-					carteChoisie = mainIA.choix_carte(-1)	
-					arghhh = True
-					print("Le bot place la carte pioché")
+            else:
+                mainIA.ajouter_carte(deck_partie.retirer_carte())
+                print("Le bot pioche")
+                if carte_valide(pile_milieu[-1], mainIA.main_joueur[-1]) == True:
+                    carteChoisie = mainIA.choix_carte(-1)    
+                    tours_valide = True
+                    print("Le bot place la carte pioché")
+                    
+    peut_jouer = True
+    nouvelle_couleur = ["", 0]
 
-	return nouvelle_couleur, peut_jouer
+    if tours_valide == True:
+        print("La carte jouer est :",carteChoisie)
+        pile_milieu.append(carteChoisie)
+        deck_partie.ajouter_carte(carteChoisie)
+
+        # if carteChoisie.effet_carte() == 0 :
+        #     score[1] = score[1] + 10
+
+        # if carteChoisie.effet_carte() == 1 :
+        #     score[1] = score[1] * 1.5
+
+        # if carteChoisie.effet_carte() == 2 :
+        #     peut_jouer = interdit_jouer()
+        #     score[1] = score[1] + 10
+
+        # if carteChoisie.effet_carte() == 3:
+        #     coef = 0
+        #     score = plus_2_carte(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef, score)
+
+        # if carteChoisie.effet_carte() == 4: 
+        #     coef = 0
+        #     nouvelle_couleur, score = plus_4_carte(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef, score)
+
+        # if carteChoisie.effet_carte() == 5 :
+        #     nouvelle_couleur = bot_changer_couleur()
+        #     score[1] = score[1] + 25
+
+    return nouvelle_couleur, peut_jouer
 
 # Création de la fenêtre
 
@@ -334,29 +374,33 @@ vict = False
 
 while vict is False :
 
-	print("Tour du joueur")
-	
-	joueurAJouer = False
-	mainJoueur.trier_mains()
+    print("Tour du joueur")
+    
+    joueurAJouer = False
+    mainJoueur.trier_mains()
 
-	print(mainJoueur)
-	nouvelle_couleur, peut_jouer,joueurAJouer = toursJoueur(mainJoueur,mainIA, peut_jouer, nouvelle_couleur)	
-	nouvelle_couleur, peut_jouer = toursIA(mainIA,mainJoueur, peut_jouer, nouvelle_couleur)
+    print(mainJoueur)
+    nouvelle_couleur, peut_jouer,joueurAJouer = toursJoueur(mainJoueur,mainIA, peut_jouer, nouvelle_couleur)    
 
-	update_cartesmainIA()
-	update_cartesJoueur()
-	update_carteJouer()
+    update_cartesJoueur()
+    update_carteJouer()
 
-	sleep(0.5)
+    sleep(1)
 
+    print(str(pile_milieu))
+    
+    nouvelle_couleur, peut_jouer = toursIA(mainIA,mainJoueur, peut_jouer, nouvelle_couleur)
 
-	if mainJoueur.main_joueur == []:
-		
-		vict = True
+    update_cartesmainIA()
+    update_carteJouer()
 
+    print(str(pile_milieu))
 
-	elif mainIA.main_joueur == []:
-		 
- 		vict = True
+    sleep(1)
+
+    if mainJoueur.main_joueur == []:
+        vict = True
+    elif mainIA.main_joueur == []:
+        vict = True
 
 fenetre.mainloop()
