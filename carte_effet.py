@@ -1,7 +1,10 @@
 from random import *
 from carte_valide import *
-def inverse (sens_horaire):
-    0
+def inverse (mainJoueur,mainBot):
+
+    return mainBot,mainJoueur
+    
+
 
 def interdit_jouer ():
 
