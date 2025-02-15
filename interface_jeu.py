@@ -223,7 +223,7 @@ def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur,score):
 fenetre = Tk()
 fenetre.title("Cosmunos")
 fenetre.geometry("1600x800")
-fenetre.attributes("-fullscreen")
+fenetre.attributes("-fullscreen",True)
 
 index_carte = IntVar(value=-1)
 numeroChoisie = IntVar(value=-1)
@@ -318,7 +318,7 @@ def fichier_carte(carte):
 
     return chemin
 
-def attendre_choix():
+
     frame_cartes_joueur.wait_variable(index_carte)
     choix = index_carte.get()
     print(f"Carte choisie : {choix}")
