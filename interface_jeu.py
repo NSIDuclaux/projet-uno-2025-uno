@@ -227,6 +227,7 @@ fenetre.attributes("-fullscreen",True)
 
 index_carte = IntVar(value=-1)
 numeroChoisie = IntVar(value=-1)
+index_couleur = IntVar(value=-1)
 
 # Fond
 
@@ -324,6 +325,13 @@ def fichier_carte(carte):
     print(f"Carte choisie : {choix}")
     return choix
 
+def cacher_changer_couleur():
+
+    frame_fond.place_forget()
+    frame_changer_couleur.place_forget()
+
+    
+
 #Action bouton
 
 def bouton_jouer_cartes(index):
@@ -331,6 +339,12 @@ def bouton_jouer_cartes(index):
     global numeroChoisie
     numeroChoisie.set(index)  
     print(f"Carte choisie : {index}")
+
+def afficher_index_couleur(valeur) :
+
+    index_couleur.set(valeur)
+    print("Index couleur :", index_couleur.get())
+    cacher_changer_couleur()
 
 # def bouton_pioche(mains,deck):
 
@@ -346,6 +360,12 @@ frame_cartes_joueur.pack(side=BOTTOM, pady=20)
 
 frame_milieu = Frame(fenetre, bg=fond) 
 frame_milieu.pack(anchor=CENTER)
+
+frame_fond = Frame(fenetre, bg=fond)
+frame_fond.place(relx=0.5, rely=0.5, anchor="center", width=1600, height=800)
+
+frame_changer_couleur = Frame(frame_fond, bg=fond)
+frame_changer_couleur.place(anchor="center", relx=0.5, rely=0.5, y=25)
 
 # Charger l'image de la carte dos
 
@@ -363,8 +383,51 @@ image_dos_carte = ImageTk.PhotoImage(image_dos_carte)
 pioche = Button(frame_milieu, image=image_dos_carte, padx=10, pady=5, bg=fond, borderwidth=0, activebackground="#1e1e1e")
 pioche.grid(row=0, column=0, pady=90)
 
+# Créer image de fond et de changement de couleur
+
+ratio = 0.2
+
+fond_path = path.abspath("Interface/Changer de couleur/Interface.png")
+fond_changer_couleur = Image.open(fond_path)
+new_size = (int(fond_changer_couleur.width * ratio), int(fond_changer_couleur.height * ratio))
+fond_changer_couleur = fond_changer_couleur.resize(new_size)
+fond_changer_couleur = ImageTk.PhotoImage(fond_changer_couleur)
+
+image_bleu = Image.open(path.abspath("Interface/Changer de couleur/Bleu.png"))
+
+new_size = (int(image_bleu.width * ratio), int(image_bleu.height * ratio))
+
+image_bleu = image_bleu.resize(new_size)
+image_bleu = ImageTk.PhotoImage(image_bleu)
+
+image_cyan = Image.open(path.abspath("Interface/Changer de couleur/Cyan.png"))
+image_cyan = image_cyan.resize(new_size)
+image_cyan = ImageTk.PhotoImage(image_cyan)
+
+image_rose = Image.open(path.abspath("Interface/Changer de couleur/Rose.png"))
+image_rose = image_rose.resize(new_size)
+image_rose = ImageTk.PhotoImage(image_rose)
+
+image_violet = Image.open(path.abspath("Interface/Changer de couleur/Violet.png"))
+image_violet = image_violet.resize(new_size)
+image_violet = ImageTk.PhotoImage(image_violet)
+
+##Label & Bouton
+
+fond_label = Label(frame_fond, image=fond_changer_couleur, bg=fond)
+fond_label.place(relx=0.5, rely=0.5, anchor="center")
+frame_fond.place(relx=0.5, rely=0.5, anchor="center", width=1600, height=800)
+
+bouton_bleu = Button(frame_changer_couleur, image=image_bleu, bg="#121212", command=lambda: afficher_index_couleur(0), borderwidth=0, activebackground="#121212").grid(row=0, column=0, padx=0)
+bouton_cyan = Button(frame_changer_couleur, image=image_cyan, bg="#121212", command=lambda: afficher_index_couleur(1) ,borderwidth=0, activebackground="#121212").grid(row=0, column=1, padx=0)
+bouton_rose = Button(frame_changer_couleur, image=image_rose, bg="#121212", command=lambda: afficher_index_couleur(2) ,borderwidth=0, activebackground="#121212").grid(row=0, column=2, padx=0)
+bouton_violet = Button(frame_changer_couleur, image=image_violet, bg="#121212", command=lambda: afficher_index_couleur(3) ,borderwidth=0, activebackground="#121212").grid(row=0, column=3, padx=0)
+
+frame_changer_couleur.lift()
+
 # Mise à jour de l'interface
 
+cacher_changer_couleur()
 update_cartesmainIA()
 update_carteJouer()
 update_cartesJoueur()
