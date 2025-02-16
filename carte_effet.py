@@ -14,7 +14,7 @@ def interdit_jouer ():
 
     return pouvoirJouer
 
-def plus_2_carte (main,bot,deck,carte,pile_milieu,coef,score):
+def plus_2_carte (main,bot,deck,carte,pile_milieu,coef):
     valide = False
     for k in range(main.nb_main()):
         if renvoie_valide2(main.main_joueur[k]) == True:
@@ -37,7 +37,7 @@ def plus_2_carte (main,bot,deck,carte,pile_milieu,coef,score):
             coef = coef + 4
         else:
             coef = coef + 2
-        plus_2_carte_bot(bot,main,deck,carte,pile_milieu,coef, score)
+        plus_2_carte_bot(bot,main,deck,carte,pile_milieu,coef)
 
     else:
         coef = coef + 2
@@ -46,10 +46,9 @@ def plus_2_carte (main,bot,deck,carte,pile_milieu,coef,score):
             main.ajouter_carte(deck.retirer_carte())
 
         print("Le joueur suivant reçoit "+ str(coef) +" carte")
-        score[1] = score[1] + 15*(coef//2)
-        return score
-    
-def plus_2_carte_bot (bot,main,deck,carte,pile_milieu,coef, score):
+        c = coef
+        return c
+def plus_2_carte_bot (bot,main,deck,carte,pile_milieu,coef):
     valide = False
     for k in range(bot.nb_main()):
         if renvoie_valide2(bot.main_joueur[k]) == True:
@@ -65,16 +64,15 @@ def plus_2_carte_bot (bot,main,deck,carte,pile_milieu,coef, score):
             coef = coef + 4
         else:
             coef = coef + 2
-        plus_2_carte(main,bot,deck,carte,pile_milieu,coef, score)
+        plus_2_carte(main,bot,deck,carte,pile_milieu,coef)
     else:
         coef = coef + 2
         for i in range (coef):
 
             bot.ajouter_carte(deck.retirer_carte())
         print("Le joueur suivant reçoit "+ str(coef) +" carte")
-        score[0] = score[0] + 15*(coef//2)
-        return score
-    
+        c = coef
+        return c
 def changer_couleur():
 
     nouvelleCouleur = ["", 1]
@@ -85,7 +83,7 @@ def changer_couleur():
 
     return nouvelleCouleur
 
-def plus_4_carte (main,bot,deck,carte,pile_milieu,coef,score):
+def plus_4_carte (main,bot,deck,carte,pile_milieu,coef):
     valide = False
     for k in range(main.nb_main()):
         if renvoie_valide_plus2(main.main_joueur[k]) == True:
@@ -105,7 +103,7 @@ def plus_4_carte (main,bot,deck,carte,pile_milieu,coef,score):
         pile_milieu.append(carteChoisie)
         deck.ajouter_carte(carteChoisie)
         coef = coef + 4
-        bot_plus_4_carte(bot,main,deck,carte,pile_milieu,coef, score)
+        bot_plus_4_carte(bot,main,deck,carte,pile_milieu,coef)
 
     else:
         coef = coef + 4
@@ -118,10 +116,9 @@ def plus_4_carte (main,bot,deck,carte,pile_milieu,coef,score):
         c = randint(0,3)
         d = ["violet","rose","bleu","cyan"]
         nouvelleCouleur= [d[c], 1]
-    
+        c = coef
         print("Le joueur suivant reçoit "+ str(coef) +" carte, et la nouvelle couleur est",nouvelleCouleur[0])
-        score[1] = score[1] + 50*(coef//4)
-        return nouvelleCouleur, score
+        return nouvelleCouleur, c
 
 def bot_changer_couleur():
 
@@ -132,7 +129,7 @@ def bot_changer_couleur():
 
     return nouvelleCouleur
 
-def bot_plus_4_carte (bot,main,deck,carte,pile_milieu,coef, score):
+def bot_plus_4_carte (bot,main,deck,carte,pile_milieu,coef):
     valide = False
     for k in range(bot.nb_main()):
         if renvoie_valide_plus2(bot.main_joueur[k]) == True:
@@ -145,8 +142,7 @@ def bot_plus_4_carte (bot,main,deck,carte,pile_milieu,coef, score):
         pile_milieu.append(c)
         deck.ajouter_carte(c)
         coef = coef + 4
-
-        plus_4_carte(main,bot,deck,carte,pile_milieu,coef, score)
+        plus_4_carte(main,bot,deck,carte,pile_milieu,coef)
     else:
         coef = coef + 4
         for i in range (coef):
@@ -156,8 +152,6 @@ def bot_plus_4_carte (bot,main,deck,carte,pile_milieu,coef, score):
 
         while nouvelleCouleur[0] != "violet" and nouvelleCouleur[0] != "cyan" and nouvelleCouleur[0] != "rose" and nouvelleCouleur[0] != "bleu":
             nouvelleCouleur[0] = input("Choissez une nouvelle couleur")
-        
-
+        c = coef
         print("Le joueur suivant reçoit "+ str(coef) +" carte, et la nouvelle couleur est",nouvelleCouleur[0])
-        score[0] = score[0] + 50*(coef//4)
-        return nouvelleCouleur, score 
+        return nouvelleCouleur, c

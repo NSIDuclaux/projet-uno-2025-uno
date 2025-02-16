@@ -84,12 +84,12 @@ def toursjoueur (player,ia,peut_jouer, nouvelle_couleur, score):
 			score[0] = score[0] + 10
 		if carteChoisie.effet_carte() == 3:
 			coef = 0
-			score = plus_2_carte_bot(ia,player,deck_partie,carteChoisie,pile_milieu,coef, score)
-
+			coef = plus_2_carte_bot(ia,player,deck_partie,carteChoisie,pile_milieu,coef)
+			score[0] = score[0]*1.25
 		if carteChoisie.effet_carte() == 4:
 			coef = 0
-			nouvelle_couleur, score = bot_plus_4_carte(ia,player,deck_partie,carteChoisie,pile_milieu,coef, score)
-
+			nouvelle_couleur, coef = bot_plus_4_carte(ia,player,deck_partie,carteChoisie,pile_milieu,coef)
+			score[0] = score[0] + score[0]*1.75
 		if carteChoisie.effet_carte() == 5 : 
 			nouvelle_couleur = changer_couleur()
 			score[0] = score[0] + 25
@@ -160,15 +160,15 @@ def toursia (ia,player,peut_jouer, nouvelle_couleur, score):
 
 		if carteChoisie.effet_carte() == 3:
 			coef = 0
-			score = plus_2_carte(player,ia,deck_partie,carteChoisie,pile_milieu,coef, score)
-
+			coef = plus_2_carte(player,ia,deck_partie,carteChoisie,pile_milieu,coef)
+			score[1] = score[1]*1.25
 		if carteChoisie.effet_carte() == 4: 
 			coef = 0
-			nouvelle_couleur, score = plus_4_carte(player,ia,deck_partie,carteChoisie,pile_milieu,coef, score)
-
+			nouvelle_couleur, coef = plus_4_carte(player,ia,deck_partie,carteChoisie,pile_milieu,coef)
+			score[1] = score[1]*1.75
 		if carteChoisie.effet_carte() == 5 :
 			nouvelle_couleur = bot_changer_couleur()
-			score[1] = score[1] + 25
+			score[1] = score[1] + 30
 
 	return nouvelle_couleur, peut_jouer, score
 
@@ -202,12 +202,12 @@ while reponse != "oui" or reponse != "non":
 	if reponse == "oui":
 		while vict == False:
 			#print("bot :", ia)
-			print(score)
 			print("joueur :", player)
             
 			print("La carte du milieu est :" , pile_milieu[-1])
 
 			nouvelle_couleur, peut_jouer, score = toursjoueur(player,ia, peut_jouer, nouvelle_couleur, score)
+			print(score)
 			nouvelle_couleur, peut_jouer, score = toursia(ia,player, peut_jouer, nouvelle_couleur, score)
 			
 			if player.main_joueur == []:
