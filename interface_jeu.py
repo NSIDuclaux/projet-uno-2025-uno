@@ -497,6 +497,8 @@ while vict is False :
     print(mainJoueur)
     nouvelle_couleur, peut_jouer, score = toursJoueur(mainJoueur,mainIA, peut_jouer, nouvelle_couleur,score)    
 
+    mainJoueur.trier_mains()
+
     update_cartesJoueur()
     update_carteJouer()
 
@@ -505,6 +507,8 @@ while vict is False :
     print(str(pile_milieu))
     
     nouvelle_couleur, peut_jouer, score = toursIA(mainIA,mainJoueur, peut_jouer, nouvelle_couleur,score)
+
+    mainJoueur.trier_mains()
 
     update_cartesmainIA()
     update_carteJouer()
