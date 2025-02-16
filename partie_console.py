@@ -207,7 +207,6 @@ while reponse != "oui" or reponse != "non":
 			print("La carte du milieu est :" , pile_milieu[-1])
 
 			nouvelle_couleur, peut_jouer, score = toursjoueur(player,ia, peut_jouer, nouvelle_couleur, score)
-			print(score)
 			nouvelle_couleur, peut_jouer, score = toursia(ia,player, peut_jouer, nouvelle_couleur, score)
 			
 			if player.main_joueur == []:
