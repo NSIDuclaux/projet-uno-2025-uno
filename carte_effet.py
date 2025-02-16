@@ -1,8 +1,8 @@
 from random import *
 from carte_valide import *
 def inverse (mainJoueur,mainBot):
-
-    return mainBot,mainJoueur
+    mainJoueur, mainBot = mainBot, mainJoueur
+    return mainJoueur, mainBot  
     
 
 
