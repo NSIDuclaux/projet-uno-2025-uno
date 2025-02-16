@@ -140,7 +140,7 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,score):
                 nouvelle_couleur, score = bot_plus_4_carte(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef, score)
 
             if carteChoisie.effet_carte() == 5 : 
-                nouvelle_couleur = changer_couleur()
+                nouvelle_couleur = changer_couleur_interface() 
                 score[0] = score[0] + 25
 	
     return nouvelle_couleur, peut_jouer, score
@@ -222,6 +222,44 @@ def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur,score):
 
     return nouvelle_couleur, peut_jouer, score
 
+def changer_couleur_interface():
+
+    global index_couleur
+
+    afficher_changer_couleur()
+    nouvelleCouleur = ["", 1]
+    frame_changer_couleur.wait_variable(index_couleur)
+    nouvelleCouleur[0] = index_couleur.get()
+    print("La nouvelle couleur est",nouvelleCouleur[0])
+    cacher_changer_couleur()
+    return nouvelleCouleur
+
+def plus_4_carte_interface(main,bot,deck,carte,pile_milieu,coef,score):
+
+    valide = False
+    for k in range(main.nb_main()):
+        if renvoie_valide_plus2(main.main_joueur[k]) == True:
+            valide = True
+    if valide == True:
+        print("renvoie possible")
+        print(main)
+        valid = False
+        while valid == False:
+            numeroChoisie.set(-1)  # Réinitialise avant de demander un choix
+            # Attends que l'utilisateur fasse un choix (via la variable)
+            frame_cartes_joueur.wait_variable(numeroChoisie)
+            numeroChoisie_value = numeroChoisie.get()
+            while int(numeroChoisie_value) < 0 or int(numeroChoisie_value) >= main.nb_main():
+                numeroChoisie = numeroChoisie_value
+                if int(numeroChoisie) >= 0 and int(numeroChoisie) < main.nb_main():
+                    valid = renvoie_valide_plus2(main.main_joueur[int(numeroChoisie)]) 
+        carteChoisie = main.choix_carte(int(numeroChoisie))
+        print("La carte retourné est :",carteChoisie)
+        pile_milieu.append(carteChoisie)
+        deck.ajouter_carte(carteChoisie)
+        coef = coef + 4
+        bot_plus_4_carte(bot,main,deck,carte,pile_milieu,coef, score)
+        return changer_couleur_interface(),score
 # Création de la fenêtre
 
 fenetre = Tk()
@@ -334,6 +372,10 @@ def cacher_changer_couleur():
     frame_fond.place_forget()
     frame_changer_couleur.place_forget()
 
+def afficher_changer_couleur():
+
+    frame_fond.place(relx=0.5, rely=0.5, anchor="center", width=1600, height=800)
+    frame_changer_couleur.place(anchor="center", relx=0.5, rely=0.5, y=25)
     
 
 #Action bouton
@@ -358,6 +400,7 @@ def afficher_index_couleur(valeur) :
 
 frame_cartes_mainIA = Frame(fenetre, bg=fond)
 frame_cartes_mainIA.pack(side=TOP, pady=20)
+frame_cartes_mainIA.lift()
 
 frame_cartes_joueur = Frame(fenetre, bg=fond)
 frame_cartes_joueur.pack(side=BOTTOM, pady=20)
@@ -422,12 +465,14 @@ fond_label = Label(frame_fond, image=fond_changer_couleur, bg=fond)
 fond_label.place(relx=0.5, rely=0.5, anchor="center")
 frame_fond.place(relx=0.5, rely=0.5, anchor="center", width=1600, height=800)
 
-bouton_bleu = Button(frame_changer_couleur, image=image_bleu, bg="#121212", command=lambda: afficher_index_couleur(0), borderwidth=0, activebackground="#121212").grid(row=0, column=0, padx=0)
-bouton_cyan = Button(frame_changer_couleur, image=image_cyan, bg="#121212", command=lambda: afficher_index_couleur(1) ,borderwidth=0, activebackground="#121212").grid(row=0, column=1, padx=0)
-bouton_rose = Button(frame_changer_couleur, image=image_rose, bg="#121212", command=lambda: afficher_index_couleur(2) ,borderwidth=0, activebackground="#121212").grid(row=0, column=2, padx=0)
-bouton_violet = Button(frame_changer_couleur, image=image_violet, bg="#121212", command=lambda: afficher_index_couleur(3) ,borderwidth=0, activebackground="#121212").grid(row=0, column=3, padx=0)
+bouton_bleu = Button(frame_changer_couleur, image=image_bleu, bg="#121212", command=lambda: afficher_index_couleur(2), borderwidth=0, activebackground="#121212").grid(row=0, column=0, padx=0)
+bouton_cyan = Button(frame_changer_couleur, image=image_cyan, bg="#121212", command=lambda: afficher_index_couleur(3) ,borderwidth=0, activebackground="#121212").grid(row=0, column=1, padx=0)
+bouton_rose = Button(frame_changer_couleur, image=image_rose, bg="#121212", command=lambda: afficher_index_couleur(1) ,borderwidth=0, activebackground="#121212").grid(row=0, column=2, padx=0)
+bouton_violet = Button(frame_changer_couleur, image=image_violet, bg="#121212", command=lambda: afficher_index_couleur(0) ,borderwidth=0, activebackground="#121212").grid(row=0, column=3, padx=0)
 
 frame_changer_couleur.lift()
+frame_cartes_joueur.lift()
+frame_cartes_mainIA.lift()
 
 # Mise à jour de l'interface
 
