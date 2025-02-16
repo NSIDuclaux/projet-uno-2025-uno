@@ -137,7 +137,7 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,score):
 
             if carteChoisie.effet_carte() == 4:
                 coef = 0
-                nouvelle_couleur, score = bot_plus_4_carte(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef, score)
+                nouvelle_couleur, score = plus_4_carte_interface(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef, score)
 
             if carteChoisie.effet_carte() == 5 : 
                 nouvelle_couleur = changer_couleur_interface() 
@@ -537,6 +537,11 @@ while vict is False :
     cacher_joueur()
     update_cartesJoueur()
     update_carteJouer()
+
+    if mainJoueur.main_joueur == []:
+        vict = True
+    elif mainIA.main_joueur == []:
+        vict = True
 
     sleep(1)
 
