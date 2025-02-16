@@ -125,7 +125,7 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,score):
                 score[0] = score[0] + 10
             if carteChoisie.effet_carte() == 1 :
 
-                mainIA,mainJoueur = mainJoueur,mainIA
+                mainJoueur,mainIA = inverse(mainIA,mainJoueur)
                 score[0] = score[0] * 1.5
 
             if carteChoisie.effet_carte() == 2 :
@@ -149,6 +149,9 @@ def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur,score):
 
     global deck_partie
     global pile_milieu
+
+    afficher_ia()
+
     valid1 = False
     tours_valide = False
     if peut_jouer is True :
@@ -201,7 +204,7 @@ def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur,score):
 
         if carteChoisie.effet_carte() == 1 :
 
-            mainIA,mainJoueur = mainJoueur,mainIA
+            mainJoueur,mainIA = inverse(mainIA,mainJoueur)
             score[1] = score[1] * 1.5
 
         if carteChoisie.effet_carte() == 2 :
@@ -219,6 +222,8 @@ def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur,score):
         if carteChoisie.effet_carte() == 5 :
             nouvelle_couleur = bot_changer_couleur()
             score[1] = score[1] + 25
+
+    cacher_ia()
 
     return nouvelle_couleur, peut_jouer, score
 
@@ -394,6 +399,32 @@ def afficher_ia():
 
     frame_ia.place(relx=0.5, rely=0.3, anchor="center")
 
+def afficher_victoire():
+
+    frame_victoire.place(relx=0.5, rely=0.5, anchor=CENTER,width=1600,height=800)
+
+def afficher_defaite():
+
+    frame_defaite.place(relx=0.5, rely=0.5, anchor=CENTER,width=1600,height=800)
+
+def cacher_victoire():
+    
+    frame_victoire.place_forget()
+
+def cacher_defaite():
+
+    frame_defaite.place_forget()
+
+def tout_cacher():
+
+    frame_cartes_mainIA.pack_forget()
+    frame_cartes_joueur.pack_forget()
+    frame_milieu.pack_forget()
+    frame_fond.place_forget()
+    frame_changer_couleur.place_forget()
+    frame_ia.place_forget()
+    frame_joueur.place_forget()
+
 #Action bouton
 
 def bouton_jouer_cartes(index):
@@ -435,6 +466,12 @@ frame_ia.place(relx=0.5, rely=0.3, anchor="center")
 
 frame_joueur = Frame(fenetre, bg=fond)
 frame_joueur.place(relx=0.5, rely=0.7, anchor="center")
+
+frame_victoire = Frame(fenetre, bg=fond)
+frame_victoire.place(relx=0.5, rely=0.5, anchor=CENTER,width=1600,height=800)
+
+frame_defaite = Frame(fenetre,bg=fond)
+frame_victoire.place(relx=0.5, rely=0.5, anchor=CENTER,width=1600,height=800)
 
 # Charger l'image de la carte dos
 
@@ -489,12 +526,28 @@ image_ia = Image.open(path.abspath("Interface/Le bot joue.png"))
 image_ia = image_ia.resize((int(image_ia.width * 0.3), int(image_ia.height * 0.3)))
 image_ia = ImageTk.PhotoImage(image_ia)
 
+ratio = 0.2
+
+image_victoire = Image.open(path.abspath("Interface/Victoire.png"))
+new_size = (int(image_victoire.width * ratio), int(image_victoire.height * ratio))
+image_victoire = image_victoire.resize(new_size)
+image_victoire = ImageTk.PhotoImage(image_victoire)
+
+image_defaite = Image.open(path.abspath("Interface/Defaite.png"))
+image_defaite = image_defaite.resize(new_size)
+image_defaite = ImageTk.PhotoImage(image_defaite)
+
 ##Label & Bouton
 
-bouton_bleu = Button(frame_changer_couleur, image=image_bleu, bg="#121212", command=lambda: afficher_index_couleur(2), borderwidth=0, activebackground="#121212").grid(row=0, column=0, padx=0)
-bouton_cyan = Button(frame_changer_couleur, image=image_cyan, bg="#121212", command=lambda: afficher_index_couleur(3) ,borderwidth=0, activebackground="#121212").grid(row=0, column=1, padx=0)
+label_fond = Label(frame_fond, image=fond_changer_couleur, bg=fond)
+label_fond.place(relx=0.5, rely=0.5, anchor=CENTER,width=1600,height=800)
+
+bouton_bleu = Button(frame_changer_couleur, image=image_bleu, bg="#121212", command=lambda: afficher_index_couleur(3), borderwidth=0, activebackground="#121212").grid(row=0, column=0, padx=0)
+bouton_cyan = Button(frame_changer_couleur, image=image_cyan, bg="#121212", command=lambda: afficher_index_couleur(2) ,borderwidth=0, activebackground="#121212").grid(row=0, column=1, padx=0)
 bouton_rose = Button(frame_changer_couleur, image=image_rose, bg="#121212", command=lambda: afficher_index_couleur(1) ,borderwidth=0, activebackground="#121212").grid(row=0, column=2, padx=0)
 bouton_violet = Button(frame_changer_couleur, image=image_violet, bg="#121212", command=lambda: afficher_index_couleur(0) ,borderwidth=0, activebackground="#121212").grid(row=0, column=3, padx=0)
+
+
 
 label_joueur = Label(frame_joueur, image=image_joueur, bg=fond)
 label_joueur.pack(anchor="center")
@@ -502,11 +555,18 @@ label_joueur.pack(anchor="center")
 label_ia = Label(frame_ia, image=image_ia, bg=fond)
 label_ia.pack(anchor="center")
 
+label_victoire = Label(frame_victoire,image=image_victoire,bg=fond)
+label_victoire.place(relx=0.5, rely=0.5, anchor=CENTER)
+label_defaite = Label(frame_defaite,image=image_defaite,bg=fond)
+label_defaite.place(relx=0.5, rely=0.5, anchor=CENTER)
+
 frame_changer_couleur.lift()
 frame_cartes_joueur.lift()
 frame_cartes_mainIA.lift()
 # Mise à jour de l'interface
 
+cacher_defaite()
+cacher_victoire()
 cacher_changer_couleur()
 cacher_joueur()
 cacher_ia()
@@ -539,28 +599,25 @@ while vict is False :
     update_carteJouer()
 
     if mainJoueur.main_joueur == []:
+        tout_cacher()
+        afficher_victoire()
         vict = True
-    elif mainIA.main_joueur == []:
-        vict = True
+        
 
     sleep(1)
-
-    afficher_ia()
     
     nouvelle_couleur, peut_jouer, score = toursIA(mainIA,mainJoueur, peut_jouer, nouvelle_couleur,score)
 
     mainJoueur.trier_mains()
-
-    cacher_ia()
 
     update_cartesmainIA()
     update_carteJouer()
 
     sleep(1)
 
-    if mainJoueur.main_joueur == []:
+    if mainIA.main_joueur == []:
+        tout_cacher()
         vict = True
-    elif mainIA.main_joueur == []:
-        vict = True
+        afficher_defaite()
 
 fenetre.mainloop()
