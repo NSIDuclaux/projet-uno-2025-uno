@@ -1,7 +1,15 @@
 from random import *
 from carte_valide import *
 def inverse (mainJoueur,mainBot):
+
+    print(mainJoueur)
+    print(mainBot)
+
     mainJoueur, mainBot = mainBot, mainJoueur
+
+    print(mainJoueur)
+    print(mainBot)
+
     return mainJoueur, mainBot  
     
 

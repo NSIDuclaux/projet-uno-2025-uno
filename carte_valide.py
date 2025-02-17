@@ -13,21 +13,13 @@ def carte_valide(carteposee, cartepropose):
         return True
     return False
 def carte_valide2(couleur, cartepropose):
-    if couleur == cartepropose.couleur:
+    if couleur == cartepropose.get_couleur():
         return True
-    if couleur == "violet":
-        couleur = 0
-    if couleur == "rose":
-        couleur = 1
-    if couleur == "bleu":
-        couleur = 2
-    if couleur == "cyan":
-        couleur = 3
     if cartepropose == "+4 Cartes" or cartepropose == "Changez de Couleur":
         return True
     if cartepropose.nombre == 13 or cartepropose.nombre == 14:
         return True
-    if couleur == cartepropose.couleur:
+    if couleur == cartepropose.get_couleur():
         return True
     return False
 
