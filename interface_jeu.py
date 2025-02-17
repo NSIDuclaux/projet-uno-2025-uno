@@ -35,7 +35,7 @@ nouvelle_couleur = ["", 0]
 pile_milieu.append(deck_partie.retirer_carte())
 mainJoueur.trier_mains()
 mainIA.trier_mains()
-score = [0,0]
+score = 0
 
 #fonction pour les tours du joueur
 
@@ -118,44 +118,43 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,score):
         
         if carte_placer is True:
             
-            print(score[0])
 
             pile_milieu.append(carteChoisie)
             deck_partie.ajouter_carte(carteChoisie)
 
             if carteChoisie.effet_carte() == 0 :
 
-                score[0] = score[0] + 10
+                score = score + 10
 
             if carteChoisie.effet_carte() == 1 :
             
                 mainJoueur,mainIA = inverse(mainIA,mainJoueur)
-                score[0] = float(score[0]) * 1.5
+                score = float(score) + float(score) * 1.5
 
             if carteChoisie.effet_carte() == 2 :
                 peut_jouer = interdit_jouer()
-                score[0] = score[0] + 10
+                score = score + 10
 
             if carteChoisie.effet_carte() == 3:
 
                 coef = 0
-                score = plus_2_carte_bot(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef)
-                score[0] = float(score[0]) * 1.25
+                coef = plus_2_carte_bot(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef)
+                score = float(score) + float(score) * 1.25
 
             if carteChoisie.effet_carte() == 4:
 
                 coef = 0
                 nouvelle_couleur, score = plus_4_carte_interface(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef, score)
-                score[0] = float(score[0]) + score[0]*1.75
+                score[0] = float(score) + score * 1.75
 
             if carteChoisie.effet_carte() == 5 : 
 
                 nouvelle_couleur = changer_couleur_interface() 
-                score[0] = score[0] + 25
+                score = score + 25
 	
     return nouvelle_couleur, peut_jouer, score
 
-def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur,score): 
+def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur): 
 
     global deck_partie
     global pile_milieu
@@ -213,40 +212,33 @@ def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur,score):
         pile_milieu.append(carteChoisie)
         deck_partie.ajouter_carte(carteChoisie)
 
-        if carteChoisie.effet_carte() == 0 :
-
-            score[1] = score[1] + 10
-
         if carteChoisie.effet_carte() == 1 :
 
             mainJoueur,mainIA = inverse(mainIA,mainJoueur)
-            score[1] = float(score[1]) * 1.5
+
 
         if carteChoisie.effet_carte() == 2 :
 
             peut_jouer = interdit_jouer()
-            score[1] = float(score[1]) + 10
+  
 
         if carteChoisie.effet_carte() == 3:
 
             coef = 0
             coef = plus_2_carte(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef)
-            score[1] = float(score[1])*1.25
             
         if carteChoisie.effet_carte() == 4: 
 
             coef = 0
             nouvelle_couleur = plus_4_carte(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef, score)
-            score[1] = float(score[1]) + score[1]*1.75
 
         if carteChoisie.effet_carte() == 5 :
 
-            nouvelle_couleur = bot_changer_couleur_inter()
-            score[1] = score[1] + 30
+            nouvelle_couleur = bot_changer_couleur_interface()
 
     cacher_ia()
 
-    return nouvelle_couleur, peut_jouer, score
+    return nouvelle_couleur, peut_jouer
 
 def changer_couleur_interface():
 
@@ -260,7 +252,7 @@ def changer_couleur_interface():
     cacher_changer_couleur()
     return nouvelleCouleur
 
-def plus_4_carte_interface(main,bot,deck,carte,pile_milieu,coef,score):
+def plus_4_carte_interface(main,bot,deck,carte,pile_milieu,coef):
 
     valide = False
     for k in range(main.nb_main()):
@@ -296,23 +288,32 @@ def bot_changer_couleur_interface():
 
 def plus_2_carte (main,bot,deck,carte,pile_milieu,coef):
 
-    global inder
+    global numeroChoisie
+    
+    # Vérification de la possibilité de jouer
 
     valide = False
     for k in range(main.nb_main()):
         if renvoie_valide2(main.main_joueur[k]) == True:
             valide = True
+
+    # Choix de la carte par le joueur
+
     if valide == True:
-        print("renvoie possible")
-        print(main)
+
         valid = False
+
         while valid == False:
-            numeroChoisie = -1
-            while int(numeroChoisie) < 0 or int(numeroChoisie) >= main.nb_main():
-                numeroChoisie = input("Choissez une carte")
-                if int(numeroChoisie) >= 0 and int(numeroChoisie) < main.nb_main():
+            
+            numeroChoisie.set(-1)
+            frame_cartes_joueur.wait_variable(numeroChoisie)
+            numeroChoisie_value = numeroChoisie.get()
+
+            while int(numeroChoisie_value) < 0 or int(numeroChoisie_value) >= main.nb_main():
+
+                if int(numeroChoisie_value) >= 0 and int(numeroChoisie_value) < main.nb_main():
                     valid = renvoie_valide2(main.main_joueur[int(numeroChoisie)]) 
-        carteChoisie = main.choix_carte(int(numeroChoisie))
+        carteChoisie = main.choix_carte(int(numeroChoisie_value))
         print("La carte retourné est :",carteChoisie)
         pile_milieu.append(carteChoisie)
         deck.ajouter_carte(carteChoisie)
@@ -321,6 +322,17 @@ def plus_2_carte (main,bot,deck,carte,pile_milieu,coef):
         else:
             coef = coef + 2
         plus_2_carte_bot(bot,main,deck,carte,pile_milieu,coef)
+
+    #  Si le joueur ne peut pas jouer
+
+    else :
+
+        coef = coef + 2
+        for i in range (coef):
+
+            main.ajouter_carte(deck.retirer_carte())
+
+    return coef
 
 # Création de la fenêtre
 
@@ -422,12 +434,6 @@ def fichier_carte(carte):
     chemin = c.fetchall()[0][0]
 
     return chemin
-
-
-    frame_cartes_joueur.wait_variable(index_carte)
-    choix = index_carte.get()
-    print(f"Carte choisie : {choix}")
-    return choix
 
 def cacher_changer_couleur():
 
@@ -640,6 +646,12 @@ vict = False
 
 while vict is False :
 
+    update_carteJouer()
+
+    print(score)
+    print(mainJoueur)
+    print(mainIA)
+
     print("Tour du joueur")
     
     joueurAJouer = False
@@ -650,7 +662,6 @@ while vict is False :
     print(mainJoueur)
     nouvelle_couleur, peut_jouer, score = toursJoueur(mainJoueur,mainIA, peut_jouer, nouvelle_couleur,score)    
 
-    print(nouvelle_couleur)
     mainJoueur.trier_mains()
     
     cacher_joueur()
@@ -661,12 +672,10 @@ while vict is False :
         tout_cacher()
         afficher_victoire()
         vict = True
-        
 
     sleep(1)
     
-    nouvelle_couleur, peut_jouer, score = toursIA(mainIA,mainJoueur, peut_jouer, nouvelle_couleur,score)
-    print(nouvelle_couleur)
+    nouvelle_couleur, peut_jouer = toursIA(mainIA,mainJoueur, peut_jouer, nouvelle_couleur)
     mainJoueur.trier_mains()
 
     update_cartesmainIA()

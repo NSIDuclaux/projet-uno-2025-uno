@@ -13,27 +13,27 @@ class Carte:
 
     def type_carte (self):
 
-        if 0 <= self.nombre <= 10 :
+        if 0 <= self.nombre <= 9 :
 
             return self.nombre
 
-        elif self.nombre == 10:
+        if self.nombre == 10:
 
             return "Sens Inverse"
 
-        elif self.nombre == 11:
+        if self.nombre == 11:
 
             return "Interdit de jouer"
 
-        elif self.nombre == 12:
+        if self.nombre == 12:
 
             return "+2 Cartes"
 
-        elif self.nombre == 13:
+        if self.nombre == 13:
 
             return ("+4 Cartes")
 
-        elif self.nombre == 14:
+        if self.nombre == 14:
 
             return ("Changez de Couleur")
 
@@ -108,6 +108,9 @@ class Carte:
 
         return str(self.structuration())
 
-# carte = Carte(2,12)
-# carte.effet_carte()
-# print(carte.effet)
+carte = Carte(2,10)
+carte.effet_carte()
+print(carte.effet)
+print(carte)
+print(carte.get_nombre())
+print(carte.type_carte())

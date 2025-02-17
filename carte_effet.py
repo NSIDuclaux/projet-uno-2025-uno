@@ -79,8 +79,9 @@ def plus_2_carte_bot (bot,main,deck,carte,pile_milieu,coef):
 
             bot.ajouter_carte(deck.retirer_carte())
         print("Le joueur suivant reçoit "+ str(coef) +" carte")
-        c = coef
-        return c
+
+        return coef
+    
 def changer_couleur():
 
     nouvelleCouleur = ["", 1]
