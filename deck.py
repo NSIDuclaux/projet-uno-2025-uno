@@ -23,7 +23,7 @@ class Deck:
                 self.list_allc = self.list_allc + [Carte(c,12)]
         for c in range(4):
             
-            for k in range(10):
+            for k in range(2):
                 self.list_allc = self.list_allc + [Carte(c,10)]
         for c in range(4):
             

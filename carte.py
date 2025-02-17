@@ -69,7 +69,7 @@ class Carte:
             
     def effet_carte(self):
 
-        if 0 <= self.nombre <= 10 :
+        if 0 <= self.nombre < 10 :
 
             self.effet = 0
 
@@ -110,7 +110,7 @@ class Carte:
 
 carte = Carte(2,10)
 carte.effet_carte()
-print(carte.effet)
+print(carte.effet_carte())
 print(carte)
 print(carte.get_nombre())
 print(carte.type_carte())
