@@ -48,6 +48,7 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,score):
     tours_valide = False
 
     if peut_jouer is True:
+        print(nouvelle_couleur)
         if nouvelle_couleur[1] == 1:
             t = nouvelle_couleur[0]
 
@@ -250,6 +251,7 @@ def changer_couleur_interface():
     nouvelleCouleur[0] = index_couleur.get()
     print("La nouvelle couleur est",nouvelleCouleur[0])
     cacher_changer_couleur()
+
     return nouvelleCouleur
 
 def plus_4_carte_interface(main,bot,deck,carte,pile_milieu,coef):
@@ -285,6 +287,8 @@ def bot_changer_couleur_interface():
     nouvelleCouleur= [c, 1]
 
     print("La nouvelle couleur est",nouvelleCouleur[0])
+
+    return nouvelle_couleur
 
 def plus_2_carte (main,bot,deck,carte,pile_milieu,coef):
 
@@ -642,9 +646,10 @@ update_cartesJoueur()
 index_carte = IntVar()
 
 vict = False
-
+confimation = True
 
 while vict is False :
+
 
     update_carteJouer()
 
@@ -672,6 +677,7 @@ while vict is False :
         tout_cacher()
         afficher_victoire()
         vict = True
+        confimation = False
 
     sleep(1)
     
@@ -683,7 +689,7 @@ while vict is False :
 
     sleep(1)
 
-    if mainIA.main_joueur == []:
+    if mainIA.main_joueur == [] and confimation is True:
         tout_cacher()
         vict = True
         afficher_defaite()
