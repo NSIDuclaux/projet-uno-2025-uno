@@ -1,16 +1,13 @@
 from random import *
 from carte_valide import *
-def inverse (mainJoueur,mainBot):
 
-    print(mainJoueur)
-    print(mainBot)
+def inverse (mainA,mainB):
 
-    mainJoueur, mainBot = mainBot, mainJoueur
+    x = randint(0,mainA.nb_main()-1)
 
-    print(mainJoueur)
-    print(mainBot)
+    mainB.ajouter_carte(mainA.choix_carte(x))
 
-    return mainJoueur, mainBot  
+    return mainA, mainB  
     
 
 
