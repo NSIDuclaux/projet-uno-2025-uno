@@ -129,7 +129,9 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,score):
 
             if carteChoisie.effet_carte() == 1 :
             
-                mainJoueur,mainIA = mainIA,mainJoueur
+                mains = [mainJoueur,mainIA]
+                mainJoueur = mains[1]
+                mainIA = mains[0]
                 score = float(score) + float(score) * 1.5
                 update_cartesJoueur()
                 update_cartesmainIA()
@@ -217,7 +219,9 @@ def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur):
 
         if carteChoisie.effet_carte() == 1 :
 
-            mainJoueur,mainIA = mainIA,mainJoueur
+            mains = [mainJoueur,mainIA]
+            mainJoueur = mains[1]
+            mainIA = mains[0]
             update_cartesJoueur()
             update_cartesmainIA()
 
