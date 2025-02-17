@@ -1,16 +1,6 @@
 from random import *
 from carte_valide import *
 
-def inverse (mainA,mainB):
-
-    x = randint(0,mainA.nb_main()-1)
-
-    mainB.ajouter_carte(mainA.choix_carte(x))
-
-    return mainA, mainB  
-    
-
-
 def interdit_jouer ():
 
     pouvoirJouer = False

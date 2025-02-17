@@ -129,6 +129,8 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,score):
 
             if carteChoisie.effet_carte() == 1 :
 
+                update_cartesJoueur()
+                update_cartesmainIA()
                 mainJoueur,mainIA = mainIA,mainJoueur
                 score = float(score) + float(score) * 1.5
                 update_cartesJoueur()
@@ -216,7 +218,11 @@ def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur):
         deck_partie.ajouter_carte(carteChoisie)
 
         if carteChoisie.effet_carte() == 1 :
+            print(mainJoueur)
+            print(mainIA)
             mainJoueur,mainIA = mainIA,mainJoueur
+            print(mainJoueur)
+            print(mainIA)
             update_cartesJoueur()
             update_cartesmainIA()
 
@@ -689,7 +695,7 @@ while vict is False :
         vict = True
         confimation = False
 
-    sleep(1)
+    sleep(2)
 
     print(mainIA)
     
