@@ -129,8 +129,10 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,score):
 
             if carteChoisie.effet_carte() == 1 :
             
-                mainJoueur,mainIA = inverse(mainIA,mainJoueur)
+                mainJoueur,mainIA = mainIA,mainJoueur
                 score = float(score) + float(score) * 1.5
+                update_cartesJoueur()
+                update_cartesmainIA()
 
             if carteChoisie.effet_carte() == 2 :
                 peut_jouer = interdit_jouer()
@@ -145,8 +147,8 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,score):
             if carteChoisie.effet_carte() == 4:
 
                 coef = 0
-                nouvelle_couleur, score = plus_4_carte_interface(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef, score)
-                score[0] = float(score) + score * 1.75
+                nouvelle_couleur, coef = plus_4_carte_interface(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef)
+                score = float(score) + score * 1.75
 
             if carteChoisie.effet_carte() == 5 : 
 
@@ -215,8 +217,9 @@ def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur):
 
         if carteChoisie.effet_carte() == 1 :
 
-            mainJoueur,mainIA = inverse(mainIA,mainJoueur)
-
+            mainJoueur,mainIA = mainIA,mainJoueur
+            update_cartesJoueur()
+            update_cartesmainIA()
 
         if carteChoisie.effet_carte() == 2 :
 
@@ -231,7 +234,7 @@ def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur):
         if carteChoisie.effet_carte() == 4: 
 
             coef = 0
-            nouvelle_couleur = plus_4_carte(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef, score)
+            nouvelle_couleur = plus_4_carte(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef)
 
         if carteChoisie.effet_carte() == 5 :
 
@@ -254,32 +257,41 @@ def changer_couleur_interface():
 
     return nouvelleCouleur
 
-def plus_4_carte_interface(main,bot,deck,carte,pile_milieu,coef):
+def plus_4_carte_interface (main,bot,deck,carte,pile_milieu,coef):
+
+    global numeroChoisie
+    update_carteJouer()
 
     valide = False
     for k in range(main.nb_main()):
         if renvoie_valide_plus2(main.main_joueur[k]) == True:
             valide = True
     if valide == True:
-        print("renvoie possible")
-        print(main)
         valid = False
         while valid == False:
-            numeroChoisie.set(-1)  # Réinitialise avant de demander un choix
-            # Attends que l'utilisateur fasse un choix (via la variable)
+            numeroChoisie.set(-1)
             frame_cartes_joueur.wait_variable(numeroChoisie)
             numeroChoisie_value = numeroChoisie.get()
             while int(numeroChoisie_value) < 0 or int(numeroChoisie_value) >= main.nb_main():
-                numeroChoisie = numeroChoisie_value
-                if int(numeroChoisie) >= 0 and int(numeroChoisie) < main.nb_main():
-                    valid = renvoie_valide_plus2(main.main_joueur[int(numeroChoisie)]) 
-        carteChoisie = main.choix_carte(int(numeroChoisie))
+                numeroChoisie = input("Choissez une carte")
+                if int(numeroChoisie_value) >= 0 and int(numeroChoisie_value) < main.nb_main():
+                    valid = renvoie_valide_plus2(main.main_joueur[int(numeroChoisie_value)]) 
+        carteChoisie = main.choix_carte(int(numeroChoisie_value))
         print("La carte retourné est :",carteChoisie)
         pile_milieu.append(carteChoisie)
         deck.ajouter_carte(carteChoisie)
         coef = coef + 4
         bot_plus_4_carte(bot,main,deck,carte,pile_milieu,coef)
-        return changer_couleur_interface(),score
+
+    else:
+        coef = coef + 4
+        for i in range (coef):
+
+            main.ajouter_carte(deck.retirer_carte())
+
+        nouvelleCouleur = changer_couleur_interface()
+
+        return nouvelle_couleur
 
 def bot_changer_couleur_interface():
 
@@ -323,9 +335,11 @@ def plus_2_carte (main,bot,deck,carte,pile_milieu,coef):
         deck.ajouter_carte(carteChoisie)
         if carteChoisie.nombre == 13:
             coef = coef + 4
+            bot_plus_4_carte(bot,main,deck,carte,pile_milieu,coef)
+
         else:
             coef = coef + 2
-        plus_2_carte_bot(bot,main,deck,carte,pile_milieu,coef)
+            plus_2_carte_bot(bot,main,deck,carte,pile_milieu,coef)
 
     #  Si le joueur ne peut pas jouer
 
