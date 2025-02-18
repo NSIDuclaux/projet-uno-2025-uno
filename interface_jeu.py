@@ -129,12 +129,8 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,score):
 
             if carteChoisie.effet_carte() == 1 :
 
-                update_cartesJoueur()
-                update_cartesmainIA()
                 mainJoueur,mainIA = mainIA,mainJoueur
                 score = float(score) + float(score) * 1.5
-                update_cartesJoueur()
-                update_cartesmainIA()
 
             if carteChoisie.effet_carte() == 2 :
                 peut_jouer = interdit_jouer()
@@ -218,13 +214,7 @@ def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur):
         deck_partie.ajouter_carte(carteChoisie)
 
         if carteChoisie.effet_carte() == 1 :
-            print(mainJoueur)
-            print(mainIA)
             mainJoueur,mainIA = mainIA,mainJoueur
-            print(mainJoueur)
-            print(mainIA)
-            update_cartesJoueur()
-            update_cartesmainIA()
 
         if carteChoisie.effet_carte() == 2 :
 
@@ -278,7 +268,6 @@ def plus_4_carte_interface (main,bot,deck,carte,pile_milieu,coef):
             frame_cartes_joueur.wait_variable(numeroChoisie)
             numeroChoisie_value = numeroChoisie.get()
             while int(numeroChoisie_value) < 0 or int(numeroChoisie_value) >= main.nb_main():
-                numeroChoisie = input("Choissez une carte")
                 if int(numeroChoisie_value) >= 0 and int(numeroChoisie_value) < main.nb_main():
                     valid = renvoie_valide_plus2(main.main_joueur[int(numeroChoisie_value)]) 
         carteChoisie = main.choix_carte(int(numeroChoisie_value))
