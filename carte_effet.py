@@ -151,3 +151,10 @@ def bot_plus_4_carte (bot,main,deck,carte,pile_milieu,coef):
         c = coef
         print("Le joueur suivant reçoit "+ str(coef) +" carte, et la nouvelle couleur est",nouvelleCouleur[0])
         return nouvelleCouleur, c
+    
+def inverse (main1, main2):
+    """
+    Échange les cartes entre deux mains.
+    """
+    main1.main_joueur, main2.main_joueur = main2.main_joueur, main1.main_joueur
+    print("Les mains ont été échangées !")

@@ -12,7 +12,7 @@ from bot import *
 from time import sleep
 from random import randint
 
-# Varmainiables interface
+# Variables interface
 
 image_cartes_joueur = []
 image_cartes_milieu = []
@@ -79,6 +79,8 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,score):
                     print("Vous placez la carte piochée")
                     carte_placer = True
 
+            cacher_nouvelle_couleur()
+
         else:
             # Gestion de la situation sans nouvelle couleur
             for k in range(mainJoueur.nb_main()):
@@ -129,7 +131,9 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,score):
 
             if carteChoisie.effet_carte() == 1 :
 
-                mainJoueur,mainIA = mainIA,mainJoueur
+                inverse(mainJoueur, mainIA)
+                update_cartesJoueur()
+                update_cartesmainIA()
                 score = float(score) + float(score) * 1.5
 
             if carteChoisie.effet_carte() == 2 :
@@ -187,6 +191,8 @@ def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur):
                     tours_valide = True
                     print("Le bot place la carte pioché")
         
+            cacher_nouvelle_couleur()
+
         else:
             for k in range(mainIA.nb_main()):
                 if carte_valide(pile_milieu[-1], mainIA.main_joueur[k]) == True:
@@ -214,7 +220,9 @@ def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur):
         deck_partie.ajouter_carte(carteChoisie)
 
         if carteChoisie.effet_carte() == 1 :
-            mainJoueur,mainIA = mainIA,mainJoueur
+            
+            inverse(mainJoueur, mainIA)
+
 
         if carteChoisie.effet_carte() == 2 :
 
@@ -249,6 +257,7 @@ def changer_couleur_interface():
     nouvelleCouleur[0] = index_couleur.get()
     print("La nouvelle couleur est",nouvelleCouleur[0])
     cacher_changer_couleur()
+    afficher_nouvelle_couleur(nouvelleCouleur[0])
 
     return nouvelleCouleur
 
@@ -309,7 +318,7 @@ def bot_plus_4_carte_interface (bot,main,deck,carte,pile_milieu,coef):
 
         nouvelleCouleur = bot_changer_couleur_interface()
 
-        return nouvelleCouleur, c
+        return nouvelleCouleur, coef
 
 def bot_changer_couleur_interface():
 
@@ -317,6 +326,8 @@ def bot_changer_couleur_interface():
     nouvelleCouleur= [c, 1]
 
     print("La nouvelle couleur est",nouvelleCouleur[0])
+
+    afficher_nouvelle_couleur(nouvelleCouleur[0])
 
     return nouvelleCouleur
 
@@ -535,9 +546,30 @@ def afficher_index_couleur(valeur) :
     print("Index couleur :", index_couleur.get())
     cacher_changer_couleur()
 
-# def bouton_pioche(mains,deck):
+def afficher_nouvelle_couleur(couleur):
 
-# 	mains.ajouter_carte(deck.retirer_carte())
+    if int(couleur) == 0:
+        
+        frame_couleur_violet.place(relx=0.5, rely=0.3, anchor="center")
+
+    if int(couleur) == 1:
+
+        frame_couleur_rose.place(relx=0.5, rely=0.3, anchor="center")
+
+    if int(couleur) == 2:
+
+        frame_couleur_bleu.place(relx=0.5, rely=0.3, anchor="center")
+    
+    if int(couleur) == 3:
+
+        frame_couleur_cyan.place(relx=0.5, rely=0.3, anchor="center")
+
+def cacher_nouvelle_couleur():
+
+    frame_couleur_violet.place_forget()
+    frame_couleur_rose.place_forget()
+    frame_couleur_bleu.place_forget()
+    frame_couleur_cyan.place_forget()
 
 # Création des frames
 
@@ -567,7 +599,12 @@ frame_victoire = Frame(fenetre, bg=fond)
 frame_victoire.place(relx=0.5, rely=0.5, anchor=CENTER,width=1600,height=800)
 
 frame_defaite = Frame(fenetre,bg=fond)
-frame_victoire.place(relx=0.5, rely=0.5, anchor=CENTER,width=1600,height=800)
+frame_defaite.place(relx=0.5, rely=0.5, anchor=CENTER,width=1600,height=800)
+
+frame_couleur_cyan = Frame(fenetre, bg=fond)
+frame_couleur_bleu = Frame(fenetre, bg=fond)
+frame_couleur_violet = Frame(fenetre, bg=fond)
+frame_couleur_rose = Frame(fenetre, bg=fond)
 
 # Charger l'image de la carte dos
 
@@ -643,7 +680,10 @@ bouton_cyan = Button(frame_changer_couleur, image=image_cyan, bg="#121212", comm
 bouton_rose = Button(frame_changer_couleur, image=image_rose, bg="#121212", command=lambda: afficher_index_couleur(1) ,borderwidth=0, activebackground="#121212").grid(row=0, column=2, padx=0)
 bouton_violet = Button(frame_changer_couleur, image=image_violet, bg="#121212", command=lambda: afficher_index_couleur(0) ,borderwidth=0, activebackground="#121212").grid(row=0, column=3, padx=0)
 
-
+label_bleu = Label(frame_couleur_bleu, image=image_bleu, bg=fond)
+label_cyan = Label(frame_couleur_cyan, image=image_cyan, bg=fond)
+label_rose = Label(frame_couleur_rose, image=image_rose, bg=fond)
+label_violet = Label(frame_couleur_violet, image=image_violet, bg=fond)
 
 label_joueur = Label(frame_joueur, image=image_joueur, bg=fond)
 label_joueur.pack(anchor="center")
@@ -706,7 +746,8 @@ while vict is False :
         vict = True
         confimation = False
 
-    sleep(2)
+    update_carteJouer()
+    sleep(1)
 
     print(mainIA)
     
@@ -718,11 +759,12 @@ while vict is False :
     update_cartesmainIA()
     update_carteJouer()
 
-    sleep(1)
 
     if mainIA.main_joueur == [] and confimation is True:
         tout_cacher()
         vict = True
         afficher_defaite()
+
+    update_carteJouer()
 
 fenetre.mainloop()
