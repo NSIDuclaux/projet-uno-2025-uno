@@ -229,7 +229,7 @@ def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur):
         if carteChoisie.effet_carte() == 4: 
 
             coef = 0
-            nouvelle_couleur = plus_4_carte(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef)
+            nouvelle_couleur = bot_plus_4_carte_interface(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef)
 
         if carteChoisie.effet_carte() == 5 :
 
