@@ -6,11 +6,11 @@ from PIL import Image, ImageTk
 from os import *
 import sqlite3
 from main_joueur import Main
-from deck import Deck
 from carte_valide import *
 from carte_effet import *
 from bot import *
 from time import sleep
+from random import randint
 
 # Varmainiables interface
 
@@ -224,7 +224,7 @@ def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur):
         if carteChoisie.effet_carte() == 3:
 
             coef = 0
-            coef = plus_2_carte(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef)
+            coef = plus_2_carte_bot(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef)
             
         if carteChoisie.effet_carte() == 4: 
 
@@ -265,9 +265,9 @@ def plus_4_carte_interface (main,bot,deck,carte,pile_milieu,coef):
         valid = False
         while valid == False:
             numeroChoisie.set(-1)
-            frame_cartes_joueur.wait_variable(numeroChoisie)
-            numeroChoisie_value = numeroChoisie.get()
-            while int(numeroChoisie_value) < 0 or int(numeroChoisie_value) >= main.nb_main():
+            while int(numeroChoisie) < 0 or int(numeroChoisie) >= main.nb_main():
+                frame_cartes_joueur.wait_variable(numeroChoisie)
+                numeroChoisie_value = numeroChoisie.get()
                 if int(numeroChoisie_value) >= 0 and int(numeroChoisie_value) < main.nb_main():
                     valid = renvoie_valide_plus2(main.main_joueur[int(numeroChoisie_value)]) 
         carteChoisie = main.choix_carte(int(numeroChoisie_value))
@@ -275,7 +275,7 @@ def plus_4_carte_interface (main,bot,deck,carte,pile_milieu,coef):
         pile_milieu.append(carteChoisie)
         deck.ajouter_carte(carteChoisie)
         coef = coef + 4
-        bot_plus_4_carte(bot,main,deck,carte,pile_milieu,coef)
+        bot_plus_4_carte_interface(bot,main,deck,carte,pile_milieu,coef)
 
     else:
         coef = coef + 4
@@ -283,9 +283,33 @@ def plus_4_carte_interface (main,bot,deck,carte,pile_milieu,coef):
 
             main.ajouter_carte(deck.retirer_carte())
 
-        nouvelleCouleur = changer_couleur_interface()
+        nouvelle_couleur = changer_couleur_interface()
 
-        return nouvelle_couleur
+        return nouvelle_couleur, coef
+    
+def bot_plus_4_carte_interface (bot,main,deck,carte,pile_milieu,coef):
+    valide = False
+    for k in range(bot.nb_main()):
+        if renvoie_valide_plus2(bot.main_joueur[k]) == True:
+            valide = True
+    if valide == True:
+        print("Renvoie de carte")
+        carteChoisie = renvoie_valide_plus(carte,bot)
+        c = bot.main_joueur[carteChoisie]
+        print("La carte retourné est :", c)
+        pile_milieu.append(c)
+        deck.ajouter_carte(c)
+        coef = coef + 4
+        plus_4_carte_interface(main,bot,deck,carte,pile_milieu,coef)
+    else:
+        coef = coef + 4
+        for i in range (coef):
+
+            bot.ajouter_carte(deck.retirer_carte())
+
+        nouvelleCouleur = bot_changer_couleur_interface()
+
+        return nouvelleCouleur, c
 
 def bot_changer_couleur_interface():
 
@@ -294,7 +318,7 @@ def bot_changer_couleur_interface():
 
     print("La nouvelle couleur est",nouvelleCouleur[0])
 
-    return nouvelle_couleur
+    return nouvelleCouleur
 
 def plus_2_carte (main,bot,deck,carte,pile_milieu,coef):
 
@@ -316,11 +340,9 @@ def plus_2_carte (main,bot,deck,carte,pile_milieu,coef):
         while valid == False:
             
             numeroChoisie.set(-1)
-            frame_cartes_joueur.wait_variable(numeroChoisie)
-            numeroChoisie_value = numeroChoisie.get()
-
-            while int(numeroChoisie_value) < 0 or int(numeroChoisie_value) >= main.nb_main():
-
+            while int(numeroChoisie) < 0 or int(numeroChoisie) >= main.nb_main():
+                frame_cartes_joueur.wait_variable(numeroChoisie)
+                numeroChoisie_value = numeroChoisie.get()
                 if int(numeroChoisie_value) >= 0 and int(numeroChoisie_value) < main.nb_main():
                     valid = renvoie_valide2(main.main_joueur[int(numeroChoisie)]) 
         carteChoisie = main.choix_carte(int(numeroChoisie_value))
