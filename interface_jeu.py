@@ -340,6 +340,7 @@ def bot_changer_couleur_interface():
 def plus_2_carte_interface (main,bot,deck,carte,pile_milieu,coef):
 
     global numeroChoisie
+    numeroChoisie = IntVar()
     
     # Vérification de la possibilité de jouer
 
@@ -766,6 +767,7 @@ update_cartesJoueur()
 # Partie
 
 index_carte = IntVar()
+numeroChoisie = IntVar()
 
 vict = False
 confimation = True
