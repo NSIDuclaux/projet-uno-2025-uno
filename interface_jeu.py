@@ -32,7 +32,8 @@ mainJoueurPeutJouer = True
 mainIAPeutJouer = True
 peut_jouer = True
 nouvelle_couleur = ["", 0]
-pile_milieu.append(deck_partie.retirer_carte())
+carte = Carte(randint(0,3),randint(0,9))
+pile_milieu.append(carte)
 mainJoueur.trier_mains()
 mainIA.trier_mains()
 score = 0
@@ -50,7 +51,7 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,score):
     if peut_jouer is True:
         print(nouvelle_couleur)
         if nouvelle_couleur[1] == 1:
-            t = nouvelle_couleur[0]
+            t = randint(0,3)
 
             for k in range(mainJoueur.nb_main()):
                 if carte_valide2(t, mainJoueur.main_joueur[k]) == True:
@@ -143,7 +144,7 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,score):
             if carteChoisie.effet_carte() == 3:
 
                 coef = 0
-                coef = plus_2_carte_bot(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef)
+                coef = plus_2_carte_bot_interface(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef)
                 score = float(score) + float(score) * 1.25
 
             if carteChoisie.effet_carte() == 4:
@@ -222,7 +223,8 @@ def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur):
         if carteChoisie.effet_carte() == 1 :
             
             inverse(mainJoueur, mainIA)
-
+            update_cartesJoueur()
+            update_cartesmainIA()
 
         if carteChoisie.effet_carte() == 2 :
 
@@ -232,7 +234,7 @@ def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur):
         if carteChoisie.effet_carte() == 3:
 
             coef = 0
-            coef = plus_2_carte_bot(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef)
+            coef = plus_2_carte_bot_interface(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef)
             
         if carteChoisie.effet_carte() == 4: 
 
@@ -264,6 +266,7 @@ def changer_couleur_interface():
 def plus_4_carte_interface (main,bot,deck,carte,pile_milieu,coef):
 
     global numeroChoisie
+    numeroChoisie = IntVar()
     update_carteJouer()
 
     valide = False
@@ -322,7 +325,10 @@ def bot_plus_4_carte_interface (bot,main,deck,carte,pile_milieu,coef):
 
 def bot_changer_couleur_interface():
 
-    c = randint(0,3)
+    global mainIA
+
+    c = mainIA.selection_carte(0)
+    c = c.get_couleur()
     nouvelleCouleur= [c, 1]
 
     print("La nouvelle couleur est",nouvelleCouleur[0])
@@ -331,7 +337,7 @@ def bot_changer_couleur_interface():
 
     return nouvelleCouleur
 
-def plus_2_carte (main,bot,deck,carte,pile_milieu,coef):
+def plus_2_carte_interface (main,bot,deck,carte,pile_milieu,coef):
 
     global numeroChoisie
     
@@ -378,6 +384,32 @@ def plus_2_carte (main,bot,deck,carte,pile_milieu,coef):
             main.ajouter_carte(deck.retirer_carte())
 
     return coef
+
+def plus_2_carte_bot_interface (bot,main,deck,carte,pile_milieu,coef):
+    valide = False
+    for k in range(bot.nb_main()):
+        if renvoie_valide2(bot.main_joueur[k]) == True:
+            valide = True
+    if valide == True:
+        print("Renvoie de carte")
+        carteChoisie = renvoie_valide(carte,bot)
+        c = bot.main_joueur[carteChoisie]
+        print("La carte retourné est :", c)
+        pile_milieu.append(c)
+        deck.ajouter_carte(c)
+        if c.nombre == 13:
+            coef = coef + 4
+        else:
+            coef = coef + 2
+        plus_2_carte_interface(main,bot,deck,carte,pile_milieu,coef)
+    else:
+        coef = coef + 2
+        for i in range (coef):
+
+            bot.ajouter_carte(deck.retirer_carte())
+        print("Le joueur suivant reçoit "+ str(coef) +" carte")
+
+        return coef
 
 # Création de la fenêtre
 
@@ -508,19 +540,36 @@ def afficher_ia():
 
 def afficher_victoire():
 
-    frame_victoire.place(relx=0.5, rely=0.5, anchor=CENTER,width=1600,height=800)
+    global fond
+    frame_victoire.place(relx=0.5, rely=0.5, anchor=CENTER, width=1600, height=800)
+    afficher_score(score)
 
 def afficher_defaite():
 
-    frame_defaite.place(relx=0.5, rely=0.5, anchor=CENTER,width=1600,height=800)
+    global fond
+
+    frame_defaite.place(relx=0.5, rely=0.5, anchor=CENTER, width=1600, height=800)
+
+    afficher_score(score)
 
 def cacher_victoire():
     
     frame_victoire.place_forget()
+    frame_score.place_forget()
 
 def cacher_defaite():
 
     frame_defaite.place_forget()
+    frame_score.place_forget()
+
+def afficher_score(score):
+    
+    global frame_score
+
+    frame_score.place(relx=0.5, rely=0.6, anchor=CENTER)  # Placé au-dessus des autres frames
+    label_score = Label(frame_score, text="Votre Score : " + str(score), font=("Questrian", 16, "bold"), fg="#8E086E", justify="center", bg="#121212")
+    label_score.pack()
+
 
 def tout_cacher():
 
@@ -605,6 +654,9 @@ frame_couleur_cyan = Frame(fenetre, bg=fond)
 frame_couleur_bleu = Frame(fenetre, bg=fond)
 frame_couleur_violet = Frame(fenetre, bg=fond)
 frame_couleur_rose = Frame(fenetre, bg=fond)
+
+frame_score = Frame(fenetre,bg=fond)
+frame_victoire.place(relx=0.5, rely=0.5, anchor=CENTER,width=1600,height=800)
 
 # Charger l'image de la carte dos
 
