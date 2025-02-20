@@ -239,7 +239,7 @@ def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur):
         if carteChoisie.effet_carte() == 4: 
 
             coef = 0
-            nouvelle_couleur = bot_plus_4_carte_interface(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef)
+            nouvelle_couleur,coef = bot_plus_4_carte_interface(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef)
 
         if carteChoisie.effet_carte() == 5 :
 
@@ -257,13 +257,14 @@ def changer_couleur_interface():
 
     afficher_changer_couleur()
 
-    nouvelleCouleur = ["", 1]
     frame_changer_couleur.wait_variable(index_couleur)
-    nouvelleCouleur[0] = index_couleur.get()
+    nouvelle_couleur = index_couleur.get()
+
+    nouvelleCouleur = [index_couleur,1]
+
+
     print("La nouvelle couleur est",nouvelleCouleur[0])
     cacher_changer_couleur()
-    afficher_nouvelle_couleur(nouvelleCouleur[0])
-
     return nouvelleCouleur
 
 def plus_4_carte_interface (main,bot,deck,carte,pile_milieu,coef):
@@ -281,6 +282,8 @@ def plus_4_carte_interface (main,bot,deck,carte,pile_milieu,coef):
         valid = False
         while valid == False:
             while int(numeroChoisie) < 0 or int(numeroChoisie) >= main.nb_main():
+
+                numeroChoisie.set(-1)
                 frame_cartes_joueur.wait_variable(numeroChoisie)
                 numeroChoisie_value = numeroChoisie.get()
                 if int(numeroChoisie_value) >= 0 and int(numeroChoisie_value) < main.nb_main():
@@ -333,13 +336,10 @@ def bot_changer_couleur_interface():
     c = randint(0,3)
 
     nouvelleCouleur= [c, 1]
-    d = ["violet","rose","bleu","cyan"]
 
-    nouvelleCouleur= [d[c], 1]
+    print("La nouvelle couleur est",nouvelleCouleur)
 
-    print("La nouvelle couleur est",nouvelleCouleur[0])
-
-    afficher_nouvelle_couleur(nouvelleCouleur[0])
+    afficher_nouvelle_couleur(nouvelleCouleur)
 
     return nouvelleCouleur
 
@@ -410,6 +410,7 @@ def plus_2_carte_bot_interface (bot,main,deck,carte,pile_milieu,coef):
         else:
             coef = coef + 2
         plus_2_carte_interface(main,bot,deck,carte,pile_milieu,coef)
+        
     else:
         coef = coef + 2
         for i in range (coef):
@@ -417,6 +418,7 @@ def plus_2_carte_bot_interface (bot,main,deck,carte,pile_milieu,coef):
             bot.ajouter_carte(deck.retirer_carte())
         print("Le joueur suivant reçoit "+ str(coef) +" carte")
 
+        update_carteJouer()
         return coef
 
 # Création de la fenêtre
