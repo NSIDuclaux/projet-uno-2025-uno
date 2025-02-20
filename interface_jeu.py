@@ -267,6 +267,7 @@ def plus_4_carte_interface (main,bot,deck,carte,pile_milieu,coef):
 
     global numeroChoisie
     numeroChoisie = IntVar()
+    numeroChoisie.set(-1)
     update_carteJouer()
 
     valide = False
@@ -276,7 +277,6 @@ def plus_4_carte_interface (main,bot,deck,carte,pile_milieu,coef):
     if valide == True:
         valid = False
         while valid == False:
-            numeroChoisie.set(-1)
             while int(numeroChoisie) < 0 or int(numeroChoisie) >= main.nb_main():
                 frame_cartes_joueur.wait_variable(numeroChoisie)
                 numeroChoisie_value = numeroChoisie.get()
@@ -567,7 +567,7 @@ def afficher_score(score):
     global frame_score
 
     frame_score.place(relx=0.5, rely=0.6, anchor=CENTER)  # Placé au-dessus des autres frames
-    label_score = Label(frame_score, text="Votre Score : " + str(score), font=("Questrian", 16, "bold"), fg="#8E086E", justify="center", bg="#121212")
+    label_score = Label(frame_score, text="Votre Score : " + str(int(score)), font=("Questrian", 16, "bold"), fg="#8E086E", justify="center", bg="#121212")
     label_score.pack()
 
 
