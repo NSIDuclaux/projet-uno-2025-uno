@@ -253,18 +253,29 @@ def changer_couleur_interface():
 
     global index_couleur
 
-    print(index_couleur)
-
-    afficher_changer_couleur()
-
+    nouvelleCouleur = ["", 1]
     frame_changer_couleur.wait_variable(index_couleur)
-    nouvelle_couleur = index_couleur.get()
+    nouvelleCouleur[0] = index_couleur.get()
 
-    nouvelleCouleur = [index_couleur,1]
+    if nouvelleCouleur[0] == 0:
 
+        nouvelleCouleur = ["violet", 1]
+
+    if nouvelleCouleur[0] == 1:
+
+        nouvelleCouleur = ["rose",1]
+
+    if nouvelleCouleur[0] == 2:
+
+        nouvelleCouleur = ["bleu",1]
+
+    if nouvelleCouleur[0] == 3:
+
+        nouvelleCouleur = ["cyan",1]
 
     print("La nouvelle couleur est",nouvelleCouleur[0])
     cacher_changer_couleur()
+
     return nouvelleCouleur
 
 def plus_4_carte_interface (main,bot,deck,carte,pile_milieu,coef):
@@ -793,6 +804,7 @@ while vict is False :
     
     joueurAJouer = False
     mainJoueur.trier_mains()
+    mainIA.trier_mains()
 
     afficher_joueur()
 
@@ -801,6 +813,7 @@ while vict is False :
     print(mainJoueur)
 
     mainJoueur.trier_mains()
+    mainIA.trier_mains()
     
     cacher_joueur()
     update_cartesJoueur()
