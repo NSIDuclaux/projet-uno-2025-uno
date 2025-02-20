@@ -255,6 +255,9 @@ def changer_couleur_interface():
 
     nouvelleCouleur = ["", 1]
     frame_changer_couleur.wait_variable(index_couleur)
+
+    afficher_changer_couleur()
+
     nouvelleCouleur[0] = index_couleur.get()
 
     if nouvelleCouleur[0] == 0:
