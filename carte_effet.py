@@ -76,7 +76,6 @@ def changer_couleur():
     while nouvelleCouleur[0] != "violet" and nouvelleCouleur[0] != "cyan" and nouvelleCouleur[0] != "rose" and nouvelleCouleur[0] != "bleu":
         nouvelleCouleur[0] = input("Choissez une nouvelle couleur")
     print("La nouvelle couleur est",nouvelleCouleur[0])
-    print(nouvelleCouleur)
     return nouvelleCouleur
 
 def plus_4_carte (main,bot,deck,carte,pile_milieu,coef):
