@@ -51,7 +51,7 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,score):
     if peut_jouer is True:
         print(nouvelle_couleur)
         if nouvelle_couleur[1] == 1:
-            t = randint(0,3)
+            t = nouvelle_couleur[0]
 
             for k in range(mainJoueur.nb_main()):
                 if carte_valide2(t, mainJoueur.main_joueur[k]) == True:
@@ -253,7 +253,10 @@ def changer_couleur_interface():
 
     global index_couleur
 
+    print(index_couleur)
+
     afficher_changer_couleur()
+
     nouvelleCouleur = ["", 1]
     frame_changer_couleur.wait_variable(index_couleur)
     nouvelleCouleur[0] = index_couleur.get()
@@ -327,9 +330,12 @@ def bot_changer_couleur_interface():
 
     global mainIA
 
-    c = mainIA.selection_carte(0)
-    c = c.get_couleur()
+    c = randint(0,3)
+
     nouvelleCouleur= [c, 1]
+    d = ["violet","rose","bleu","cyan"]
+
+    nouvelleCouleur= [d[c], 1]
 
     print("La nouvelle couleur est",nouvelleCouleur[0])
 
@@ -357,9 +363,11 @@ def plus_2_carte_interface (main,bot,deck,carte,pile_milieu,coef):
         while valid == False:
             
             numeroChoisie.set(-1)
+        
             while int(numeroChoisie) < 0 or int(numeroChoisie) >= main.nb_main():
                 frame_cartes_joueur.wait_variable(numeroChoisie)
                 numeroChoisie_value = numeroChoisie.get()
+                numeroChoisie_value = int(numeroChoisie_value)
                 if int(numeroChoisie_value) >= 0 and int(numeroChoisie_value) < main.nb_main():
                     valid = renvoie_valide2(main.main_joueur[int(numeroChoisie)]) 
         carteChoisie = main.choix_carte(int(numeroChoisie_value))
@@ -590,28 +598,30 @@ def bouton_jouer_cartes(index):
     print(f"Carte choisie : {index}")
 
 def afficher_index_couleur(valeur) :
-
+    
     index_couleur.set(valeur)
     print("Index couleur :", index_couleur.get())
     cacher_changer_couleur()
 
 def afficher_nouvelle_couleur(couleur):
 
-    if int(couleur) == 0:
+    pass
+
+    # if int(couleur) == 0:
         
-        frame_couleur_violet.place(relx=0.5, rely=0.3, anchor="center")
+    #     frame_couleur_violet.place(relx=0.5, rely=0.3, anchor="center")
 
-    if int(couleur) == 1:
+    # if int(couleur) == 1:
 
-        frame_couleur_rose.place(relx=0.5, rely=0.3, anchor="center")
+    #     frame_couleur_rose.place(relx=0.5, rely=0.3, anchor="center")
 
-    if int(couleur) == 2:
+    # if int(couleur) == 2:
 
-        frame_couleur_bleu.place(relx=0.5, rely=0.3, anchor="center")
+    #     frame_couleur_bleu.place(relx=0.5, rely=0.3, anchor="center")
     
-    if int(couleur) == 3:
+    # if int(couleur) == 3:
 
-        frame_couleur_cyan.place(relx=0.5, rely=0.3, anchor="center")
+    #     frame_couleur_cyan.place(relx=0.5, rely=0.3, anchor="center")
 
 def cacher_nouvelle_couleur():
 
