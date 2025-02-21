@@ -30,7 +30,7 @@ class Deck:
                 self.list_allc = self.list_allc + [Carte(c,11)]
         for k in range(4):
             self.list_allc = self.list_allc + [Carte(4,14)]
-        for k in range(4):
+        for k in range(0):
             self.list_allc = self.list_allc + [Carte(4,13)]
 
     def melange(self):

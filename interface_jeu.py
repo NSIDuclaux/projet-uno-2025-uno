@@ -253,10 +253,10 @@ def changer_couleur_interface():
 
     global index_couleur
 
+    afficher_changer_couleur()
+
     nouvelleCouleur = ["", 1]
     frame_changer_couleur.wait_variable(index_couleur)
-
-    afficher_changer_couleur()
 
     nouvelleCouleur[0] = index_couleur.get()
 
@@ -347,9 +347,11 @@ def bot_changer_couleur_interface():
 
     global mainIA
 
-    c = randint(0,3)
+    x = randint(0,3)
+    couleur = ["violet","rose","bleu","cyan"]
+    
 
-    nouvelleCouleur= [c, 1]
+    nouvelleCouleur= [couleur[x], 1]
 
     print("La nouvelle couleur est",nouvelleCouleur)
 
