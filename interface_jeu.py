@@ -285,7 +285,6 @@ def plus_4_carte_interface (main,bot,deck,carte,pile_milieu,coef):
 
     global numeroChoisie
     numeroChoisie = IntVar()
-    numeroChoisie.set(-1)
     update_carteJouer()
 
     valide = False
@@ -295,11 +294,15 @@ def plus_4_carte_interface (main,bot,deck,carte,pile_milieu,coef):
     if valide == True:
         valid = False
         while valid == False:
-            while int(numeroChoisie) < 0 or int(numeroChoisie) >= main.nb_main():
 
-                numeroChoisie.set(-1)
+            numeroChoisie.set(-1)
+
+            while int(numeroChoisie.get()) < 0 or int(numeroChoisie.get()) >= main.nb_main():
+
+                
                 frame_cartes_joueur.wait_variable(numeroChoisie)
                 numeroChoisie_value = numeroChoisie.get()
+
                 if int(numeroChoisie_value) >= 0 and int(numeroChoisie_value) < main.nb_main():
                     valid = renvoie_valide_plus2(main.main_joueur[int(numeroChoisie_value)]) 
         carteChoisie = main.choix_carte(int(numeroChoisie_value))
@@ -380,7 +383,7 @@ def plus_2_carte_interface (main,bot,deck,carte,pile_milieu,coef):
             
             numeroChoisie.set(-1)
         
-            while int(numeroChoisie) < 0 or int(numeroChoisie) >= main.nb_main():
+            while int(numeroChoisie.get()) < 0 or int(numeroChoisie.get) >= main.nb_main():
                 frame_cartes_joueur.wait_variable(numeroChoisie)
                 numeroChoisie_value = numeroChoisie.get()
                 numeroChoisie_value = int(numeroChoisie_value)
