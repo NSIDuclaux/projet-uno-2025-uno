@@ -289,7 +289,7 @@ def plus_4_carte_interface (main,bot,deck,carte,pile_milieu,coef):
 
     valide = False
     for k in range(main.nb_main()):
-        if renvoie_valide_plus2(main.main_joueur[k]) == True:
+        if renvoie_valide2(main.main_joueur[k]) == True:
             valide = True
     if valide == True:
         valid = False
@@ -319,13 +319,14 @@ def plus_4_carte_interface (main,bot,deck,carte,pile_milieu,coef):
             main.ajouter_carte(deck.retirer_carte())
 
         nouvelle_couleur = changer_couleur_interface()
+        update_cartesJoueur()
 
         return nouvelle_couleur, coef
     
 def bot_plus_4_carte_interface (bot,main,deck,carte,pile_milieu,coef):
     valide = False
     for k in range(bot.nb_main()):
-        if renvoie_valide_plus2(bot.main_joueur[k]) == True:
+        if renvoie_valide2(bot.main_joueur[k]) == True:
             valide = True
     if valide == True:
         print("Renvoie de carte")
@@ -343,6 +344,7 @@ def bot_plus_4_carte_interface (bot,main,deck,carte,pile_milieu,coef):
             bot.ajouter_carte(deck.retirer_carte())
 
         nouvelleCouleur = bot_changer_couleur_interface()
+        update_cartesmainIA()
 
         return nouvelleCouleur, coef
 
@@ -383,7 +385,7 @@ def plus_2_carte_interface (main,bot,deck,carte,pile_milieu,coef):
             
             numeroChoisie.set(-1)
         
-            while int(numeroChoisie.get()) < 0 or int(numeroChoisie.get) >= main.nb_main():
+            while int(numeroChoisie.get()) < 0 or int(numeroChoisie.get()) >= main.nb_main():
                 frame_cartes_joueur.wait_variable(numeroChoisie)
                 numeroChoisie_value = numeroChoisie.get()
                 numeroChoisie_value = int(numeroChoisie_value)
