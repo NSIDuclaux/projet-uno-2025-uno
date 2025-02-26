@@ -310,7 +310,7 @@ def plus_4_carte_interface (main,bot,deck,carte,pile_milieu,coef):
         pile_milieu.append(carteChoisie)
         deck.ajouter_carte(carteChoisie)
         coef = coef + 4
-        bot_plus_4_carte_interface(bot,main,deck,carte,pile_milieu,coef)
+        return bot_plus_4_carte_interface(bot,main,deck,carte,pile_milieu,coef)
 
     else:
         coef = coef + 4
@@ -336,7 +336,7 @@ def bot_plus_4_carte_interface (bot,main,deck,carte,pile_milieu,coef):
         pile_milieu.append(c)
         deck.ajouter_carte(c)
         coef = coef + 4
-        plus_4_carte_interface(main,bot,deck,carte,pile_milieu,coef)
+        return plus_4_carte_interface(main,bot,deck,carte,pile_milieu,coef)
     else:
         coef = coef + 4
         for i in range (coef):
@@ -367,6 +367,7 @@ def bot_changer_couleur_interface():
 def plus_2_carte_interface (main,bot,deck,carte,pile_milieu,coef):
 
     global numeroChoisie
+    global peut_jouer
     
     # Vérification de la possibilité de jouer
 
@@ -412,9 +413,14 @@ def plus_2_carte_interface (main,bot,deck,carte,pile_milieu,coef):
 
             main.ajouter_carte(deck.retirer_carte())
 
+        peut_jouer = False
+
     return coef
 
 def plus_2_carte_bot_interface (bot,main,deck,carte,pile_milieu,coef):
+
+    global peut_jouer
+
     valide = False
     for k in range(bot.nb_main()):
         if renvoie_valide2(bot.main_joueur[k]) == True:
@@ -439,6 +445,7 @@ def plus_2_carte_bot_interface (bot,main,deck,carte,pile_milieu,coef):
             bot.ajouter_carte(deck.retirer_carte())
         print("Le joueur suivant reçoit "+ str(coef) +" carte")
 
+        peut_jouer = False
         update_carteJouer()
         return coef
 
