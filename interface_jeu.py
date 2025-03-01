@@ -342,7 +342,7 @@ def bot_plus_4_carte_interface (bot,main,deck,carte,pile_milieu,coef):
         pile_milieu.append(c)
         deck.ajouter_carte(c)
         coef = coef + 4
-        return plus_4_carte_interface(main,bot,deck,carte,pile_milieu,coef)
+        plus_4_carte_interface(main,bot,deck,carte,pile_milieu,coef)
     else:
         coef = coef + 4
         for i in range (coef):
