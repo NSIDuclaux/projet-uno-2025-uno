@@ -9,7 +9,6 @@ from main_joueur import Main
 from carte_valide import *
 from carte_effet import *
 from bot import *
-from time import sleep
 from random import randint
 
 # Variables interface
@@ -239,7 +238,7 @@ def toursIA (mainIA,mainJoueur,peut_jouer, nouvelle_couleur):
         if carteChoisie.effet_carte() == 4: 
 
             coef = 0
-            nouvelle_couleur,coef = bot_plus_4_carte_interface(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef)
+            nouvelle_couleur,coef = plus_4_carte_interface(mainJoueur,mainIA,deck_partie,carteChoisie,pile_milieu,coef)
 
         if carteChoisie.effet_carte() == 5 :
 
@@ -311,7 +310,7 @@ def plus_4_carte_interface (main,bot,deck,carte,pile_milieu,coef):
         pile_milieu.append(carteChoisie)
         deck.ajouter_carte(carteChoisie)
         coef = coef + 4
-        bot_plus_4_carte_interface(bot,main,deck,carte,pile_milieu,coef)
+        return bot_plus_4_carte_interface(bot,main,deck,carte,pile_milieu,coef)
 
     else:
         coef = coef + 4
@@ -342,7 +341,7 @@ def bot_plus_4_carte_interface (bot,main,deck,carte,pile_milieu,coef):
         pile_milieu.append(c)
         deck.ajouter_carte(c)
         coef = coef + 4
-        plus_4_carte_interface(main,bot,deck,carte,pile_milieu,coef)
+        return plus_4_carte_interface(main,bot,deck,carte,pile_milieu,coef)
     else:
         coef = coef + 4
         for i in range (coef):
@@ -399,7 +398,7 @@ def plus_2_carte_interface (main,bot,deck,carte,pile_milieu,coef):
                 numeroChoisie_value = numeroChoisie.get()
                 numeroChoisie_value = int(numeroChoisie_value)
                 if int(numeroChoisie_value) >= 0 and int(numeroChoisie_value) < main.nb_main():
-                    valid = renvoie_valide2(main.main_joueur[int(numeroChoisie)]) 
+                    valid = renvoie_valide2(main.main_joueur[int(numeroChoisie.get())]) 
         carteChoisie = main.choix_carte(int(numeroChoisie_value))
         print("La carte retourné est :",carteChoisie)
         pile_milieu.append(carteChoisie)
@@ -459,6 +458,9 @@ def plus_2_carte_bot_interface (bot,main,deck,carte,pile_milieu,coef):
         peut_jouer = False
 
         return coef
+    
+def attente():
+    pass
 
 # Création de la fenêtre
 
@@ -854,7 +856,7 @@ while vict is False :
         confimation = False
 
     update_carteJouer()
-    sleep(1)
+    fenetre.after(1000,attente())
 
     print(mainIA)
     
