@@ -62,9 +62,9 @@ class Deck:
 
         return str(self.affichage)
         
-d = Deck()
-d.remplir_entier()
-d.melange()
+# d = Deck()
+# d.remplir_entier()
+# d.melange()
 #print(d.retirer_carte())
 #print(d)
 #carte = d.choix_carte(2)

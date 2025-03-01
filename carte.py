@@ -108,9 +108,4 @@ class Carte:
 
         return str(self.structuration())
 
-carte = Carte(2,10)
-carte.effet_carte()
-print(carte.effet_carte())
-print(carte)
-print(carte.get_nombre())
-print(carte.type_carte())
+# s

@@ -150,7 +150,7 @@ def toursJoueur (mainJoueur,mainIA,peut_jouer, nouvelle_couleur,score):
             if carteChoisie.effet_carte() == 4:
 
                 coef = 0
-                nouvelle_couleur, coef = plus_4_carte_interface(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef)
+                nouvelle_couleur, coef = bot_plus_4_carte_interface(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef)
                 score = float(score) + score * 1.75
 
             if carteChoisie.effet_carte() == 5 : 
@@ -284,6 +284,7 @@ def changer_couleur_interface():
 def plus_4_carte_interface (main,bot,deck,carte,pile_milieu,coef):
 
     global numeroChoisie
+    global peut_jouer
     numeroChoisie = IntVar()
     update_carteJouer()
 
@@ -310,7 +311,7 @@ def plus_4_carte_interface (main,bot,deck,carte,pile_milieu,coef):
         pile_milieu.append(carteChoisie)
         deck.ajouter_carte(carteChoisie)
         coef = coef + 4
-        return bot_plus_4_carte_interface(bot,main,deck,carte,pile_milieu,coef)
+        bot_plus_4_carte_interface(bot,main,deck,carte,pile_milieu,coef)
 
     else:
         coef = coef + 4
@@ -318,12 +319,17 @@ def plus_4_carte_interface (main,bot,deck,carte,pile_milieu,coef):
 
             main.ajouter_carte(deck.retirer_carte())
 
-        nouvelle_couleur = changer_couleur_interface()
+        nouvelle_couleur = bot_changer_couleur_interface()
         update_cartesJoueur()
+
+        peut_jouer = False
 
         return nouvelle_couleur, coef
     
 def bot_plus_4_carte_interface (bot,main,deck,carte,pile_milieu,coef):
+
+    global peut_jouer
+
     valide = False
     for k in range(bot.nb_main()):
         if renvoie_valide2(bot.main_joueur[k]) == True:
@@ -343,8 +349,10 @@ def bot_plus_4_carte_interface (bot,main,deck,carte,pile_milieu,coef):
 
             bot.ajouter_carte(deck.retirer_carte())
 
-        nouvelleCouleur = bot_changer_couleur_interface()
+        nouvelleCouleur = changer_couleur_interface()
         update_cartesmainIA()
+
+        peut_jouer = False
 
         return nouvelleCouleur, coef
 
@@ -434,9 +442,10 @@ def plus_2_carte_bot_interface (bot,main,deck,carte,pile_milieu,coef):
         deck.ajouter_carte(c)
         if c.nombre == 13:
             coef = coef + 4
+            return plus_4_carte_interface(bot,main,deck,carte,pile_milieu,coef)
         else:
             coef = coef + 2
-        plus_2_carte_interface(main,bot,deck,carte,pile_milieu,coef)
+            return plus_2_carte_interface(main,bot,deck,carte,pile_milieu,coef)
         
     else:
         coef = coef + 2
@@ -445,8 +454,10 @@ def plus_2_carte_bot_interface (bot,main,deck,carte,pile_milieu,coef):
             bot.ajouter_carte(deck.retirer_carte())
         print("Le joueur suivant reçoit "+ str(coef) +" carte")
 
-        peut_jouer = False
         update_carteJouer()
+
+        peut_jouer = False
+
         return coef
 
 # Création de la fenêtre
