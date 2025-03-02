@@ -2,7 +2,6 @@ from deck import *
 from main_joueur import *
 from tkinter import *
 from PIL import Image, ImageTk
-#from pygame import mixer
 from os import *
 import sqlite3
 from main_joueur import Main
