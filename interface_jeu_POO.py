@@ -10,6 +10,16 @@ from carte_effet import *
 from bot import *
 from random import randint
 
+def fichier_carte(carte):
+
+    connexion = sqlite3.connect('carte/carte.db')
+    c = connexion.cursor()
+
+    c.execute("SELECT chemin FROM carte WHERE IDCouleur = ? AND IDCarte = ?", (carte.get_couleur(), carte.get_nombre()))
+    chemin = c.fetchall()[0][0]
+
+    return chemin
+
 class PartieJeu:
 
     def __init__(self):
@@ -33,8 +43,17 @@ class PartieJeu:
         self.peutJouer = True
         self.nouvelle_couleur = ["", 0]
 
-        # Démarrage de la Partie
+        # Variable requise pour la partie interface
 
+        self.index_carte = IntVar()
+        self.numeroChoisie = IntVar()
+        self.score = 0
+
+        self.vict = False
+        self.confirmation = True
+
+        # Démarrage de la Partie
+        
         self.init_interface()
         self.lancer_partie()
 
@@ -132,6 +151,20 @@ class PartieJeu:
         self.label_ia = Label(self.frame_ia, image=self.image_ia, bg=self.fond)
         self.label_ia.pack(anchor="center")
 
+        self.label_victoire = Label(self.frame_victoire,image=self.image_victoire,bg=self.fond)
+        self.label_victoire.place(relx=0.5, rely=0.5, anchor=CENTER)
+        self.label_defaite = Label(self.frame_defaite,image=self.image_defaite,bg=self.fond)
+        self.label_defaite.place(relx=0.5, rely=0.5, anchor=CENTER)
+
+        self.cacher_defaite()
+        self.cacher_victoire()
+        self.cacher_changer_couleur()
+        self.cacher_joueur()
+        self.cacher_ia()
+        self.update_cartesmainIA()
+        self.update_carteJouer()
+        self.update_cartesJoueur()
+
     def charger_image(self,chemin,ratio=1,rotation=0):
 
         image_path = path.abspath(chemin)
@@ -142,5 +175,48 @@ class PartieJeu:
         
         return image
 
-        
+    def update_cartesmainIA(self):
 
+        for widget in self.frame_cartes_mainIA.winfo_children():
+
+            widget.destroy
+
+        col = 0
+
+        for i in range (self.mainIA.nb_main()):
+
+            Label(self.frame_cartes_mainIA, image=self.image_dos_carte_rotate, padx=10, pady=5, bg=self.fond).grid(row=0, column=col, padx=0)
+            col += 1
+
+        self.fenetre.update()
+
+    def update_cartesJoueur(self):
+
+        for widget in self.frame_cartes_joueur.winfo_children():
+
+            widget.destroy()
+
+        col = 0
+
+        for i in range (self.mainJoueur.nb_main()):
+
+            chemin = path.abspath(fichier_carte(self.mainJoueur.selection_carte(i)))
+            self.image_carte.charge_image(chemin,0.1)
+            self.image_cartes_joueur.append(self.image_carte)
+
+            Button(
+                self.frame_cartes_joueur, 
+                image=self.image_carte, 
+                padx=10, 
+                pady=5, 
+                bg=fond, 
+                borderwidth=0, 
+                activebackground="#1e1e1e",
+                command=lambda idx=i: self.bouton_jouer_cartes(idx)
+            ).grid(row=0, column=col, padx=0)
+
+            col += 1
+
+        self.fenetre.update()
+
+    def          

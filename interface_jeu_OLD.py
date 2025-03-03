@@ -530,7 +530,7 @@ def update_cartesJoueur():
 
         col += 1
 
-        fenetre.update()
+    fenetre.update()
 
 def update_carteJouer():
 
