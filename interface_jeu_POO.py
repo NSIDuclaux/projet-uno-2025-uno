@@ -87,7 +87,29 @@ class PartieJeu:
         self.frame_score = Frame(self.fenetre,bg=self.fond)
         self.frame_victoire.place(relx=0.5, rely=0.5, anchor=CENTER,width=1600,height=800)
 
+        self.frame_changer_couleur.lift()
+        self.frame_cartes_joueur.lift()
+        self.frame_cartes_mainIA.lift()
 
+        # Charger les images requises
+        
+        self.image_dos_carte.charger_image("carte/autre/Dos.png",0.1)
+        self.image_dos_carte_rotate.charger_image("carte/autre/Dos.png",0.1,180)
+
+        # Element de l'interface
+
+        pioche = Label(self.frame_milieu, image=self.image_dos_carte, padx=10, pady=5, bg=self.fond, borderwidth=0)
+
+
+    def charger_image(self,chemin,ratio=1,rotation=0):
+
+        image_path = path.abspath(chemin)
+        image = Image.open(image_path)
+        image = image.resize((int(image.width * ratio), int(image.height * ratio)))
+        image = image.rotate(rotation)
+        image = ImageTk.PhotoImage(image)
+        
+        return image
 
         
 
