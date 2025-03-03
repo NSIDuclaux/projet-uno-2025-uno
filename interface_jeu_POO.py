@@ -60,6 +60,8 @@ class PartieJeu:
         self.init_interface()
         self.lancer_partie()
 
+    # Fonction Interface
+
     def init_interface(self):
 
         # Initialisation de la fenêtre (à retirer après les teste)
@@ -298,3 +300,25 @@ class PartieJeu:
         self.frame_changer_couleur.place_forget()
         self.frame_ia.place_forget()
         self.frame_joueur.place_forget()
+
+    def cacher_nouvelle_couleur(self):
+
+        self.frame_couleur_violet.place_forget()
+        self.frame_couleur_rose.place_forget()
+        self.frame_couleur_bleu.place_forget()
+        self.frame_couleur_cyan.place_forget()
+
+    # Action Bouton
+
+    def bouton_jouer_cartes(self,index):
+
+        self.numeroChoisie.set(index)
+
+    def afficher_index_couleur(self,valeur) :
+    
+        self.index_couleur.set(valeur)
+        self.cacher_changer_couleur()
+
+    def afficher_nouvelle_couleur(self):
+
+        pass
