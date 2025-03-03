@@ -52,6 +52,9 @@ class PartieJeu:
         self.vict = False
         self.confirmation = True
 
+        self.image_cartes_joueur = []
+        self.image_cartes_milieu = []
+
         # Démarrage de la Partie
         
         self.init_interface()
@@ -209,7 +212,7 @@ class PartieJeu:
                 image=self.image_carte, 
                 padx=10, 
                 pady=5, 
-                bg=fond, 
+                bg=self.fond, 
                 borderwidth=0, 
                 activebackground="#1e1e1e",
                 command=lambda idx=i: self.bouton_jouer_cartes(idx)
@@ -219,4 +222,79 @@ class PartieJeu:
 
         self.fenetre.update()
 
-    def          
+    def update_carteJouer(self):
+
+        for widget in self.frame_milieu.winfo_children():
+
+            if widget.winfo_name() == "carte_milieu":
+                widget.destroy()
+
+        chemin = chemin = path.abspath(fichier_carte(self.pile_milieu[-1]))
+        self.image_carte.charger_image(chemin,ratio=0.1)
+        self.image_cartes_mileu.append(self.image_carte)
+
+        Label(self.frame_milieu, image=self.image_carte, padx=10, pady=5, bg=self.fond).grid(row=0, column=1, pady=90)
+
+        self.fenetre.update()
+
+    def cacher_changer_couleur(self):
+
+        self.frame_fond.place_forget()
+        self.frame_changer_couleur.place_forget()
+
+    def afficher_changer_couleur(self):
+
+        self.frame_fond.place(relx=0.5, rely=0.5, anchor="center", width=1600, height=800)
+        self.frame_changer_couleur.place(anchor="center", relx=0.5, rely=0.5, y=25)
+
+    def cacher_joueur(self):
+
+        self.frame_joueur.place_forget()
+
+    def afficher_joueur(self):
+
+        self.frame_joueur.place(relx=0.5, rely=0.7, anchor="center")
+
+    def cacher_ia(self):
+
+        self.frame_ia.place_forget()
+
+    def afficher_ia(self):
+
+        self.frame_ia.place(relx=0.5, rely=0.3, anchor="center")
+
+    def afficher_victoire(self):
+
+        self.frame_victoire.place(relx=0.5, rely=0.5, anchor=CENTER, width=1600, height=800)
+        self.afficher_score(self.score)
+
+    def afficher_defaite(self):
+
+        self.frame_defaite.place(relx=0.5, rely=0.5, anchor=CENTER, width=1600, height=800)
+        self.afficher_score(self.score)
+
+    def cacher_victoire(self):
+    
+        self.frame_victoire.place_forget()
+        self.frame_score.place_forget()
+
+    def cacher_defaite(self):
+
+        self.frame_defaite.place_forget()
+        self.frame_score.place_forget()
+
+    def afficher_score(self,score):
+    
+        self.frame_score.place(relx=0.5, rely=0.6, anchor=CENTER)  # Placé au-dessus des autres frames
+        self.label_score = Label(self.frame_score, text="Votre Score : " + str(int(score)), font=("Questrian", 16, "bold"), fg="#8E086E", justify="center", bg="#121212")
+        self.label_score.pack()
+
+    def tout_cacher(self):
+
+        self.frame_cartes_mainIA.pack_forget()
+        self.frame_cartes_joueur.pack_forget()
+        self.frame_milieu.pack_forget()
+        self.frame_fond.place_forget()
+        self.frame_changer_couleur.place_forget()
+        self.frame_ia.place_forget()
+        self.frame_joueur.place_forget()
