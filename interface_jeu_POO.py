@@ -110,8 +110,27 @@ class PartieJeu:
 
         # Element de l'interface
 
-        pioche = Label(self.frame_milieu, image=self.image_dos_carte, padx=10, pady=5, bg=self.fond, borderwidth=0)
-        pioche.grid(row=0, column=0, pady=100)
+        self.pioche = Label(self.frame_milieu, image=self.image_dos_carte, padx=10, pady=5, bg=self.fond, borderwidth=0)
+        self.pioche.grid(row=0, column=0, pady=100)
+        
+        self.label_fond = Label(self.frame_fond, image=self.fond_changer_couleur, bg=self.fond)
+        self.label_fond.place(relx=0.5, rely=0.5, anchor=CENTER,width=1600,height=800)
+
+        self.bouton_bleu = Button(self.frame_changer_couleur, image=self.image_bleu, bg=self.fond, command=lambda: afficher_index_couleur(2), borderwidth=0, activebackground="#121212").grid(row=0, column=0, padx=0)
+        self.bouton_cyan = Button(self.frame_changer_couleur, image=self.image_cyan, bg=self.fond, command=lambda: afficher_index_couleur(3) ,borderwidth=0, activebackground="#121212").grid(row=0, column=1, padx=0)
+        self.bouton_rose = Button(self.frame_changer_couleur, image=self.image_rose, bg=self.fond, command=lambda: afficher_index_couleur(1) ,borderwidth=0, activebackground="#121212").grid(row=0, column=2, padx=0)
+        self.bouton_violet = Button(self.frame_changer_couleur, image=self.image_violet, bg=self.fond, command=lambda: afficher_index_couleur(0) ,borderwidth=0, activebackground="#121212").grid(row=0, column=3, padx=0)
+
+        self.label_bleu = Label(self.frame_couleur_bleu, image=self.image_bleu, bg=self.fond)
+        self.label_cyan = Label(self.frame_couleur_cyan, image=self.image_cyan, bg=self.fond)
+        self.label_rose = Label(self.frame_couleur_rose, image=self.image_rose, bg=self.fond)
+        self.label_violet = Label(self.frame_couleur_violet, image=self.image_violet, bg=self.fond)
+
+        self.label_joueur = Label(self.frame_joueur, image=self.image_joueur, bg=self.fond)
+        self.label_joueur.pack(anchor="center")
+
+        self.label_ia = Label(self.frame_ia, image=self.image_ia, bg=self.fond)
+        self.label_ia.pack(anchor="center")
 
     def charger_image(self,chemin,ratio=1,rotation=0):
 
