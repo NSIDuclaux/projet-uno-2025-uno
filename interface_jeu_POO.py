@@ -96,10 +96,22 @@ class PartieJeu:
         self.image_dos_carte.charger_image("carte/autre/Dos.png",0.1)
         self.image_dos_carte_rotate.charger_image("carte/autre/Dos.png",0.1,180)
 
+        self.fond_charger_couleur.charger_image("Interface/Changer de couleur/Interface.png",0.2)
+        self.image_bleu.charger_image("Interface/Changer de couleur/Bleu.png",0.2)
+        self.image_cyan.charger_image("Interface/Changer de couleur/Cyan.png",0.2)
+        self.image_rose.charger_image("Interface/Changer de couleur/Rose.png",0.2)
+        self.image_violet.charger_image("Interface/Changer de couleur/Violet.png",0.2)
+
+        self.image_joueur.charger_image("Interface/Vous jouez.png",0.3)
+        self.image_ia.charger_image("Interface/Le bot joue.png",0.3)
+
+        self.image_victoire.charger_image("Interface/Victoire.png",0.2)
+        self.image_defaite.charger_image("Interface/Defaite.png",0.2)
+
         # Element de l'interface
 
         pioche = Label(self.frame_milieu, image=self.image_dos_carte, padx=10, pady=5, bg=self.fond, borderwidth=0)
-
+        pioche.grid(row=0, column=0, pady=100)
 
     def charger_image(self,chemin,ratio=1,rotation=0):
 
