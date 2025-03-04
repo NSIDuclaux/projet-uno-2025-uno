@@ -636,3 +636,119 @@ class PartieJeu:
                     score = score + 25
         
         return score
+    
+    def toursIA(self):
+        valid1 = False
+        tours_valide = False
+        
+        if self.peut_jouer:
+            self.afficher_ia()
+            
+            if self.nouvelle_couleur[1] == 1:
+                t = self.nouvelle_couleur[0]
+                valid1 = any(carte_valide2(t, carte) for carte in self.mainIA.main_joueur)
+                
+                if valid1:
+                    choix = choix_complexe2(self.mainIA.main_joueur, self.mainJoueur.main_joueur, t)
+                    carteChoisie = choix[0]
+                    self.mainIA.choix_carte(choix[1])
+                    tours_valide = True
+                else:
+                    self.mainIA.ajouter_carte(self.deck_partie.retirer_carte())
+                    print("Le bot pioche")
+                    if carte_valide2(t, self.mainIA.main_joueur[-1]):
+                        carteChoisie = self.mainIA.choix_carte(-1)
+                        tours_valide = True
+                        print("Le bot place la carte piochée")
+                
+                self.cacher_nouvelle_couleur()
+            
+            else:
+                valid1 = any(carte_valide(self.pile_milieu[-1], carte) for carte in self.mainIA.main_joueur)
+                
+                if valid1:
+                    choix = choix_complexe(self.mainIA.main_joueur, self.mainJoueur.main_joueur, self.pile_milieu[-1])
+                    carteChoisie = choix[0]
+                    self.mainIA.choix_carte(choix[1])
+                    tours_valide = True
+                else:
+                    self.mainIA.ajouter_carte(self.deck_partie.retirer_carte())
+                    print("Le bot pioche")
+                    if carte_valide(self.pile_milieu[-1], self.mainIA.main_joueur[-1]):
+                        carteChoisie = self.mainIA.choix_carte(-1)
+                        tours_valide = True
+                        print("Le bot place la carte piochée")
+        
+        self.peut_jouer = True
+        self.nouvelle_couleur = ["", 0]
+        
+        if tours_valide:
+            print("La carte jouée est :", carteChoisie)
+            self.pile_milieu.append(carteChoisie)
+            self.deck_partie.ajouter_carte(carteChoisie)
+            
+            effet = carteChoisie.effet_carte()
+            if effet == 1:
+                inverse(self.mainJoueur, self.mainIA)
+                self.update_cartesJoueur()
+                self.update_cartesmainIA()
+            elif effet == 2:
+                self.peut_jouer = interdit_jouer()
+            elif effet == 3:
+                coef = 0
+                coef = self.plus_2_carte_bot_interface(self.mainJoueur, self.mainIA, self.deck_partie, carteChoisie, self.pile_milieu, coef)
+            elif effet == 4:
+                coef = 0
+                self.nouvelle_couleur, coef = self.plus_4_carte_interface(self.mainJoueur, self.mainIA, self.deck_partie, carteChoisie, self.pile_milieu, coef)
+            elif effet == 5:
+                self.nouvelle_couleur = self.bot_changer_couleur_interface()
+        
+        self.cacher_ia()
+        return self.nouvelle_couleur, self.peut_jouer
+    
+    def partie(self):
+
+        while not self.vict:
+            self.update_carteJouer()
+            print("Tour du joueur")
+            
+            self.mainJoueur.trier_mains()
+            self.mainIA.trier_mains()
+            self.afficher_joueur()
+            print(self.mainJoueur)
+            
+            self.nouvelle_couleur, self.peut_jouer, self.score = self.toursJoueur()
+            print(self.mainJoueur)
+            
+            self.mainJoueur.trier_mains()
+            self.mainIA.trier_mains()
+            
+            self.cacher_joueur()
+            self.update_cartesJoueur()
+            self.update_carteJouer()
+            
+            if not self.mainJoueur.main_joueur:
+                self.tout_cacher()
+                self.afficher_victoire()
+                self.vict = True
+                self.confirmation = False
+            
+            self.update_carteJouer()
+            self.fenetre.after(1000, self.attente)
+            
+            print(self.mainIA)
+            self.nouvelle_couleur, self.peut_jouer = self.toursIA()
+            self.mainJoueur.trier_mains()
+            
+            print(self.mainIA)
+            self.update_cartesmainIA()
+            self.update_carteJouer()
+            
+            if not self.mainIA.main_joueur and self.confirmation:
+                self.tout_cacher()
+                self.vict = True
+                self.afficher_defaite()
+            
+            self.update_carteJouer()
+        
+        self.fenetre.mainloop()
