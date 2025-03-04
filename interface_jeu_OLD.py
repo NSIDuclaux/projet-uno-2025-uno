@@ -404,7 +404,7 @@ def plus_2_carte_interface (main,bot,deck,carte,pile_milieu,coef):
         deck.ajouter_carte(carteChoisie)
         if carteChoisie.nombre == 13:
             coef = coef + 4
-            bot_plus_4_carte(bot,main,deck,carte,pile_milieu,coef)
+            bot_plus_4_carte_interface(bot,main,deck,carte,pile_milieu,coef)
 
         else:
             coef = coef + 2

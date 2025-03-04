@@ -461,7 +461,7 @@ class PartieJeu:
             self.deck_partie.ajouter_carte(carteChoisie)
             if carteChoisie.nombre == 13:
                 coef = coef + 4
-                self.bot_plus_4_carte(self.mainIA,self.mainJoueur,self.deck_partie,carte,self.pile_milieu,coef)
+                self.bot_plus_4_carte_interface(self.mainIA,self.mainJoueur,self.deck_partie,carte,self.pile_milieu,coef)
 
             else:
                 coef = coef + 2
@@ -593,8 +593,8 @@ class PartieJeu:
             tours_valide = True
                 
 
-        peut_jouer = True
-        nouvelle_couleur = ["", 0]
+        self.peut_jouer = True
+        self.nouvelle_couleur = ["", 0]
 
         if tours_valide == True:
             
@@ -627,12 +627,12 @@ class PartieJeu:
                 if carteChoisie.effet_carte() == 4:
 
                     coef = 0
-                    nouvelle_couleur, coef = bot_plus_4_carte_interface(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef)
+                    coef = bot_plus_4_carte_interface(mainIA,mainJoueur,deck_partie,carteChoisie,pile_milieu,coef)
                     score = float(score) + score * 1.75
 
                 if carteChoisie.effet_carte() == 5 : 
 
-                    nouvelle_couleur = changer_couleur_interface() 
+                    self.changer_couleur_interface() 
                     score = score + 25
         
-        return nouvelle_couleur, peut_jouer, score
+        return score
