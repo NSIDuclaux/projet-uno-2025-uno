@@ -518,6 +518,8 @@ class PartieJeu:
     def attente():
         pass
 
+    # Fonction pour les tours
+
     def toursJoueur (self):
 
         valid = False
