@@ -479,6 +479,44 @@ class PartieJeu:
             self.peut_jouer = False
 
         return coef
+    
+    def plus_2_carte_bot_interface (self,coef,carte):
+
+        global peut_jouer
+
+        valide = False
+        for k in range(self.mainIA.nb_main()):
+            if renvoie_valide2(self.mainIA.main_joueur[k]) == True:
+                valide = True
+        if valide == True:
+            print("Renvoie de carte")
+            carteChoisie = renvoie_valide(carte,self.mainIA)
+            c = self.mainIA.main_joueur[carteChoisie]
+            print("La carte retourné est :", c)
+            self.pile_milieu.append(c)
+            self.deck_partie.ajouter_carte(c)
+            if c.nombre == 13:
+                coef = coef + 4
+                return self.plus_4_carte_interface(self,carte,coef)
+            else:
+                coef = coef + 2
+                return self.plus_2_carte_interface(self,carte,coef)
+            
+        else:
+            coef = coef + 2
+            for i in range (coef):
+
+                self.mainIA.ajouter_carte(self.deck_partie.retirer_carte())
+            print("Le joueur suivant reçoit "+ str(coef) +" carte")
+
+            self.update_carteJouer()
+
+            peut_jouer = False
+
+            return coef
+    
+    def attente():
+        pass
 
     def toursJoueur (self):
 
