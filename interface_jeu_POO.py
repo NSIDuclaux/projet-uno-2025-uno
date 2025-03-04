@@ -350,7 +350,7 @@ class PartieJeu:
 
             self.nouvelle_couleur = ["cyan",1]
 
-    def plus_4_carte_interface(self):
+    def plus_4_carte_interface(self,coef):
 
         valide = False
 
@@ -383,13 +383,102 @@ class PartieJeu:
 
                 self.mainJoueur.ajouter_carte(self.deck_partie.retirer_carte())
 
-            nouvelle_couleur = self.bot_changer_couleur_interface()
+            self.nouvelle_couleur = self.bot_changer_couleur_interface()
             self.update_cartesJoueur()
 
-            peut_jouer = False
+            self.peut_jouer = False
 
-            return nouvelle_couleur, coef        
+            return coef
 
+    def bot_plus_4_carte_interface (self,coef,carte):
+
+        valide = False
+        for k in range(self.mainIA.nb_main()):
+            if renvoie_valide2(self.mainIA.main_joueur[k]) == True:
+                valide = True
+        if valide == True:
+            print("Renvoie de carte")
+            carteChoisie = renvoie_valide_plus(carte,self.mainIA)
+            c = self.mainIA.main_joueur[carteChoisie]
+            print("La carte retourné est :", c)
+            self.pile_milieu.append(c)
+            self.deck_partie.ajouter_carte(c)
+            coef = coef + 4
+            return self.plus_4_carte_interface(self,coef)
+        else:
+            coef = coef + 4
+            for i in range (coef):
+
+                self.mainIA.ajouter_carte(self.deck_partie.retirer_carte())
+
+            self.nouvelle_couleur = self.changer_couleur_interface()
+            self.update_cartesmainIA()
+
+            self.peut_jouer = False
+
+            return coef
+          
+    def bot_changer_couleur_interface(self):
+
+        x = randint(0,3)
+        couleur = ["violet","rose","bleu","cyan"]
+        
+
+        self.nouvelle_couleur= [couleur[x], 1]
+
+        print("La nouvelle couleur est",self.nouvelle_couleur)
+
+        self.afficher_nouvelle_couleur(self.nouvelle_couleur)
+
+    def plus_2_carte_interface (self,coef,carte):
+        
+        # Vérification de la possibilité de jouer
+
+        valide = False
+        for k in range(self.mainJoueur.nb_main()):
+            if renvoie_valide2(self.mainJoueur.main_joueur[k]) == True:
+                valide = True
+
+        # Choix de la carte par le joueur
+
+        if valide == True:
+
+            valid = False
+
+            while valid == False:
+                
+                self.numeroChoisie.set(-1)
+            
+                while int(self.numeroChoisie.get()) < 0 or int(self.numeroChoisie.get()) >= self.mainJoueur.nb_main():
+                    self.frame_cartes_joueur.wait_variable(self.numeroChoisie)
+                    numeroChoisie_value = self.numeroChoisie.get()
+                    numeroChoisie_value = int(numeroChoisie_value)
+                    if int(numeroChoisie_value) >= 0 and int(numeroChoisie_value) < self.mainJoueur.nb_main():
+                        valid = renvoie_valide2(self.mainJoueur.main_joueur[int(self.numeroChoisie.get())]) 
+            carteChoisie = self.mainJoueur.choix_carte(int(numeroChoisie_value))
+            print("La carte retourné est :",carteChoisie)
+            self.pile_milieu.append(carteChoisie)
+            self.deck_partie.ajouter_carte(carteChoisie)
+            if carteChoisie.nombre == 13:
+                coef = coef + 4
+                self.bot_plus_4_carte(self.mainIA,self.mainJoueur,self.deck_partie,carte,self.pile_milieu,coef)
+
+            else:
+                coef = coef + 2
+                plus_2_carte_bot(self.mainIA,self.mainJoueur,self.deck_partie,carte,self.pile_milieu,coef)
+
+        #  Si le joueur ne peut pas jouer
+
+        else :
+
+            coef = coef + 2
+            for i in range (coef):
+
+                self.mainJoueur.ajouter_carte(self.deck_partie.retirer_carte())
+
+            self.peut_jouer = False
+
+        return coef
 
     def toursJoueur (self):
 
