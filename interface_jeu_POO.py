@@ -762,6 +762,7 @@ class PartieJeu:
             self.update_carteJouer()
             self.fenetre.after(1000, self.attente)
             
+            print("L'IA joue")
             print(self.mainIA)
             self.toursIA()
             self.mainJoueur.trier_mains()
