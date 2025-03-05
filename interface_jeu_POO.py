@@ -26,12 +26,12 @@ class PartieJeu:
 
         # Initialisation de la fenêtre (à retirer après les teste)
 
-        # self.fenetre = Tk()
-        # self.fenetre.title("Cosmunos")
-        # self.fenetre.geometry("1600x800")
-        # self.fenetre.attributes("-fullscreen", True)
-        # self.fond = "#1e1e1e"
-        # self.fenetre.config(bg=self.fond)
+        self.fenetre = Tk()
+        self.fenetre.title("Cosmunos")
+        self.fenetre.geometry("1600x800")
+        self.fenetre.attributes("-fullscreen", True)
+        self.fond = "#1e1e1e"
+        self.fenetre.config(bg=self.fond)
 
         # Création de la pioche
         
@@ -89,7 +89,7 @@ class PartieJeu:
         self.frame_fond = Frame(self.fenetre, bg=self.fond)
         self.frame_fond.place(relx=0.5, rely=0.5, anchor="center", width=1600, height=800)
 
-        self.frame_changer_couleur = Frame(self.frame_fond, bg=self.fond)
+        self.frame_changer_couleur = Frame(self.fenetre, bg=self.fond)
         self.frame_changer_couleur.place(anchor="center", relx=0.5, rely=0.5, y=25)
 
         self.frame_ia = Frame(self.fenetre, bg=self.fond)
@@ -116,6 +116,7 @@ class PartieJeu:
         self.frame_cartes_joueur.lift()
         self.frame_cartes_mainIA.lift()
 
+
         # Charger les images requises
         
         self.image_dos_carte = self.charger_image("carte/autre/Dos.png",0.1)
@@ -141,10 +142,10 @@ class PartieJeu:
         self.label_fond = Label(self.frame_fond, image=self.fond_changer_couleur, bg=self.fond)
         self.label_fond.place(relx=0.5, rely=0.5, anchor=CENTER,width=1600,height=800)
 
-        self.bouton_bleu = Button(self.frame_changer_couleur, image=self.image_bleu, bg=self.fond, command=lambda: self.afficher_index_couleur(2), borderwidth=0, activebackground="#121212").grid(row=0, column=0, padx=0)
-        self.bouton_cyan = Button(self.frame_changer_couleur, image=self.image_cyan, bg=self.fond, command=lambda: self.afficher_index_couleur(3) ,borderwidth=0, activebackground="#121212").grid(row=0, column=1, padx=0)
-        self.bouton_rose = Button(self.frame_changer_couleur, image=self.image_rose, bg=self.fond, command=lambda: self.afficher_index_couleur(1) ,borderwidth=0, activebackground="#121212").grid(row=0, column=2, padx=0)
-        self.bouton_violet = Button(self.frame_changer_couleur, image=self.image_violet, bg=self.fond, command=lambda: self.afficher_index_couleur(0) ,borderwidth=0, activebackground="#121212").grid(row=0, column=3, padx=0)
+        self.bouton_bleu = Button(self.frame_changer_couleur, image=self.image_bleu, bg="#121212", command=lambda: self.afficher_index_couleur(2), borderwidth=0, activebackground="#121212").grid(row=0, column=0, padx=0)
+        self.bouton_cyan = Button(self.frame_changer_couleur, image=self.image_cyan, bg="#121212", command=lambda: self.afficher_index_couleur(3) ,borderwidth=0, activebackground="#121212").grid(row=0, column=1, padx=0)
+        self.bouton_rose = Button(self.frame_changer_couleur, image=self.image_rose, bg="#121212", command=lambda: self.afficher_index_couleur(1) ,borderwidth=0, activebackground="#121212").grid(row=0, column=2, padx=0)
+        self.bouton_violet = Button(self.frame_changer_couleur, image=self.image_violet, bg="#121212", command=lambda: self.afficher_index_couleur(0) ,borderwidth=0, activebackground="#121212").grid(row=0, column=3, padx=0)
 
         self.label_bleu = Label(self.frame_couleur_bleu, image=self.image_bleu, bg=self.fond)
         self.label_cyan = Label(self.frame_couleur_cyan, image=self.image_cyan, bg=self.fond)
@@ -468,11 +469,11 @@ class PartieJeu:
             self.deck_partie.ajouter_carte(carteChoisie)
             if carteChoisie.nombre == 13:
                 coef = coef + 4
-                self.bot_plus_4_carte_interface(self.mainIA,self.mainJoueur,self.deck_partie,carte,self.pile_milieu,coef)
+                return self.bot_plus_4_carte_interface(coef,carte)
 
             else:
                 coef = coef + 2
-                plus_2_carte_bot(self.mainIA,self.mainJoueur,self.deck_partie,carte,self.pile_milieu,coef)
+                return plus_2_carte_bot(self.mainIA,self.mainJoueur,self.deck_partie,carte,self.pile_milieu,coef)
 
         #  Si le joueur ne peut pas jouer
 
@@ -485,7 +486,7 @@ class PartieJeu:
 
             self.peut_jouer = False
 
-        return coef
+            return coef
     
     def plus_2_carte_bot_interface (self,coef,carte):
 
@@ -507,7 +508,7 @@ class PartieJeu:
                 return self.plus_4_carte_interface(carte,coef)
             else:
                 coef = coef + 2
-                return self.plus_2_carte_interface(carte,coef)
+                return self.plus_2_carte_interface(coef,carte)
             
         else:
             coef = coef + 2
@@ -702,6 +703,7 @@ class PartieJeu:
             self.deck_partie.ajouter_carte(carteChoisie)
             
             effet = carteChoisie.effet_carte()
+            print(effet)
 
             if effet == 1:
 
@@ -746,7 +748,7 @@ class PartieJeu:
             print(self.mainJoueur)
 
             if self.peut_jouer:  # Vérifie que le joueur a bien joué avant de laisser l'IA jouer
-                self.fenetre.after(1000, self.toursIA)
+                self.fenetre.after(1000, self.attente)
             
             self.mainJoueur.trier_mains()
             self.mainIA.trier_mains()
@@ -782,4 +784,4 @@ class PartieJeu:
         
         self.fenetre.mainloop()
 
-# partie = PartieJeu()
+partie = PartieJeu()
