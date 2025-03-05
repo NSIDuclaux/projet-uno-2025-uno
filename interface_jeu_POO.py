@@ -183,6 +183,8 @@ class PartieJeu:
 
     def update_cartesmainIA(self):
 
+        self.mainIA.trier_mains()
+
         for widget in self.frame_cartes_mainIA.winfo_children():
 
             widget.destroy
@@ -197,6 +199,8 @@ class PartieJeu:
         self.fenetre.update()
 
     def update_cartesJoueur(self):
+
+        self.mainJoueur.trier_mains()
 
         for widget in self.frame_cartes_joueur.winfo_children():
 
@@ -498,10 +502,10 @@ class PartieJeu:
             self.deck_partie.ajouter_carte(c)
             if c.nombre == 13:
                 coef = coef + 4
-                return self.plus_4_carte_interface(self,carte,coef)
+                return self.plus_4_carte_interface(carte,coef)
             else:
                 coef = coef + 2
-                return self.plus_2_carte_interface(self,carte,coef)
+                return self.plus_2_carte_interface(carte,coef)
             
         else:
             coef = coef + 2
@@ -561,37 +565,37 @@ class PartieJeu:
 
                 self.cacher_nouvelle_couleur()
 
-        else:
-            # Gestion de la situation sans nouvelle couleur
-            for k in range(self.mainJoueur.nb_main()):
-                if carte_valide(self.pile_milieu[-1], self.mainJoueur.main_joueur[k]) == True:
-                    valid1 = True
-
-            if valid1 == True:
-                while valid == False:
-                    self.numeroChoisie.set(-1)  # Réinitialise avant de demander un choix
-                    # Attends que l'utilisateur fasse un choix (via la variable)
-                    self.frame_cartes_joueur.wait_variable(self.numeroChoisie)
-                    numeroChoisie_value = self.numeroChoisie.get()
-
-                    if int(numeroChoisie_value) >= 0 and int(numeroChoisie_value) < self.mainJoueur.nb_main():
-                        valid = carte_valide(self.pile_milieu[-1], self.mainJoueur.main_joueur[int(numeroChoisie_value)])
-
-                carteChoisie = self.mainJoueur.choix_carte(int(numeroChoisie_value))
-                tours_valide = True
-                carte_placer = True
             else:
-                self.mainJoueur.ajouter_carte(self.deck_partie.retirer_carte())
-                print("Vous piochez")
-                if carte_valide(self.pile_milieu[-1], self.mainJoueur.main_joueur[-1]) == True:
-                    carteChoisie = self.mainJoueur.choix_carte(-1)
-                    print("Vous placez la carte piochée")
+                # Gestion de la situation sans nouvelle couleur
+                for k in range(self.mainJoueur.nb_main()):
+                    if carte_valide(self.pile_milieu[-1], self.mainJoueur.main_joueur[k]) == True:
+                        valid1 = True
+
+                if valid1 == True:
+                    while valid == False:
+                        self.numeroChoisie.set(-1)  # Réinitialise avant de demander un choix
+                        # Attends que l'utilisateur fasse un choix (via la variable)
+                        self.frame_cartes_joueur.wait_variable(self.numeroChoisie)
+                        numeroChoisie_value = self.numeroChoisie.get()
+
+                        if int(numeroChoisie_value) >= 0 and int(numeroChoisie_value) < self.mainJoueur.nb_main():
+                            valid = carte_valide(self.pile_milieu[-1], self.mainJoueur.main_joueur[int(numeroChoisie_value)])
+
+                    carteChoisie = self.mainJoueur.choix_carte(int(numeroChoisie_value))
+                    tours_valide = True
                     carte_placer = True
+                else:
+                    self.mainJoueur.ajouter_carte(self.deck_partie.retirer_carte())
+                    print("Vous piochez")
+                    if carte_valide(self.pile_milieu[-1], self.mainJoueur.main_joueur[-1]) == True:
+                        carteChoisie = self.mainJoueur.choix_carte(-1)
+                        print("Vous placez la carte piochée")
+                        carte_placer = True
 
-                else :  
-                   carte_placer = False
+                    else :  
+                        carte_placer = False
 
-            tours_valide = True
+                tours_valide = True
                 
 
         self.peut_jouer = True
@@ -642,17 +646,23 @@ class PartieJeu:
         tours_valide = False
         
         if self.peut_jouer:
+
             self.afficher_ia()
             
             if self.nouvelle_couleur[1] == 1:
-                t = self.nouvelle_couleur[0]
-                valid1 = any(carte_valide2(t, carte) for carte in self.mainIA.main_joueur)
+
+                for k in range(self.mainIA.nb_main()):
+                    t = self.nouvelle_couleur[0]
+
+                
+                    if carte_valide2(t, self.mainIA.main_joueur[k]) == True:
+                        valid1 = True
                 
                 if valid1:
-                    choix = choix_complexe2(self.mainIA.main_joueur, self.mainJoueur.main_joueur, t)
-                    carteChoisie = choix[0]
-                    self.mainIA.choix_carte(choix[1])
+                    carteChoisie = choix_complexe2(self.mainIA.main_joueur,self.mainJoueur.main_joueur, t)[0]
+                    self.mainIA.choix_carte(choix_complexe2(self.mainIA.main_joueur,self.mainJoueur.main_joueur, t)[1])
                     tours_valide = True
+
                 else:
                     self.mainIA.ajouter_carte(self.deck_partie.retirer_carte())
                     print("Le bot pioche")
@@ -664,13 +674,15 @@ class PartieJeu:
                 self.cacher_nouvelle_couleur()
             
             else:
-                valid1 = any(carte_valide(self.pile_milieu[-1], carte) for carte in self.mainIA.main_joueur)
+                for k in range(self.mainIA.nb_main()):
+                    if carte_valide(self.pile_milieu[-1], self.mainIA.main_joueur[k]) == True:
+                        valid1 = True
                 
                 if valid1:
-                    choix = choix_complexe(self.mainIA.main_joueur, self.mainJoueur.main_joueur, self.pile_milieu[-1])
-                    carteChoisie = choix[0]
-                    self.mainIA.choix_carte(choix[1])
+                    carteChoisie = choix_complexe(self.mainIA.main_joueur,self.mainJoueur.main_joueur, self.pile_milieu[-1])[0]
+                    self.mainIA.choix_carte(choix_complexe(self.mainIA.main_joueur,self.mainJoueur.main_joueur, self.pile_milieu[-1])[1])
                     tours_valide = True
+
                 else:
                     self.mainIA.ajouter_carte(self.deck_partie.retirer_carte())
                     print("Le bot pioche")
@@ -688,19 +700,29 @@ class PartieJeu:
             self.deck_partie.ajouter_carte(carteChoisie)
             
             effet = carteChoisie.effet_carte()
+
             if effet == 1:
+
                 inverse(self.mainJoueur, self.mainIA)
                 self.update_cartesJoueur()
                 self.update_cartesmainIA()
+
             elif effet == 2:
+
                 self.peut_jouer = interdit_jouer()
+
             elif effet == 3:
+
                 coef = 0
                 coef = self.plus_2_carte_bot_interface(coef,carteChoisie)
+
             elif effet == 4:
+                
                 coef = 0
                 coef = self.plus_4_carte_interface(coef)
+            
             elif effet == 5:
+                
                 self.bot_changer_couleur_interface()
         
         self.cacher_ia()
@@ -708,6 +730,8 @@ class PartieJeu:
     def partie(self):
 
         while not self.vict:
+
+            print(self.peut_jouer)
             self.update_carteJouer()
             print("Tour du joueur")
             
