@@ -2,6 +2,7 @@ from tkinter import *
 from PIL import Image, ImageTk
 from pygame import mixer
 from os import *
+from interface_jeu_POO import *
 
 #Frame
 
@@ -24,6 +25,7 @@ def affiché_frame_parametre():
 def bouton_jouer():
 
     affiché_frame_jeu()
+    partie = PartieJeu()
 
 def bouton_jouer_entrer(event):
 

@@ -26,12 +26,12 @@ class PartieJeu:
 
         # Initialisation de la fenêtre (à retirer après les teste)
 
-        self.fenetre = Tk()
-        self.fenetre.title("Cosmunos")
-        self.fenetre.geometry("1600x800")
-        self.fenetre.attributes("-fullscreen", True)
-        self.fond = "#1e1e1e"
-        self.fenetre.config(bg=self.fond)
+        # self.fenetre = Tk()
+        # self.fenetre.title("Cosmunos")
+        # self.fenetre.geometry("1600x800")
+        # self.fenetre.attributes("-fullscreen", True)
+        # self.fond = "#1e1e1e"
+        # self.fenetre.config(bg=self.fond)
 
         # Création de la pioche
         
@@ -355,6 +355,8 @@ class PartieJeu:
 
             self.nouvelle_couleur = ["cyan",1]
 
+        self.cacher_changer_couleur()
+
     def plus_4_carte_interface(self,coef):
 
         valide = False
@@ -381,7 +383,7 @@ class PartieJeu:
             self.pile_milieu.append(carteChoisie)
             self.deck_partie.ajouter_carte(carteChoisie)
             coef = coef + 4
-            return self.bot_plus_4_carte_interface(self,coef)
+            return self.bot_plus_4_carte_interface(self,coef,carteChoisie)
         else:
             coef = coef + 4
             for i in range (coef):
@@ -640,8 +642,8 @@ class PartieJeu:
                     self.changer_couleur_interface() 
                     self.score = self.score + 25
 
-    
     def toursIA(self):
+
         valid1 = False
         tours_valide = False
         
@@ -780,4 +782,4 @@ class PartieJeu:
         
         self.fenetre.mainloop()
 
-partie = PartieJeu()
+# partie = PartieJeu()
