@@ -12,6 +12,7 @@ def affiché_frame_menu():
 def affiché_frame_jeu():
 
     frame_menu.pack_forget()
+    frame_jeu.pack(fill="both", expand=True)
 
 def affiché_frame_parametre():
 
@@ -26,12 +27,10 @@ partie_en_cours = None
 def bouton_jouer():
 
     global partie_en_cours
-
     affiché_frame_jeu()
-    fenetre.update_idletasks()
 
     if partie_en_cours is None:
-        partie_en_cours = PartieJeu(fenetre)
+        partie_en_cours = PartieJeu(frame_jeu)  #  Ajoute l'interface dans `frame_jeu`
 
 def bouton_jouer_entrer(event):
 

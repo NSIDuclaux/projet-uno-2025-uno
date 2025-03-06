@@ -22,20 +22,15 @@ def fichier_carte(carte):
 
 class PartieJeu:
 
-    def __init__(self,fenetre):
+    def __init__(self,parent):
 
         print("Lancement de la Classe")
 
         # Initialisation de la fenêtre (à retirer après les teste)
 
-        self.fenetre = fenetre
-
-        # self.fenetre = Tk()
-        # self.fenetre.title("Cosmunos")
-        # self.fenetre.geometry("1600x800")
-        # self.fenetre.attributes("-fullscreen", True)
-        # self.fond = "#1e1e1e"
-        # self.fenetre.config(bg=self.fond)
+        super().__init__(parent)  # Crée un Frame à l'intérieur de `parent`
+        self.config(bg="#1e1e1e", width=1600, height=800)
+        self.pack(fill="both", expand=True)  # Permet au Frame d'occuper tout l'espace
 
 
         # Création de la pioche
@@ -81,40 +76,40 @@ class PartieJeu:
 
         # Initialisation des frames
 
-        self.frame_cartes_mainIA = Frame(self.fenetre, bg=self.fond)
+        self.frame_cartes_mainIA = Frame(self, bg=self.fond)
         self.frame_cartes_mainIA.pack(side=TOP, pady=20)
         self.frame_cartes_mainIA.lift()
 
-        self.frame_cartes_joueur = Frame(self.fenetre, bg=self.fond)
+        self.frame_cartes_joueur = Frame(self, bg=self.fond)
         self.frame_cartes_joueur.pack(side=BOTTOM, pady=20)
 
-        self.frame_milieu = Frame(self.fenetre, bg=self.fond) 
+        self.frame_milieu = Frame(self, bg=self.fond) 
         self.frame_milieu.pack(anchor=CENTER)
 
-        self.frame_fond = Frame(self.fenetre, bg=self.fond)
+        self.frame_fond = Frame(self, bg=self.fond)
         self.frame_fond.place(relx=0.5, rely=0.5, anchor="center", width=1600, height=800)
 
-        self.frame_changer_couleur = Frame(self.fenetre, bg=self.fond)
+        self.frame_changer_couleur = Frame(self, bg=self.fond)
         self.frame_changer_couleur.place(anchor="center", relx=0.5, rely=0.5, y=25)
 
-        self.frame_ia = Frame(self.fenetre, bg=self.fond)
+        self.frame_ia = Frame(self, bg=self.fond)
         self.frame_ia.place(relx=0.5, rely=0.3, anchor="center")
 
-        self.frame_joueur = Frame(self.fenetre, bg=self.fond)
+        self.frame_joueur = Frame(self, bg=self.fond)
         self.frame_joueur.place(relx=0.5, rely=0.7, anchor="center")
 
-        self.frame_victoire = Frame(self.fenetre, bg=self.fond)
+        self.frame_victoire = Frame(self, bg=self.fond)
         self.frame_victoire.place(relx=0.5, rely=0.5, anchor=CENTER,width=1600,height=800)
 
-        self.frame_defaite = Frame(self.fenetre,bg=self.fond)
+        self.frame_defaite = Frame(self,bg=self.fond)
         self.frame_defaite.place(relx=0.5, rely=0.5, anchor=CENTER,width=1600,height=800)
 
-        self.frame_couleur_cyan = Frame(self.fenetre, bg=self.fond)
-        self.frame_couleur_bleu = Frame(self.fenetre, bg=self.fond)
-        self.frame_couleur_violet = Frame(self.fenetre, bg=self.fond)
-        self.frame_couleur_rose = Frame(self.fenetre, bg=self.fond)
+        self.frame_couleur_cyan = Frame(self, bg=self.fond)
+        self.frame_couleur_bleu = Frame(self, bg=self.fond)
+        self.frame_couleur_violet = Frame(self, bg=self.fond)
+        self.frame_couleur_rose = Frame(self, bg=self.fond)
 
-        self.frame_score = Frame(self.fenetre,bg=self.fond)
+        self.frame_score = Frame(self,bg=self.fond)
         self.frame_victoire.place(relx=0.5, rely=0.5, anchor=CENTER,width=1600,height=800)
 
         self.frame_changer_couleur.lift()
@@ -168,7 +163,7 @@ class PartieJeu:
         self.label_defaite = Label(self.frame_defaite,image=self.image_defaite,bg=self.fond)
         self.label_defaite.place(relx=0.5, rely=0.5, anchor=CENTER)
         
-        self.fenetre.update()
+        self.update()
 
         self.cacher_defaite()
         self.cacher_victoire()
@@ -206,7 +201,7 @@ class PartieJeu:
 
         print("Mise à jour de l'affichage de l'IA")
 
-        self.fenetre.update()
+        self.update()
 
     def update_cartesJoueur(self):
 
@@ -237,7 +232,7 @@ class PartieJeu:
 
             col += 1
 
-        self.fenetre.update()
+        self.update()
 
     def update_carteJouer(self):
 
@@ -252,7 +247,7 @@ class PartieJeu:
 
         Label(self.frame_milieu, image=self.image_carte, padx=10, pady=5, bg=self.fond).grid(row=0, column=1, pady=90)
 
-        self.fenetre.update()
+        self.update()
 
     def cacher_changer_couleur(self):
 
@@ -757,7 +752,7 @@ class PartieJeu:
             print(self.mainJoueur)
 
             if self.peut_jouer:  # Vérifie que le joueur a bien joué avant de laisser l'IA jouer
-                self.fenetre.after(1000, self.attente)
+                self.after(1000, self.attente)
             
             self.mainJoueur.trier_mains()
             self.mainIA.trier_mains()
@@ -773,7 +768,7 @@ class PartieJeu:
                 self.confirmation = False
             
             self.update_carteJouer()
-            self.fenetre.after(1000, self.attente)
+            self.after(1000, self.attente)
             
             print("L'IA joue")
             print(self.mainIA)
@@ -792,4 +787,4 @@ class PartieJeu:
             self.update_cartesmainIA()
             self.update_carteJouer()
         
-        self.fenetre.mainloop()
+        self.mainloop()
