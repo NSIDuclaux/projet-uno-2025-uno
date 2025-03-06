@@ -188,7 +188,7 @@ class PartieJeu:
 
         for widget in self.frame_cartes_mainIA.winfo_children():
 
-            widget.destroy
+            widget.destroy()
 
         col = 0
 
@@ -196,6 +196,8 @@ class PartieJeu:
 
             Label(self.frame_cartes_mainIA, image=self.image_dos_carte_rotate, padx=10, pady=5, bg=self.fond).grid(row=0, column=col, padx=0)
             col += 1
+
+        print("Mise à jour de l'affichage de l'IA")
 
         self.fenetre.update()
 
