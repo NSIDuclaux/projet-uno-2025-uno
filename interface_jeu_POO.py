@@ -358,7 +358,7 @@ class PartieJeu:
 
         self.cacher_changer_couleur()
 
-    def plus_4_carte_interface(self,coef):
+    def plus_4_carte_interface(self,coef,carte):
 
         valide = False
 
@@ -384,7 +384,7 @@ class PartieJeu:
             self.pile_milieu.append(carteChoisie)
             self.deck_partie.ajouter_carte(carteChoisie)
             coef = coef + 4
-            return self.bot_plus_4_carte_interface(self,coef,carteChoisie)
+            return self.bot_plus_4_carte_interface(coef,carte)
         else:
             coef = coef + 4
             for i in range (coef):
@@ -412,7 +412,7 @@ class PartieJeu:
             self.pile_milieu.append(c)
             self.deck_partie.ajouter_carte(c)
             coef = coef + 4
-            return self.plus_4_carte_interface(self,coef)
+            return self.plus_4_carte_interface(coef,carte)
         else:
             coef = coef + 4
             for i in range (coef):
@@ -723,7 +723,7 @@ class PartieJeu:
             elif effet == 4:
                 
                 coef = 0
-                coef = self.plus_4_carte_interface(coef)
+                coef = self.plus_4_carte_interface(coef,carteChoisie)
             
             elif effet == 5:
                 
@@ -780,6 +780,7 @@ class PartieJeu:
                 self.vict = True
                 self.afficher_defaite()
             
+            self.update_cartesmainIA()
             self.update_carteJouer()
         
         self.fenetre.mainloop()
