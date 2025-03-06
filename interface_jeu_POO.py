@@ -22,16 +22,21 @@ def fichier_carte(carte):
 
 class PartieJeu:
 
-    def __init__(self):
+    def __init__(self,fenetre):
+
+        print("Lancement de la Classe")
 
         # Initialisation de la fenêtre (à retirer après les teste)
 
-        self.fenetre = Tk()
-        self.fenetre.title("Cosmunos")
-        self.fenetre.geometry("1600x800")
-        self.fenetre.attributes("-fullscreen", True)
-        self.fond = "#1e1e1e"
-        self.fenetre.config(bg=self.fond)
+        self.fenetre = fenetre
+
+        # self.fenetre = Tk()
+        # self.fenetre.title("Cosmunos")
+        # self.fenetre.geometry("1600x800")
+        # self.fenetre.attributes("-fullscreen", True)
+        # self.fond = "#1e1e1e"
+        # self.fenetre.config(bg=self.fond)
+
 
         # Création de la pioche
         
@@ -162,6 +167,8 @@ class PartieJeu:
         self.label_victoire.place(relx=0.5, rely=0.5, anchor=CENTER)
         self.label_defaite = Label(self.frame_defaite,image=self.image_defaite,bg=self.fond)
         self.label_defaite.place(relx=0.5, rely=0.5, anchor=CENTER)
+        
+        self.fenetre.update()
 
         self.cacher_defaite()
         self.cacher_victoire()
@@ -786,5 +793,3 @@ class PartieJeu:
             self.update_carteJouer()
         
         self.fenetre.mainloop()
-
-partie = PartieJeu()
