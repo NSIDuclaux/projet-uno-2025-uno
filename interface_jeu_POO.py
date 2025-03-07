@@ -20,7 +20,7 @@ def fichier_carte(carte):
 
     return chemin
 
-class PartieJeu:
+class PartieJeu(Frame):
 
     def __init__(self,parent):
 
@@ -72,6 +72,8 @@ class PartieJeu:
     # Fonction Interface
 
     def init_interface(self):
+
+        self.fond = "#1e1e1e"
 
         # Initialisation des frames
 
@@ -787,4 +789,18 @@ class PartieJeu:
             self.update_cartesmainIA()
             self.update_carteJouer()
         
-    
+# fenetre = Tk()
+# fenetre.title("Cosmunos")
+# fenetre.geometry("1600x800")
+# fenetre.attributes("-fullscreen",True)
+
+# #Fond
+
+# fond = "#1e1e1e"
+# fenetre.config(bg=fond)
+
+# frame_partie = Frame(fenetre,bg=fond)
+# frame_partie.pack(fill="both", expand=True)
+
+# partie = PartieJeu(frame_partie)
+# partie.pack(fill="both", expand=True)

@@ -12,6 +12,7 @@ def affiché_frame_menu():
 def affiché_frame_jeu():
 
     frame_menu.pack_forget()
+    
 
 
 #Fonction Bouton
@@ -26,8 +27,9 @@ def bouton_jouer():
 
     if partie_en_cours is None:
         print("je passe ici")
-        partie_en_cours = PartieJeu(fenetre)  #  Ajoute l'interface dans `frame_jeu`
-
+        partie_en_cours = PartieJeu(fenetre)  #  Ajoute l'interface dans `frame_jeu
+        partie_en_cours.pack(fill="both", expand=True)
+        
 def bouton_jouer_entrer(event):
 
     bouton1_button.config(image=bouton1_image_large)
