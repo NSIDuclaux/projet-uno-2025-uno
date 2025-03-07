@@ -24,7 +24,6 @@ class PartieJeu:
 
     def __init__(self,parent):
 
-        print("Lancement de la Classe")
 
         # Initialisation de la fenêtre (à retirer après les teste)
 
@@ -173,6 +172,7 @@ class PartieJeu:
         self.update_cartesmainIA()
         self.update_carteJouer()
         self.update_cartesJoueur()
+        
 
     def charger_image(self,chemin,ratio=1,rotation=0):
 
@@ -787,4 +787,4 @@ class PartieJeu:
             self.update_cartesmainIA()
             self.update_carteJouer()
         
-        self.mainloop()
+    
