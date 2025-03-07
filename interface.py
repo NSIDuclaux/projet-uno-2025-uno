@@ -27,7 +27,7 @@ def bouton_rejouer(partie,frame):
 def affiché_frame_jeu():
 
     frame_menu.pack_forget()
-    frame_jeu.pack()
+    frame_jeu.place(relx=0.5, rely=0.5, anchor="center", width=1600, height=800)
     
 
 

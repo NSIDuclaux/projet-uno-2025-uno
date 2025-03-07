@@ -181,7 +181,7 @@ class PartieJeu(Frame):
 
         self.update()
 
-        # self.cacher_defaite()
+        self.cacher_defaite()
         self.cacher_victoire()
         self.cacher_changer_couleur()
         self.cacher_joueur()
