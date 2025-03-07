@@ -9,6 +9,7 @@ from carte_valide import *
 from carte_effet import *
 from bot import *
 from random import randint
+from interface import *
 
 def fichier_carte(carte):
 
@@ -296,6 +297,34 @@ class PartieJeu(Frame):
 
         self.frame_defaite.place_forget()
         self.frame_score.place_forget()
+
+    def bouton_rejouer(self):
+        global partie_en_cours
+        if partie_en_cours:
+            partie_en_cours.destroy()
+        partie_en_cours = PartieJeu(self)
+        partie_en_cours.pack(fill="both", expand=True)
+
+    def bouton_retour_menu():
+        global partie_en_cours
+        if partie_en_cours:
+            partie_en_cours.destroy()
+        affiché_frame_menu()
+
+    def afficher_boutons_fin(self):
+
+        bouton_rejouer_image = Image.open("Interface/Bouton/Bouton_Rejouer.png").resize((400, 130))
+        bouton_rejouer_image = ImageTk.PhotoImage(bouton_rejouer_image)
+        bouton_retour_image = Image.open("Interface/Bouton/Bouton_Menu.png").resize((400, 130))
+        bouton_retour_image = ImageTk.PhotoImage(bouton_retour_image)
+
+        bouton_rejouer = Button(self, image=bouton_rejouer_image, bg="#1e1e1e", width=500, height=100,
+                                command=bouton_rejouer, borderwidth=0, activebackground="#1e1e1e")
+        bouton_retour = Button(self, image=bouton_retour_image, bg="#1e1e1e", width=500, height=100,
+                            command=bouton_retour_menu, borderwidth=0, activebackground="#1e1e1e")
+        
+        bouton_rejouer.place(relx=0.4, rely=0.8, anchor='center')
+        bouton_retour.place(relx=0.6, rely=0.8, anchor='center')
 
     def afficher_score(self,score):
     
