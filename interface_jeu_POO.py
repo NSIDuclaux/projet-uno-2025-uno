@@ -9,7 +9,6 @@ from carte_valide import *
 from carte_effet import *
 from bot import *
 from random import randint
-from interface import *
 
 def fichier_carte(carte):
 
@@ -136,8 +135,8 @@ class PartieJeu(Frame):
         self.image_victoire = self.charger_image("Interface/Victoire.png",0.2)
         self.image_defaite = self.charger_image("Interface/Defaite.png",0.2)
 
-        self.image_rejouer = self.charger_image("Interface/Bouton Rejouer.png",0.2)
-        self.image_menu_principale = self.charger_image("Interface/Bouton Menu Principal.png",0.2)
+        self.image_rejouer = self.charger_image("Interface/Bouton/Bouton Rejouer.png",0.5)
+        self.image_menu_principale = self.charger_image("Interface/Bouton/Bouton Menu Principal.png",0.5)
 
         # Element de l'interface
 
@@ -168,21 +167,21 @@ class PartieJeu(Frame):
         self.label_defaite = Label(self.frame_defaite,image=self.image_defaite,bg=self.fond)
         self.label_defaite.place(relx=0.5, rely=0.5, anchor=CENTER)
         
-        # self.bouton_rejouer_victoire = Button(self.frame_victoire, image=self.image_rejouer, bg="#121212", command=lambda: affiché_frame_menu(partie_en_cours), borderwidth=0, activebackground="#121212")
-        # self.bouton_rejouer_victoire.place(relx=0.5, rely=0.8, anchor=CENTER)
+        self.bouton_rejouer_victoire = Button(self.frame_victoire, image=self.image_rejouer, bg=self.fond, command=lambda: affiché_frame_menu(partie_en_cours), borderwidth=0, activebackground=self.fond)
+        self.bouton_rejouer_victoire.place(relx=0.5, rely=0.7, anchor=CENTER)
         
-        # self.bouton_rejouer_defaite = Button(self.frame_defaite, image=self.image_rejouer, bg="#121212", command=lambda: affiché_frame_menu(partie_en_cours), borderwidth=0, activebackground="#121212")
-        # self.bouton_rejouer_defaite.place(relx=0.5, rely=0.8, anchor=CENTER)
+        self.bouton_rejouer_defaite = Button(self.frame_defaite, image=self.image_rejouer, bg=self.fond, command=lambda: affiché_frame_menu(partie_en_cours), borderwidth=0, activebackground=self.fond)
+        self.bouton_rejouer_defaite.place(relx=0.5, rely=0.7, anchor=CENTER)
 
-        # self.bouton_menu_principal_victoire = Button(self.frame_victoire, image=self.image_menu_principale, bg="#121212", command=lambda: bouton_rejouer(partie_en_cours,self), borderwidth=0, activebackground="#121212")
-        # self.bouton_menu_principal_victoire.place(relx=0.5, rely=0.9, anchor=CENTER)
+        self.bouton_menu_principal_victoire = Button(self.frame_victoire, image=self.image_menu_principale, bg=self.fond, command=lambda: bouton_rejouer(partie_en_cours,self), borderwidth=0, activebackground=self.fond)
+        self.bouton_menu_principal_victoire.place(relx=0.5, rely=0.8, anchor=CENTER)
         
-        # self.bouton_menu_principal_defaite = Button(self.frame_defaite, image=self.image_menu_principale, bg="#121212", command=lambda: bouton_rejouer(partie_en_cours,self), borderwidth=0, activebackground="#121212")
-        # self.bouton_menu_principal_defaite.place(relx=0.5, rely=0.9, anchor=CENTER)
+        self.bouton_menu_principal_defaite = Button(self.frame_defaite, image=self.image_menu_principale, bg=self.fond, command=lambda: bouton_rejouer(partie_en_cours,self), borderwidth=0, activebackground=self.fond)
+        self.bouton_menu_principal_defaite.place(relx=0.5, rely=0.8, anchor=CENTER)
 
         self.update()
 
-        self.cacher_defaite()
+        # self.cacher_defaite()
         self.cacher_victoire()
         self.cacher_changer_couleur()
         self.cacher_joueur()
@@ -313,18 +312,18 @@ class PartieJeu(Frame):
         self.frame_defaite.place_forget()
         self.frame_score.place_forget()
 
-    # def bouton_rejouer(self):
-    #     global partie_en_cours
-    #     if partie_en_cours:
-    #         partie_en_cours.destroy()
-    #     partie_en_cours = PartieJeu(self)
-    #     partie_en_cours.pack(fill="both", expand=True)
+    def bouton_rejouer(self):
+        global partie_en_cours
+        if partie_en_cours:
+            partie_en_cours.destroy()
+        partie_en_cours = PartieJeu(self)
+        partie_en_cours.pack(fill="both", expand=True)
 
-    # def bouton_retour_menu():
-    #     global partie_en_cours
-    #     if partie_en_cours:
-    #         partie_en_cours.destroy()
-    #     affiché_frame_menu()
+    def bouton_retour_menu():
+        global partie_en_cours
+        if partie_en_cours:
+            partie_en_cours.destroy()
+        affiché_frame_menu()
 
     def afficher_score(self,score):
     
@@ -818,18 +817,18 @@ class PartieJeu(Frame):
             self.update_cartesmainIA()
             self.update_carteJouer()
         
-fenetre = Tk()
-fenetre.title("Cosmunos")
-fenetre.geometry("1600x800")
-fenetre.attributes("-fullscreen",True)
+# fenetre = Tk()
+# fenetre.title("Cosmunos")
+# fenetre.geometry("1600x800")
+# fenetre.attributes("-fullscreen",True)
 
-#Fond
+# #Fond
 
-fond = "#1e1e1e"
-fenetre.config(bg=fond)
+# fond = "#1e1e1e"
+# fenetre.config(bg=fond)
 
-frame_partie = Frame(fenetre,bg=fond)
-frame_partie.pack(fill="both", expand=True)
+# frame_partie = Frame(fenetre,bg=fond)
+# frame_partie.pack(fill="both", expand=True)
 
-partie = PartieJeu(frame_partie)
-partie.pack(fill="both", expand=True)
+# partie = PartieJeu(frame_partie)
+# partie.pack(fill="both", expand=True)

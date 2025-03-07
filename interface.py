@@ -19,6 +19,7 @@ def bouton_rejouer(partie,frame):
 
     if partie:
         partie_en_cours.destroy()
+
     partie_en_cours = PartieJeu(frame)
     partie_en_cours.pack(fill="both", expand=True)
 
@@ -26,6 +27,7 @@ def bouton_rejouer(partie,frame):
 def affiché_frame_jeu():
 
     frame_menu.pack_forget()
+    frame_jeu.pack()
     
 
 
@@ -35,12 +37,13 @@ partie_en_cours = None
 
 def bouton_jouer():
 
-    global fenetre
+    global frame_jeu
     global partie_en_cours
     affiché_frame_jeu()
 
     if partie_en_cours is None:
-        partie_en_cours = PartieJeu(fenetre)  #  Ajoute l'interface dans `frame_jeu
+        print("Je passe ici")
+        partie_en_cours = PartieJeu(frame_jeu)
         partie_en_cours.pack(fill="both", expand=True)
 
 def bouton_jouer_entrer(event):
@@ -105,7 +108,7 @@ bouton1_image_normal = ImageTk.PhotoImage(bouton1_image_normal)
 bouton1_image_large = Image.open(bouton1_path).resize((480,156 ))
 bouton1_image_large = ImageTk.PhotoImage(bouton1_image_large)
 
-bouton1_button = Button(frame_menu, image=bouton1_image_normal, bg="#1e1e1e", width=500, height=100,command=bouton_jouer,borderwidth=0,activebackground="#1e1e1e")
+bouton1_button = Button(frame_menu, image=bouton1_image_normal, bg="#1e1e1e", width=400, height=100,command=bouton_jouer,borderwidth=0,activebackground="#1e1e1e")
 bouton1_button.place(relx=0.5, rely=0.7, anchor='center')
 
 
@@ -116,7 +119,7 @@ bouton3_image_normal = ImageTk.PhotoImage(bouton3_image_normal)
 bouton3_image_large = Image.open(bouton3_path).resize((480,156 ))
 bouton3_image_large = ImageTk.PhotoImage(bouton3_image_large)
 
-bouton3_button = Button(frame_menu, image=bouton3_image_normal, bg="#1e1e1e", width=500, height=100,command=bouton_quitter,borderwidth=0,activebackground="#1e1e1e")
+bouton3_button = Button(frame_menu, image=bouton3_image_normal, bg="#1e1e1e", width=400, height=100,command=bouton_quitter,borderwidth=0,activebackground="#1e1e1e")
 bouton3_button.place(relx=0.5, rely=0.82, anchor='center')
 
 #Frame Jeu
