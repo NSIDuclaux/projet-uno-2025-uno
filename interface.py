@@ -6,23 +6,6 @@ from interface_jeu_POO import *
 
 #Frame
 
-def affiché_frame_menu(partie):
-    
-    if partie:
-        partie.destroy()
-    
-    frame_menu.pack(fill="both", expand=True)
-
-def bouton_rejouer(partie,frame):
-
-    print("Rejouer")
-
-    if partie:
-        partie_en_cours.destroy()
-
-    partie_en_cours = PartieJeu(frame)
-    partie_en_cours.pack(fill="both", expand=True)
-
 
 def affiché_frame_jeu():
 
@@ -39,11 +22,12 @@ def bouton_jouer():
 
     global frame_jeu
     global partie_en_cours
+    global frame_jeu
     affiché_frame_jeu()
 
     if partie_en_cours is None:
         print("Je passe ici")
-        partie_en_cours = PartieJeu(frame_jeu)
+        partie_en_cours = PartieJeu(frame_jeu,frame_menu)
         partie_en_cours.pack(fill="both", expand=True)
 
 def bouton_jouer_entrer(event):

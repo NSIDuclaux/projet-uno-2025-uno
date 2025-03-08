@@ -22,7 +22,7 @@ def fichier_carte(carte):
 
 class PartieJeu(Frame):
 
-    def __init__(self,parent):
+    def __init__(self,parent,frame_menu):
 
 
         # Initialisation de la fenêtre (à retirer après les teste)
@@ -31,6 +31,7 @@ class PartieJeu(Frame):
         self.config(bg="#1e1e1e", width=1600, height=800)
         self.pack(fill="both", expand=True)  # Permet au Frame d'occuper tout l'espace
 
+        self.frame_menu = frame_menu
 
         # Création de la pioche
         
@@ -167,17 +168,19 @@ class PartieJeu(Frame):
         self.label_defaite = Label(self.frame_defaite,image=self.image_defaite,bg=self.fond)
         self.label_defaite.place(relx=0.5, rely=0.5, anchor=CENTER)
         
-        self.bouton_rejouer_victoire = Button(self.frame_victoire, image=self.image_rejouer, bg=self.fond, command=lambda: affiché_frame_menu(partie_en_cours), borderwidth=0, activebackground=self.fond)
-        self.bouton_rejouer_victoire.place(relx=0.5, rely=0.7, anchor=CENTER)
+        self.bouton_rejouer_victoire = Button(self.frame_victoire, image=self.image_rejouer, bg=self.fond, command=lambda: bouton_men(), borderwidth=0, activebackground=self.fond)
+        self.bouton_rejouer_victoire.place(relx=0.5, rely=0.75, anchor=CENTER)
         
-        self.bouton_rejouer_defaite = Button(self.frame_defaite, image=self.image_rejouer, bg=self.fond, command=lambda: affiché_frame_menu(partie_en_cours), borderwidth=0, activebackground=self.fond)
-        self.bouton_rejouer_defaite.place(relx=0.5, rely=0.7, anchor=CENTER)
+        self.bouton_rejouer_defaite = Button(self.frame_defaite, image=self.image_rejouer, bg=self.fond, command=lambda: bouton_men(partie_en_cours), borderwidth=0, activebackground=self.fond)
+        self.bouton_rejouer_defaite.place(relx=0.5, rely=0.75, anchor=CENTER)
 
-        self.bouton_menu_principal_victoire = Button(self.frame_victoire, image=self.image_menu_principale, bg=self.fond, command=lambda: bouton_rejouer(partie_en_cours,self), borderwidth=0, activebackground=self.fond)
-        self.bouton_menu_principal_victoire.place(relx=0.5, rely=0.8, anchor=CENTER)
+        self.bouton_menu_principal_victoire = Button(self.frame_victoire, image=self.image_menu_principale, bg=self.fond, command=lambda: self.bouton_retour_menu(), borderwidth=0, activebackground=self.fond)
+        self.bouton_menu_principal_victoire.place(relx=0.5, rely=0.85, anchor=CENTER)
         
-        self.bouton_menu_principal_defaite = Button(self.frame_defaite, image=self.image_menu_principale, bg=self.fond, command=lambda: bouton_rejouer(partie_en_cours,self), borderwidth=0, activebackground=self.fond)
-        self.bouton_menu_principal_defaite.place(relx=0.5, rely=0.8, anchor=CENTER)
+        self.bouton_menu_principal_defaite = Button(self.frame_defaite, image=self.image_menu_principale, bg=self.fond, command=lambda: self.bouton_retour_menu(), borderwidth=0, activebackground=self.fond)
+        self.bouton_menu_principal_defaite.place(relx=0.5, rely=0.85, anchor=CENTER)
+
+        self.is_running = True
 
         self.update()
 
@@ -319,11 +322,11 @@ class PartieJeu(Frame):
         partie_en_cours = PartieJeu(self)
         partie_en_cours.pack(fill="both", expand=True)
 
-    def bouton_retour_menu():
-        global partie_en_cours
-        if partie_en_cours:
-            partie_en_cours.destroy()
-        affiché_frame_menu()
+    def bouton_retour_menu(self):
+
+        self.fin_partie()
+        self.pack_forget()
+        self.frame_menu.pack(fill="both", expand=True)
 
     def afficher_score(self,score):
     
@@ -559,6 +562,11 @@ class PartieJeu(Frame):
     
     def attente():
         pass
+    
+    def fin_partie(self):
+
+        print("La partie est terminée.")
+        self.is_running = False
 
     # Fonction pour les tours
 
