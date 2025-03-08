@@ -28,11 +28,14 @@ class PartieJeu(Frame):
         # Initialisation de la fenêtre (à retirer après les teste)
 
         super().__init__(parent)  # Crée un Frame à l'intérieur de `parent`
-        self.config(bg="#1e1e1e", width=1600, height=800)
+        self.config(bg="#1e1e1e")
         self.pack(fill="both", expand=True)  # Permet au Frame d'occuper tout l'espace
 
         self.frame_menu = frame_menu
         self.frame_menu.pack_forget()
+        self.pack_forget()
+
+        self.frame_menu.pack(fill="both", expand=True)
 
         # Création de la pioche
         
@@ -169,10 +172,10 @@ class PartieJeu(Frame):
         self.label_defaite = Label(self.frame_defaite,image=self.image_defaite,bg=self.fond)
         self.label_defaite.place(relx=0.5, rely=0.5, anchor=CENTER)
         
-        self.bouton_rejouer_victoire = Button(self.frame_victoire, image=self.image_rejouer, bg=self.fond, command=lambda: bouton_men(), borderwidth=0, activebackground=self.fond)
+        self.bouton_rejouer_victoire = Button(self.frame_victoire, image=self.image_rejouer, bg=self.fond, command=lambda: self.bouton_rejouer(), borderwidth=0, activebackground=self.fond)
         self.bouton_rejouer_victoire.place(relx=0.5, rely=0.75, anchor=CENTER)
         
-        self.bouton_rejouer_defaite = Button(self.frame_defaite, image=self.image_rejouer, bg=self.fond, command=lambda: bouton_men(partie_en_cours), borderwidth=0, activebackground=self.fond)
+        self.bouton_rejouer_defaite = Button(self.frame_defaite, image=self.image_rejouer, bg=self.fond, command=lambda: self.bouton_rejouer(partie_en_cours), borderwidth=0, activebackground=self.fond)
         self.bouton_rejouer_defaite.place(relx=0.5, rely=0.75, anchor=CENTER)
 
         self.bouton_menu_principal_victoire = Button(self.frame_victoire, image=self.image_menu_principale, bg=self.fond, command=lambda: self.bouton_retour_menu(), borderwidth=0, activebackground=self.fond)
@@ -180,6 +183,7 @@ class PartieJeu(Frame):
         
         self.bouton_menu_principal_defaite = Button(self.frame_defaite, image=self.image_menu_principale, bg=self.fond, command=lambda: self.bouton_retour_menu(), borderwidth=0, activebackground=self.fond)
         self.bouton_menu_principal_defaite.place(relx=0.5, rely=0.85, anchor=CENTER)
+
 
         self.is_running = True
 
@@ -316,24 +320,25 @@ class PartieJeu(Frame):
         self.frame_defaite.place_forget()
         self.frame_score.place_forget()
 
-    def bouton_rejouer(self):
-        global partie_en_cours
-        if partie_en_cours:
-            partie_en_cours.destroy()
-        partie_en_cours = PartieJeu(self)
-        partie_en_cours.pack(fill="both", expand=True)
 
     def bouton_retour_menu(self):
 
         self.fin_partie()
         self.pack_forget()
 
-        print("Affichage du menu")
+        for widget in self.winfo_children():
+            widget.destroy()
 
-        label_test = Label(self.frame_menu, text="Retour au Menu")
-        label_test.pack()
         self.frame_menu.pack(fill="both", expand=True)
-        self.frame_menu.update()
+
+    def bouton_rejouer(self):
+
+        self.fin_partie()
+        self.pack_forget()
+        
+        self.partie_en_cours = PartieJeu(self,self.frame_menu)
+        self.partie_en_cours.pack(fill="both", expand=True)
+        
 
     def afficher_score(self,score):
     
@@ -567,9 +572,6 @@ class PartieJeu(Frame):
 
             return coef
     
-    def attente():
-        pass
-    
     def fin_partie(self):
 
         print("La partie est terminée.")
@@ -795,9 +797,6 @@ class PartieJeu(Frame):
             self.toursJoueur()
             print(self.nouvelle_couleur)
             print(self.mainJoueur)
-
-            if self.peut_jouer:  # Vérifie que le joueur a bien joué avant de laisser l'IA jouer
-                self.after(1000, self.attente)
             
             self.mainJoueur.trier_mains()
             self.mainIA.trier_mains()
@@ -813,7 +812,6 @@ class PartieJeu(Frame):
                 self.confirmation = False
             
             self.update_carteJouer()
-            self.after(1000, self.attente)
             
             print("L'IA joue")
             print(self.mainIA)
@@ -842,8 +840,10 @@ class PartieJeu(Frame):
 # fond = "#1e1e1e"
 # fenetre.config(bg=fond)
 
+# frame_menu = Frame(fenetre,bg=fond)
+# frame_menu.pack(fill="both", expand=True)
 # frame_partie = Frame(fenetre,bg=fond)
 # frame_partie.pack(fill="both", expand=True)
 
-# partie = PartieJeu(frame_partie)
+# partie = PartieJeu(frame_partie,frame_menu)
 # partie.pack(fill="both", expand=True)
