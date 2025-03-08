@@ -9,12 +9,11 @@ class Menu(Frame):
         super().__init__(parent)
 
         self.parent = parent
-        self.frame_jeu = frame_jeu
+
         self.pack(fill="both", expand=True)
         self.config(bg="#1e1e1e")
 
         self.frame_menu = Frame(self, bg="#1e1e1e")
-        self.frame_menu.pack()
         self.frame_jeu = Frame(self,bg="#1e1e1e")
         
 

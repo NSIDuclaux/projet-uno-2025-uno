@@ -27,15 +27,12 @@ class PartieJeu(Frame):
 
         # Initialisation de la fenêtre (à retirer après les teste)
 
-        super().__init__(parent)  # Crée un Frame à l'intérieur de `parent`
-        self.config(bg="#1e1e1e")
+        super().__init__(parent)
+        self.config(bg="#1e1e1e", width=1600, height=800)
         self.pack(fill="both", expand=True)  # Permet au Frame d'occuper tout l'espace
 
         self.frame_menu = frame_menu
         self.frame_menu.pack_forget()
-        self.pack_forget()
-
-        self.frame_menu.pack(fill="both", expand=True)
 
         # Création de la pioche
         
@@ -141,7 +138,7 @@ class PartieJeu(Frame):
         self.image_defaite = self.charger_image("Interface/Defaite.png",0.2)
 
         self.image_rejouer = self.charger_image("Interface/Bouton/Bouton Rejouer.png",0.5)
-        self.image_menu_principale = self.charger_image("Interface/Bouton/Bouton Menu Principal.png",0.5)
+        self.image_quitter= self.charger_image("Interface/Bouton/Bouton Quitter.png",0.5)
 
         # Element de l'interface
 
@@ -175,14 +172,14 @@ class PartieJeu(Frame):
         self.bouton_rejouer_victoire = Button(self.frame_victoire, image=self.image_rejouer, bg=self.fond, command=lambda: self.bouton_rejouer(), borderwidth=0, activebackground=self.fond)
         self.bouton_rejouer_victoire.place(relx=0.5, rely=0.75, anchor=CENTER)
         
-        self.bouton_rejouer_defaite = Button(self.frame_defaite, image=self.image_rejouer, bg=self.fond, command=lambda: self.bouton_rejouer(partie_en_cours), borderwidth=0, activebackground=self.fond)
+        self.bouton_rejouer_defaite = Button(self.frame_defaite, image=self.image_rejouer, bg=self.fond, command=lambda: self.bouton_rejouer(), borderwidth=0, activebackground=self.fond)
         self.bouton_rejouer_defaite.place(relx=0.5, rely=0.75, anchor=CENTER)
 
-        self.bouton_menu_principal_victoire = Button(self.frame_victoire, image=self.image_menu_principale, bg=self.fond, command=lambda: self.bouton_retour_menu(), borderwidth=0, activebackground=self.fond)
-        self.bouton_menu_principal_victoire.place(relx=0.5, rely=0.85, anchor=CENTER)
+        self.bouton_quitter_victoire = Button(self.frame_victoire, image=self.image_menu_principale, bg=self.fond, command=lambda: self.bouton_quitter(), borderwidth=0, activebackground=self.fond)
+        self.bouton_quitter_victoire.place(relx=0.5, rely=0.85, anchor=CENTER)
         
-        self.bouton_menu_principal_defaite = Button(self.frame_defaite, image=self.image_menu_principale, bg=self.fond, command=lambda: self.bouton_retour_menu(), borderwidth=0, activebackground=self.fond)
-        self.bouton_menu_principal_defaite.place(relx=0.5, rely=0.85, anchor=CENTER)
+        self.bouton_quitter_defaite = Button(self.frame_defaite, image=self.image_menu_principale, bg=self.fond, command=lambda: self.bouton_quitter(), borderwidth=0, activebackground=self.fond)
+        self.bouton_quitter_defaite.place(relx=0.5, rely=0.85, anchor=CENTER)
 
 
         self.is_running = True
@@ -321,15 +318,9 @@ class PartieJeu(Frame):
         self.frame_score.place_forget()
 
 
-    def bouton_retour_menu(self):
+    def bouton_quitter(self):
 
-        self.fin_partie()
-        self.pack_forget()
-
-        for widget in self.winfo_children():
-            widget.destroy()
-
-        self.frame_menu.pack(fill="both", expand=True)
+        self.destroy()
 
     def bouton_rejouer(self):
 
