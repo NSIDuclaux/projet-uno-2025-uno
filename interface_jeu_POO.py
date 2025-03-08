@@ -32,6 +32,7 @@ class PartieJeu(Frame):
         self.pack(fill="both", expand=True)  # Permet au Frame d'occuper tout l'espace
 
         self.frame_menu = frame_menu
+        self.frame_menu.pack_forget()
 
         # Création de la pioche
         
@@ -326,7 +327,13 @@ class PartieJeu(Frame):
 
         self.fin_partie()
         self.pack_forget()
+
+        print("Affichage du menu")
+
+        label_test = Label(self.frame_menu, text="Retour au Menu")
+        label_test.pack()
         self.frame_menu.pack(fill="both", expand=True)
+        self.frame_menu.update()
 
     def afficher_score(self,score):
     
@@ -777,7 +784,6 @@ class PartieJeu(Frame):
 
         while not self.vict:
 
-            print(self.peut_jouer)
             self.update_carteJouer()
             print("Tour du joueur")
             
@@ -787,6 +793,7 @@ class PartieJeu(Frame):
             print(self.mainJoueur)
             
             self.toursJoueur()
+            print(self.nouvelle_couleur)
             print(self.mainJoueur)
 
             if self.peut_jouer:  # Vérifie que le joueur a bien joué avant de laisser l'IA jouer
@@ -812,7 +819,7 @@ class PartieJeu(Frame):
             print(self.mainIA)
             self.toursIA()
             self.mainJoueur.trier_mains()
-            
+            print(self.nouvelle_couleur)
             print(self.mainIA)
             self.update_cartesmainIA()
             self.update_carteJouer()
