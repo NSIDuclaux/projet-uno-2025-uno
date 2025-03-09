@@ -436,7 +436,7 @@ class PartieJeu(Frame):
         print("La nouvelle couleur est", self.nouvelle_couleur[0])
         self.cacher_changer_couleur()
 
-    def plus_4_carte_interface(self,coef,carte):
+    def plus_4_carte_interface(self, coef, carte):
 
         valide = False
         for k in range(self.mainJoueur.nb_main()):
@@ -466,7 +466,7 @@ class PartieJeu(Frame):
             for i in range(coef):
                 self.mainIA.ajouter_carte(self.deck_partie.retirer_carte())
         
-            self.bot_changer_couleur_interface()
+            self.changer_couleur_interface()
             self.update_cartesmainIA()
 
             return coef
@@ -491,7 +491,7 @@ class PartieJeu(Frame):
             for i in range(coef):
                 self.mainIA.ajouter_carte(self.deck_partie.retirer_carte())
         
-            self.changer_couleur_interface()
+            self.bot_changer_couleur_interface()
 
             self.update_cartesmainIA()
             return coef
@@ -558,38 +558,34 @@ class PartieJeu(Frame):
 
             return coef
     
-    def plus_2_carte_bot_interface (self,coef,carte):
-
-        global peut_jouer
+    def plus_2_carte_bot_interface (self, coef, carte):
 
         valide = False
         for k in range(self.mainIA.nb_main()):
-            if renvoie_valide2(self.mainIA.main_joueur[k]) == True:
+            if renvoie_valide2(self.mainIA.main_joueur[k]):
                 valide = True
-        if valide == True:
+        if valide:
             print("Renvoie de carte")
-            carteChoisie = renvoie_valide(carte,self.mainIA)
+            carteChoisie = renvoie_valide(carte, self.mainIA)
             c = self.mainIA.main_joueur[carteChoisie]
-            print("La carte retourné est :", c)
+            print("La carte retournée est :", c)
             self.pile_milieu.append(c)
             self.deck_partie.ajouter_carte(c)
             if c.nombre == 13:
-                coef = coef + 4
-                return self.plus_4_carte_interface(carte,coef)
+                coef += 4
+                return self.plus_4_carte_interface(coef, carte)  # Inverser les arguments pour correspondre à la signature
             else:
-                coef = coef + 2
-                return self.plus_2_carte_interface(coef,carte)
-            
+                coef += 2
+                return self.plus_2_carte_interface(coef, carte)
         else:
-            coef = coef + 2
-            for i in range (coef):
-
+            coef += 2
+            for i in range(coef):
                 self.mainIA.ajouter_carte(self.deck_partie.retirer_carte())
-            print("Le joueur suivant reçoit "+ str(coef) +" carte")
+            print("Le joueur suivant reçoit " + str(coef) + " carte")
 
             self.update_carteJouer()
 
-            peut_jouer = False
+            self.peut_jouer = False
 
             return coef
     
