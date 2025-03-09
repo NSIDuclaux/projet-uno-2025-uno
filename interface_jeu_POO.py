@@ -465,9 +465,10 @@ class PartieJeu(Frame):
             coef += 4
             for i in range(coef):
                 self.mainIA.ajouter_carte(self.deck_partie.retirer_carte())
-            self.changer_couleur_interface()
+        
+            self.bot_changer_couleur_interface()
             self.update_cartesmainIA()
-            self.peut_jouer = False
+
             return coef
 
     def bot_plus_4_carte_interface (self,coef,carte):
@@ -484,14 +485,15 @@ class PartieJeu(Frame):
             self.pile_milieu.append(c)
             self.deck_partie.ajouter_carte(c)
             coef += 4
-            self.plus_4_carte_interface(coef, carte)
+            return self.plus_4_carte_interface(coef, carte)
         else:
             coef += 4
             for i in range(coef):
                 self.mainIA.ajouter_carte(self.deck_partie.retirer_carte())
+        
             self.changer_couleur_interface()
+
             self.update_cartesmainIA()
-            self.peut_jouer = False
             return coef
           
     def bot_changer_couleur_interface(self):
@@ -604,8 +606,10 @@ class PartieJeu(Frame):
         tours_valide = False
 
         if self.peut_jouer:
+            print(self.nouvelle_couleur,self.nouvelle_couleur[1] == 1)
             if self.nouvelle_couleur[1] == 1:
                 t = self.nouvelle_couleur[0]
+                print("ici")
 
                 for k in range(self.mainJoueur.nb_main()):
                     if carte_valide2(t, self.mainJoueur.main_joueur[k]):
@@ -668,6 +672,7 @@ class PartieJeu(Frame):
 
         if tours_valide:
             if carte_placer:
+                self.update_cartesJoueur()  # Actualiser main_joueur avant la pile_milieu
                 self.pile_milieu.append(carteChoisie)
                 self.deck_partie.ajouter_carte(carteChoisie)
                 self.update_carteJouer()
@@ -699,10 +704,12 @@ class PartieJeu(Frame):
         tours_valide = False
 
         if self.peut_jouer:
+            print(self.nouvelle_couleur,self.nouvelle_couleur[1] == 1)
             self.afficher_ia()
 
             if self.nouvelle_couleur[1] == 1:
                 t = self.nouvelle_couleur[0]
+                print("ici")
 
                 for k in range(self.mainIA.nb_main()):
                     if carte_valide2(t, self.mainIA.main_joueur[k]):
@@ -743,6 +750,7 @@ class PartieJeu(Frame):
 
         if tours_valide:
             print("La carte jouée est :", carteChoisie)
+            self.update_cartesmainIA()  # Actualiser main_IA avant la pile_milieu
             self.pile_milieu.append(carteChoisie)
             self.deck_partie.ajouter_carte(carteChoisie)
             self.update_carteJouer()
