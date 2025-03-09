@@ -204,55 +204,52 @@ class PartieJeu(Frame):
         image = image.resize((int(image.width * ratio), int(image.height * ratio)))
         image = image.rotate(rotation)
         image = ImageTk.PhotoImage(image)
-        
         return image
+
 
     def update_cartesmainIA(self):
 
         self.mainIA.trier_mains()
 
         for widget in self.frame_cartes_mainIA.winfo_children():
-
             widget.destroy()
 
         col = 0
 
-        for i in range (self.mainIA.nb_main()):
-
+        for i in range(self.mainIA.nb_main()):
             Label(self.frame_cartes_mainIA, image=self.image_dos_carte_rotate, padx=10, pady=5, bg=self.fond).grid(row=0, column=col, padx=0)
             col += 1
 
-        print("Mise à jour de l'affichage de l'IA")
-
         self.update()
-
+        
     def update_cartesJoueur(self):
 
         self.mainJoueur.trier_mains()
 
+        # Vider le frame des cartes du joueur
         for widget in self.frame_cartes_joueur.winfo_children():
-
             widget.destroy()
+
+        self.image_cartes_joueur = []  # Réinitialiser la liste des images des cartes du joueur
 
         col = 0
 
-        for i in range (self.mainJoueur.nb_main()):
-
+        for i in range(self.mainJoueur.nb_main()):
             chemin = path.abspath(fichier_carte(self.mainJoueur.selection_carte(i)))
-            self.image_carte = self.charger_image(chemin,0.1)
-            self.image_cartes_joueur.append(self.image_carte)
+            image_carte = self.charger_image(chemin, 0.1)
+            self.image_cartes_joueur.append(image_carte)
 
-            Button(
-                self.frame_cartes_joueur, 
-                image=self.image_carte, 
-                padx=10, 
-                pady=5, 
-                bg=self.fond, 
-                borderwidth=0, 
+            bouton_carte = Button(
+                self.frame_cartes_joueur,
+                image=image_carte,
+                padx=10,
+                pady=5,
+                bg=self.fond,
+                borderwidth=0,
                 activebackground="#1e1e1e",
                 command=lambda idx=i: self.bouton_jouer_cartes(idx)
-            ).grid(row=0, column=col, padx=0)
-
+            )
+            bouton_carte.grid(row=0, column=col, padx=0)
             col += 1
 
         self.update()
@@ -325,11 +322,8 @@ class PartieJeu(Frame):
     def bouton_rejouer(self):
 
         self.fin_partie()
-        self.pack_forget()
-        
-        # Créer une nouvelle instance de PartieJeu et l'afficher
-        self.partie_en_cours = PartieJeu(self, self.frame_menu, self.fenetre)
-        self.partie_en_cours.pack(fill="both", expand=True)
+        self.reset_interface()
+        self.partie()
         
 
     def afficher_score(self,score):
@@ -369,6 +363,51 @@ class PartieJeu(Frame):
     def afficher_nouvelle_couleur(self):
 
         pass
+
+    def reset_interface(self):
+        # Détruire les frames existants
+        self.frame_cartes_mainIA.destroy()
+        self.frame_cartes_joueur.destroy()
+        self.frame_milieu.destroy()
+        self.frame_fond.destroy()
+        self.frame_changer_couleur.destroy()
+        self.frame_ia.destroy()
+        self.frame_joueur.destroy()
+        self.frame_victoire.destroy()
+        self.frame_defaite.destroy()
+        self.frame_couleur_cyan.destroy()
+        self.frame_couleur_bleu.destroy()
+        self.frame_couleur_violet.destroy()
+        self.frame_couleur_rose.destroy()
+        self.frame_score.destroy()
+
+        # Réinitialiser les variables de jeu
+        self.deck_partie = Deck()
+        self.deck_partie.remplir_entier()
+        self.deck_partie.melange()
+
+        self.mainJoueur = Main(self.deck_partie)
+        self.mainIA = Main(self.deck_partie)
+        self.mainJoueur.creer_main()
+        self.mainIA.creer_main()
+
+        self.pile_milieu = [Carte(randint(0, 3), randint(0, 9))]
+        self.peut_jouer = True
+        self.nouvelle_couleur = ["", 0]
+
+        self.index_carte = IntVar()
+        self.index_couleur = IntVar()
+        self.numeroChoisie = IntVar()
+        self.score = 0
+
+        self.vict = False
+        self.confirmation = True
+
+        self.image_cartes_joueur = []
+        self.image_cartes_milieu = []
+
+        # Réinitialiser l'interface
+        self.init_interface()
 
     # Fonction Partie
 
