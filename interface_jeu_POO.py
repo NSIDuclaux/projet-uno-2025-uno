@@ -22,7 +22,7 @@ def fichier_carte(carte):
 
 class PartieJeu(Frame):
 
-    def __init__(self,parent,frame_menu):
+    def __init__(self,parent,frame_menu,fenetre):
 
 
         # Initialisation de la fenêtre (à retirer après les teste)
@@ -33,6 +33,7 @@ class PartieJeu(Frame):
 
         self.frame_menu = frame_menu
         self.frame_menu.pack_forget()
+        self.fenetre = fenetre
 
         # Création de la pioche
         
@@ -175,10 +176,10 @@ class PartieJeu(Frame):
         self.bouton_rejouer_defaite = Button(self.frame_defaite, image=self.image_rejouer, bg=self.fond, command=lambda: self.bouton_rejouer(), borderwidth=0, activebackground=self.fond)
         self.bouton_rejouer_defaite.place(relx=0.5, rely=0.75, anchor=CENTER)
 
-        self.bouton_quitter_victoire = Button(self.frame_victoire, image=self.image_menu_principale, bg=self.fond, command=lambda: self.bouton_quitter(), borderwidth=0, activebackground=self.fond)
+        self.bouton_quitter_victoire = Button(self.frame_victoire, image=self.image_quitter, bg=self.fond, command=lambda: self.bouton_quitter(), borderwidth=0, activebackground=self.fond)
         self.bouton_quitter_victoire.place(relx=0.5, rely=0.85, anchor=CENTER)
         
-        self.bouton_quitter_defaite = Button(self.frame_defaite, image=self.image_menu_principale, bg=self.fond, command=lambda: self.bouton_quitter(), borderwidth=0, activebackground=self.fond)
+        self.bouton_quitter_defaite = Button(self.frame_defaite, image=self.image_quitter, bg=self.fond, command=lambda: self.bouton_quitter(), borderwidth=0, activebackground=self.fond)
         self.bouton_quitter_defaite.place(relx=0.5, rely=0.85, anchor=CENTER)
 
 
@@ -319,15 +320,15 @@ class PartieJeu(Frame):
 
 
     def bouton_quitter(self):
-
-        self.destroy()
+        self.fenetre.destroy()
 
     def bouton_rejouer(self):
 
         self.fin_partie()
         self.pack_forget()
         
-        self.partie_en_cours = PartieJeu(self,self.frame_menu)
+        # Créer une nouvelle instance de PartieJeu et l'afficher
+        self.partie_en_cours = PartieJeu(self, self.frame_menu, self.fenetre)
         self.partie_en_cours.pack(fill="both", expand=True)
         
 

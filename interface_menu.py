@@ -70,7 +70,7 @@ class Menu(Frame):
         
         self.frame_menu.pack_forget()
         self.frame_jeu.pack(fill="both", expand=True)
-        self.partie_en_cours = PartieJeu(self.frame_jeu, self.frame_menu)
+        self.partie_en_cours = PartieJeu(self.frame_jeu, self.frame_menu,fenetre)
         self.partie_en_cours.pack(fill="both", expand=True)
         
     def bouton_jouer_entrer(self, event):
