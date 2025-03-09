@@ -81,19 +81,21 @@ class Main :
     def __str__(self):
         
         self.affichage = []
+        compteur = -1
         
         for carte in self.main_joueur:
-
-            self.affichage.append(str(carte))
+            
+            compteur += 1
+            self.affichage.append(str(compteur) + " | " + str(carte))
 
         return str(self.affichage)
 
-#deck = Deck()
-#deck.remplir_entier()
-#deck.melange()
+# deck = Deck()
+# deck.remplir_entier()
+# deck.melange()
 
-#mains = Main(deck)
-#mains.creer_main()
-#print(mains)
-#mains.trier_mains()
-#print(mains)
+# mains = Main(deck)
+# mains.creer_main()
+# print(mains)
+# mains.trier_mains()
+# print(mains)
