@@ -28,6 +28,7 @@ class PartieJeu(Frame):
         # Initialisation de la fenêtre (à retirer après les teste)
 
         super().__init__(parent)
+
         self.config(bg="#1e1e1e", width=1600, height=800)
         self.pack(fill="both", expand=True)  # Permet au Frame d'occuper tout l'espace
 
@@ -333,7 +334,7 @@ class PartieJeu(Frame):
     def afficher_score(self,score):
     
         self.frame_score.place(relx=0.5, rely=0.6, anchor=CENTER)  # Placé au-dessus des autres frames
-        self.label_score = Label(self.frame_score, text="Votre Score : " + str(int(score)), font=("Questrian", 16, "bold"), fg="#8E086E", justify="center", bg="#121212")
+        self.label_score = Label(self.frame_score, text="Votre Score : " + str(int(score)), font=("Arial Black", 16, "bold"), fg="#8E086E", justify="center", bg="#121212")
         self.label_score.pack()
 
     def tout_cacher(self):

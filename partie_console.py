@@ -197,7 +197,7 @@ vict = False
 score = [0,0]
 while reponse != "oui" or reponse != "non":
 
-	reponse = str(input("Voulez-vous commencer une partie ? | Oui/Non")).lower()
+	reponse = str(input("Voulez-vous commencer une partie ? | Oui/Non"))
 
 	if reponse == "oui":
 		while vict == False:
