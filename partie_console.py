@@ -175,31 +175,28 @@ def toursia (ia,player,peut_jouer, nouvelle_couleur, score):
 
 #Initialisation de la partie
 
-deck_partie = Deck()
-deck_partie.remplir_entier()
-deck_partie.melange()
-player = Main(deck_partie)
-ia = Main(deck_partie)
-player.creer_main()
-ia.creer_main()
 reponse = ""
-pile_milieu = []
-sens_horaire = True
-playerPeutJouer = True
-iaPeutJouer = True
 peut_jouer = True
 nouvelle_couleur = ["", 0]
-pile_milieu.append(deck_partie.retirer_carte())
-player.trier_mains()
-ia.trier_mains()
 #Début Partie
-vict = False
-score = [0,0]
+
 while reponse != "oui" or reponse != "non":
 
-	reponse = str(input("Voulez-vous commencer une partie ? | Oui/Non"))
+	reponse = str(input("Voulez-vous commencer une partie ? | Oui/Non")).lower()
+	vict = False
+	score = [0,0]
+	deck_partie = Deck()
+	deck_partie.remplir_entier()
+	deck_partie.melange()
+	player = Main(deck_partie)
+	ia = Main(deck_partie)
+	player.creer_main()
+	ia.creer_main()
+	reponse = ""
+	pile_milieu = []
+	pile_milieu.append(deck_partie.retirer_carte())
 
-	if reponse == "oui":
+	if reponse == "oui" or "Oui":
 		while vict == False:
 			#print("bot :", ia)
 			print("joueur :", player)
@@ -207,18 +204,21 @@ while reponse != "oui" or reponse != "non":
 			print("La carte du milieu est :" , pile_milieu[-1])
 
 			nouvelle_couleur, peut_jouer, score = toursjoueur(player,ia, peut_jouer, nouvelle_couleur, score)
+			player.trier_mains()
 			nouvelle_couleur, peut_jouer, score = toursia(ia,player, peut_jouer, nouvelle_couleur, score)
+			ia.trier_mains()
 			
 			if player.main_joueur == []:
 				vict = True
 				print("Victoire du joueur !!!!! score: "+str(score))
-				break
+				reponse =""
 
 			elif ia.main_joueur == []:
 				vict = True
 				print("Victoire de l'IA (T'es mauvais :-) ) score: "+str(score))
-				break
+				reponse = ""
 		
 	if reponse == "non" :
 
-		break
+		break	
+		
