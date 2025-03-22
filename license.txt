@@ -1,0 +1,8 @@
+Cosmunos - Jeu de UNO
+
+Copyright (C) 2025 Quentin CHAMBRE-LAVERGNE, Estaban MOLINA, Nicolas MOURADOFF
+
+Ce programme vient SANS ABSOLUMENT AUCUNE GARANTIE ; taper "affiche g" pour les détails.
+Ceci est un logiciel libre et vous êtes invité à le redistribuer suivant certaines conditions ; taper "affiche c" pour les détails.
+
+Ce programme est un logiciel libre; vous pouvez le redistribuer et/ou le modifier selon les termes de la Licence Publique Générale GNU (GPL) publiée par la Free Software Foundation, soit la version 3 de cette licence.
