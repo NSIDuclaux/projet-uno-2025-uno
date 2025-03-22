@@ -1,2 +1,60 @@
-[![Review Assignment Due Date](https://classroom.github.com/assets/deadline-readme-button-22041afd0340ce965d47ae6ef1cefeee28c7c493a6346c4f15d667ab976d596c.svg)](https://classroom.github.com/a/6GsBncF9)
-[![Open in Visual Studio Code](https://classroom.github.com/assets/open-in-vscode-2e0aaae1b6195c2367325f4f02e2d04e9abb55f0b24a779b69b11b9e10269abc.svg)](https://classroom.github.com/online_ide?assignment_repo_id=17684320&assignment_repo_type=AssignmentRepo)
+# Cosmunos
+
+**Cosmunos** est un jeu de UNO spatial mêlant stratégie et hasard, réalisé dans le cadre d'un projet de NSI. Ce projet propose une version console ainsi qu'une interface graphique immersive inspirée du thème de l'espace.
+
+## Prérequis
+
+Pour exécuter ce projet, vous devez disposer des éléments suivants :
+
+- **Python 3.11** ou une version supérieure
+- Bibliothèques Python suivantes (installables via pip) :
+  - `tkinter` (intégré dans Python par défaut)
+  - `sqlite3` (intégré dans Python par défaut)
+  - `os`(intégé dans Python par défaut)
+  - `pygame` (bibliothèque à installer)
+  - `pillow` (bibliothèque à installer)
+
+## Installation
+
+1. Programme disponible dans  :
+   ```bash
+   git clone <URL_DU_DEPOT>
+   cd Cosmunos
+   ```
+
+2. Assurez-vous d'avoir la version correcte de Python :
+    ```bash
+    --python --version
+    ```
+
+3. Lancez le jeu :
+
+   - **Version console :**
+     ```bash
+     python partie_console.py
+     ```
+   
+   - **Version graphique :**
+     ```bash
+     python interface_graphique.py
+     ```
+
+## Fonctionnalités
+
+- Jeu de UNO avec règles standards et variantes personnalisées
+- Interface graphique thématisée sur l'espace
+- Intelligence artificielle (bot) capable de jouer
+- Gestion de la pioche et des cartes en temps réel
+
+## Équipe du projet
+
+Le projet a été réalisé par :
+- **Estaban MOLINA** : Développement des classes primitives
+- **Nicolas MOURADOFF** : Fusion des classes et création de la classe `bot`
+- **Quentin CHAMBRE-LAVERGNE** : Interface graphique et adaptation du code pour l'interface
+
+## Outils utilisés
+
+- **Visual Studio Code** pour le développement
+- **GitHub** pour le partage de fichiers et la gestion de version
+- **Discord** pour la communication entre les membres
