@@ -31,12 +31,12 @@ Pour exécuter ce projet, vous devez disposer des éléments suivants :
 
    - **Version console :**
      ```bash
-     python partie_console.py
+     python main_console.py
      ```
    
    - **Version graphique :**
      ```bash
-     python interface_graphique.py
+     python main_interface.py
      ```
 
 ## Fonctionnalités

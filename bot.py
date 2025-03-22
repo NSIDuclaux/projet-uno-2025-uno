@@ -1,6 +1,6 @@
 from random import randint
 from carte_valide import *
-from main_joueur import *
+from mains_joueur import *
 
 def jouer_carte(Main_bot, carteMilieu):
     for k in range(len(Main_bot)):

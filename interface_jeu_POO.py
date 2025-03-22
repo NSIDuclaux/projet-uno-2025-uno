@@ -1,10 +1,9 @@
 from deck import *
-from main_joueur import *
 from tkinter import *
 from PIL import Image, ImageTk
 from os import *
 import sqlite3
-from main_joueur import Main
+from mains_joueur import Main
 from carte_valide import *
 from carte_effet import *
 from bot import *

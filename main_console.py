@@ -1,4 +1,4 @@
-from main_joueur import Main
+from mains_joueur import Main
 from deck import Deck
 from carte_valide import *
 from carte_effet import *

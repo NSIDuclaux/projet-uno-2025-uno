@@ -19,7 +19,7 @@ class Carte:
 
         if self.nombre == 10:
 
-            return "Sens Inverse"
+            return "Mains Inversé"
 
         if self.nombre == 11:
 
@@ -31,11 +31,11 @@ class Carte:
 
         if self.nombre == 13:
 
-            return ("+4 Cartes")
+            return "+4 Cartes"
 
         if self.nombre == 14:
 
-            return ("Changez de Couleur")
+            return "Changez de Couleur"
 
     def structuration(self):
 
