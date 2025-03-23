@@ -1,6 +1,6 @@
 from tkinter import *
 from PIL import Image, ImageTk
-# from pygame import mixer
+from pygame import mixer
 from os import path
 from interface_jeu_POO import *
 
@@ -15,13 +15,13 @@ class Menu(Frame):
 
         self.frame_menu = Frame(self, bg="#1e1e1e")
         self.frame_jeu = Frame(self,bg="#1e1e1e")
-        
 
-        # Musique de fond
-        # main_theme_path = path.abspath("Interface/Son/Main_Theme.mp3")
-        # mixer.init()
-        # mixer.music.load(main_theme_path)
-        # mixer.music.play(-1)
+        #Musique de fond
+
+        main_theme_path = path.abspath("Interface/Son/Main_Theme.mp3")
+        mixer.init()
+        mixer.music.load(main_theme_path)
+        mixer.music.play(-1)
 
         # Création des éléments du menu
         self.creer_widgets()
