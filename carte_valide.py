@@ -1,5 +1,5 @@
 from carte import Carte
-from main_joueur import *
+from mains_joueur import *
 def carte_valide(carteposee, cartepropose):
     if type(cartepropose) == str or type(carteposee) == str:
         return True
