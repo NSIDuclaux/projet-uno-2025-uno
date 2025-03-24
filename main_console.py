@@ -181,7 +181,8 @@ nouvelle_couleur = ["", 0]
 #Début Partie
 
 while reponse != "oui" or reponse != "non":
-
+	
+	reponse = ""
 	reponse = str(input("Voulez-vous commencer une partie ? | Oui/Non")).lower()
 	vict = False
 	score = [0,0]
@@ -192,11 +193,10 @@ while reponse != "oui" or reponse != "non":
 	ia = Main(deck_partie)
 	player.creer_main()
 	ia.creer_main()
-	reponse = ""
 	pile_milieu = []
 	pile_milieu.append(deck_partie.retirer_carte())
-
-	if reponse == "oui" or "Oui":
+	
+	if reponse == "oui":
 		while vict == False:
 			#print("bot :", ia)
 			print("joueur :", player)
