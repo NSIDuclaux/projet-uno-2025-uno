@@ -508,58 +508,43 @@ class PartieJeu(Frame):
 
         self.afficher_nouvelle_couleur()
 
-    def plus_2_carte_interface (self,coef,carte):
-        
-        # Vérification de la possibilité de jouer
-
+    def plus_2_carte_interface(self, coef, carte):
         valide = False
         for k in range(self.mainJoueur.nb_main()):
-            if renvoie_valide2(self.mainJoueur.main_joueur[k]) == True:
+            if renvoie_valide2(self.mainJoueur.main_joueur[k]):
                 valide = True
 
-        # Choix de la carte par le joueur
-
-        if valide == True:
-
+        if valide:
             valid = False
-
-            while valid == False:
-                
+            while not valid:
                 self.numeroChoisie.set(-1)
-            
                 while int(self.numeroChoisie.get()) < 0 or int(self.numeroChoisie.get()) >= self.mainJoueur.nb_main():
                     self.frame_cartes_joueur.wait_variable(self.numeroChoisie)
                     numeroChoisie_value = self.numeroChoisie.get()
                     numeroChoisie_value = int(numeroChoisie_value)
                     if int(numeroChoisie_value) >= 0 and int(numeroChoisie_value) < self.mainJoueur.nb_main():
-                        valid = renvoie_valide2(self.mainJoueur.main_joueur[int(self.numeroChoisie.get())]) 
+                        valid = renvoie_valide2(self.mainJoueur.main_joueur[int(self.numeroChoisie.get())])
             carteChoisie = self.mainJoueur.choix_carte(int(numeroChoisie_value))
-            print("La carte retourné est :",carteChoisie)
+            print("La carte retournée est :", carteChoisie)
             self.pile_milieu.append(carteChoisie)
             self.deck_partie.ajouter_carte(carteChoisie)
             if carteChoisie.nombre == 13:
-                coef = coef + 4
-                return self.bot_plus_4_carte_interface(coef,carte)
-
+                coef += 4
+                return self.bot_plus_4_carte_interface(coef, carte)
             else:
-                coef = coef + 2
-                return plus_2_carte_bot(self.mainIA,self.mainJoueur,self.deck_partie,carte,self.pile_milieu,coef)
+                coef += 2
+                return self.plus_2_carte_bot_interface(coef, carte)
 
-        #  Si le joueur ne peut pas jouer
-
-        else :
-
-            coef = coef + 2
-            for i in range (coef):
-
+        else:
+            coef += 2
+            for i in range(coef):
                 self.mainJoueur.ajouter_carte(self.deck_partie.retirer_carte())
 
             self.peut_jouer = False
 
             return coef
-    
-    def plus_2_carte_bot_interface (self, coef, carte):
 
+    def plus_2_carte_bot_interface(self, coef, carte):
         valide = False
         for k in range(self.mainIA.nb_main()):
             if renvoie_valide2(self.mainIA.main_joueur[k]):
@@ -573,7 +558,7 @@ class PartieJeu(Frame):
             self.deck_partie.ajouter_carte(c)
             if c.nombre == 13:
                 coef += 4
-                return self.plus_4_carte_interface(coef, carte)  # Inverser les arguments pour correspondre à la signature
+                return self.plus_4_carte_interface(coef, carte)
             else:
                 coef += 2
                 return self.plus_2_carte_interface(coef, carte)
@@ -588,7 +573,7 @@ class PartieJeu(Frame):
             self.peut_jouer = False
 
             return coef
-    
+
     def fin_partie(self):
 
         print("La partie est terminée.")

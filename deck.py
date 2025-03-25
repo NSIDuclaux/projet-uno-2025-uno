@@ -26,7 +26,7 @@ class Deck:
             self.list_allc = self.list_allc + [Carte(c,10)]
         for c in range(4):
             
-            for k in range(1):
+            for k in range(2):
                 self.list_allc = self.list_allc + [Carte(c,11)]
         for k in range(2):
             self.list_allc = self.list_allc + [Carte(4,14)]
@@ -65,9 +65,9 @@ class Deck:
 # d = Deck()
 # d.remplir_entier()
 # d.melange()
-#print(d.retirer_carte())
-#print(d)
-#carte = d.choix_carte(2)
-#print(carte)
-#print(carte.get_couleur())
+# print(d.retirer_carte())
+# print(d)
+# carte = d.choix_carte(2)
+# print(carte)
+# print(carte.get_couleur())
 

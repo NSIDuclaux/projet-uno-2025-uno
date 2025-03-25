@@ -30,9 +30,10 @@ def plus_2_carte (main,bot,deck,carte,pile_milieu,coef):
         deck.ajouter_carte(carteChoisie)
         if carteChoisie.nombre == 13:
             coef = coef + 4
+            bot_plus_4_carte(bot,main,deck,carte,pile_milieu,coef)
         else:
             coef = coef + 2
-        plus_2_carte_bot(bot,main,deck,carte,pile_milieu,coef)
+            plus_2_carte_bot(bot,main,deck,carte,pile_milieu,coef)
 
     else:
         coef = coef + 2
@@ -57,9 +58,10 @@ def plus_2_carte_bot (bot,main,deck,carte,pile_milieu,coef):
         deck.ajouter_carte(c)
         if c.nombre == 13:
             coef = coef + 4
+            plus_4_carte(main,bot,deck,carte,pile_milieu,coef)
         else:
             coef = coef + 2
-        plus_2_carte(main,bot,deck,carte,pile_milieu,coef)
+            plus_2_carte(main,bot,deck,carte,pile_milieu,coef)
     else:
         coef = coef + 2
         for i in range (coef):
@@ -157,3 +159,12 @@ def inverse (main1, main2):
     """
     main1.main_joueur, main2.main_joueur = main2.main_joueur, main1.main_joueur
     print("Les mains ont été échangées !")
+
+def inverse_console (main1, main2):
+    """
+    Échange les cartes entre deux mains.
+    """
+    main1.main_joueur, main2.main_joueur = main2.main_joueur, main1.main_joueur
+    print("Les mains ont été échangées !")
+
+    return main1, main2
