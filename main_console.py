@@ -196,7 +196,7 @@ while reponse != "oui" or reponse != "non":
 
     if reponse == "oui":
         while vict == False:
-            print("bot :", ia)
+            # print("bot :", ia)
             print("joueur :", player)
 
             print("La carte du milieu est :", pile_milieu[-1])
