@@ -51,7 +51,7 @@ Pour exécuter ce projet, vous devez disposer des éléments suivants :
 Le projet a été réalisé par :
 - **Estaban MOLINA** : Développement des classes primitives
 - **Nicolas MOURADOFF** : Fusion des classes et création de la classe `bot`
-- **Quentin CHAMBRE-LAVERGNE** : Interface graphique et adaptation du code pour l'interface
+- **Quentin CHAMBRE-LAVERGNE** : Interface graphique et adaptation du code pour l'interface graphique
 
 ## Outils utilisés
 
